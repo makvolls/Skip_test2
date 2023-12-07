@@ -19,7 +19,7 @@ public class SearchEvent extends BasicApiTest {
         actual = getListEvents(1);
 
         Assert.assertNotEquals(actual.getData().length,0);
-        Assert.assertTrue(actual.getData()[1].name.contains("qtesttest"));
+        Assert.assertTrue(actual.getData()[1].name.contains("тест112"));
 
 
     }

@@ -2,14 +2,14 @@ package BasicPageTestApi;
 
 import DTO.ControlPeriodStatesDto.RootControlDto;
 import DTO.DirectoryDto.RootDirectoryDto;
-import DTO.RolesDto.DataResponseRolesDto;
+import DTO.ProvidersDTO.RootPermissions;
 import DTO.RolesDto.RootCreateRolesDto;
 import DTO.RolesDto.RootResponseRolesDto;
 import DTO.SecurityClassificationsDto.RootSecurityDto;
-import DTO.UserDto.RootCreateUserDto;
-import DTO.UserDto.RootResponseUserDto;
-import DTO.UserDto.RootUpdateUserDto;
-import DTO.UserDto.RootUserDto;
+import DTO.UrgenciesDTO.CreateValueClass;
+import DTO.UrgenciesDTO.RootElementUrgencies;
+import DTO.UrgenciesDTO.RootUrgencies;
+import DTO.UserDto.*;
 import DTO.EventsDto.RootListDto;
 import DTO.RolesDto.RootRolesDto;
 import io.restassured.response.ExtractableResponse;
@@ -25,6 +25,8 @@ public class BasicApiTest {
     public static String API_CONTROL_PERIOD = "http://api.skip.rtech.ru/v1/classifiers/control_period_states";
     public static String API_ROLES = "http://api.skip.rtech.ru/v1/permissions/roles";
     public static String API_SECURITY_CLASSIFICATIONS = "http://api.skip.rtech.ru/v1/classifiers/security_classifications";
+    public static String API_PROVIDERS= "http://api.skip.rtech.ru/v1/permissions/providers";
+    public static String API_URGENCIES = "http://api.skip.rtech.ru/v1/classifiers/urgencies";
 
 
     public BasicApiTest() {
@@ -38,14 +40,27 @@ public class BasicApiTest {
      * @param id - id получаемого пользователя
      */
 
-    public RootUserDto getUser(int idAut, int id) {
+//    public RootUserDto getUser(int idAut, int id) {
+//        ExtractableResponse<Response> response = given()
+//                .header("Test-Authorization", idAut)
+//                .get(API_USER + "/" + id).then()
+//                .log().all()
+//                .statusCode(200)
+//                .extract();
+//        RootUserDto actualUser = response.body().as(RootUserDto.class);
+//
+//        return actualUser;
+//
+//    }
+
+    public RootUserWithId getUser(int idAut, int id) {
         ExtractableResponse<Response> response = given()
                 .header("Test-Authorization", idAut)
                 .get(API_USER + "/" + id).then()
                 .log().all()
                 .statusCode(200)
                 .extract();
-        RootUserDto actualUser = response.body().as(RootUserDto.class);
+        RootUserWithId actualUser = response.body().as(RootUserWithId.class);
 
         return actualUser;
 
@@ -95,7 +110,7 @@ public class BasicApiTest {
         return actualUser;
     }
 
-      public RootResponseUserDto updateUser(int id, int idUser, int...role_ids){
+    public RootResponseUserDto updateUser(int id, int idUser, int...role_ids){
         RootUpdateUserDto user = new RootUpdateUserDto(role_ids);
         user.setRole_ids(role_ids);
         ExtractableResponse<Response> response = given()
@@ -290,7 +305,112 @@ public class BasicApiTest {
                 .extract();
     }
 
+    /**
+     * Получение списка провайдеров
+     * @param id - авторизуемого пользователя
+     * **/
+
+    public RootPermissions getProviders(int id) {
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .get(API_PROVIDERS).then()
+                .log().all()
+                .statusCode(200)
+                .extract();
+        RootPermissions actualProviders = response.body().as(RootPermissions.class);
+        return actualProviders;
+    }
+
+    /**
+     * Изменение провайдера
+     * @param id - авторизуемого пользователя
+     * Maybe later
+     * **/
+
+    /**
+     *Справочник "Срочность"
+      **/
+
+    /**
+     * Получение значений справочника
+     * **/
+
+    public RootUrgencies getUrgenciesList(int id){
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .get(API_URGENCIES).then()
+                .log().all()
+                .statusCode(200)
+                .extract();
+        RootUrgencies actualUrgencies = response.body().as(RootUrgencies.class);
+        return actualUrgencies;
+    }
 
 
+    /**
+     * Создание значение справочника
+     *
+     * @param id - id авторизованного пользователя
+     * @param name - Название справочника
+     * @param excluded - элемент исключения значения из справочника
+     */
 
+    public RootElementUrgencies createValue(int id, String name, boolean excluded){
+        CreateValueClass value = new CreateValueClass(name, excluded);
+        value.setName(name);
+        value.setExcluded(excluded);
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(value)
+                .post(API_URGENCIES).then()
+                .log().all()
+                .statusCode(201)
+                .extract();
+
+        RootElementUrgencies createdValue = response.body().as(RootElementUrgencies.class);
+        return createdValue;
+    }
+
+    /**
+     * Изменение значения справочника
+     *
+     * @param id - id авторизованного пользователя
+     * @param idValue - id значения , в котором изменяется значение
+     * @param name - Название справочника
+     * @param excluded - элемент исключения значения из справочника
+     * **/
+
+    public RootElementUrgencies changeValue(int id, int idValue, String name, boolean excluded){
+        CreateValueClass value = new CreateValueClass(name, excluded);
+        value.setName(name);
+        value.setExcluded(excluded);
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(value)
+                .put(API_URGENCIES + "/" + idValue).then()
+                .log().all()
+                .statusCode(200)
+                .extract();
+
+        RootElementUrgencies newValue = response.body().as(RootElementUrgencies.class);
+        return newValue;
+    }
+
+    /**
+     * Удаление значения справочника
+     *
+     * @param id - авторизованного пользователя
+     * @param idValue - id значения , которое будет удалено
+     * **/
+
+    public void deleteValue(int id, int idValue) {
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .delete(API_URGENCIES + "/" + idValue).then()
+                .log().all()
+                .statusCode(204)
+                .extract();
+    }
 }

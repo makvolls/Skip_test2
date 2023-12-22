@@ -1,12 +1,13 @@
 package SKIP_API;
 
-import BasicPageTestApi.BasicApiTest;
-import DTO.EventStatesDto.RootElementEventStates;
-import DTO.EventStatesDto.RootEventStates;
+import API.BasicApiOld;
+import API.BasicEventStates;
+import API.DTO.EventStatesDto.RootElementEventStates;
+import API.DTO.EventStatesDto.RootEventStates;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class EventStatesRequests extends BasicApiTest {
+public class EventStatesRequests extends BasicApiOld {
     RootEventStates actualEventStatesList;
     RootElementEventStates createdValue;
     RootElementEventStates changedValue;
@@ -17,7 +18,7 @@ public class EventStatesRequests extends BasicApiTest {
      * **/
     @Test
     public void getActualEventStatesList(){
-        actualEventStatesList = getEventStatesList(1);
+        BasicEventStates.getEventStatesList(1);
         Assert.assertTrue(actualEventStatesList.data[0].name.contains("тест232")); // Can change
     }
 
@@ -30,8 +31,8 @@ public class EventStatesRequests extends BasicApiTest {
          * In this step we create value with id 32
          * and name "Test Automation
          * "**/
-        createdValue = createValueEventStates(1,"Test Automation",true);
-        actualEventStatesList = getEventStatesList(1);
+        BasicEventStates.createEventStates(1,"Test Automation22",true);
+        BasicEventStates.getEventStatesList(1);
         Assert.assertTrue(actualEventStatesList.data[0].name.contains("Test Automation"));
     }
 
@@ -47,8 +48,8 @@ public class EventStatesRequests extends BasicApiTest {
          * Then we get list with values and check
          * that element 0 has name "New Automation Value"
          * **/
-        changedValue = changeEventStatesValue(1,32,"New Automation Value", false);
-        actualEventStatesList = getEventStatesList(1);
+        BasicEventStates.updateEventStates(1,34,"New Automation Value1", false);
+        BasicEventStates.getEventStatesList(1);
         Assert.assertTrue(actualEventStatesList.data[0].name.contains("New Automation Value"));
     }
 
@@ -62,6 +63,6 @@ public class EventStatesRequests extends BasicApiTest {
          * delete value that we created
          * previously
          * **/
-        deleteEventStateValue(1,32);
+        BasicEventStates.deleteEventStateValue(1,34);
     }
 }

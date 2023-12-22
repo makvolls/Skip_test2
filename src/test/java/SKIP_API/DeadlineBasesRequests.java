@@ -1,12 +1,14 @@
 package SKIP_API;
 
-import BasicPageTestApi.BasicApiTest;
-import DTO.DeadlineBasesDto.RootDeadlineBases;
-import DTO.DeadlineBasesDto.RootElementDeadlineBases;
+import API.BasicApiOld;
+import API.BasicDeadlineBases;
+import API.BasicImageMarks;
+import API.DTO.DeadlineBasesDto.RootDeadlineBases;
+import API.DTO.DeadlineBasesDto.RootElementDeadlineBases;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DeadlineBasesRequests extends BasicApiTest {
+public class DeadlineBasesRequests extends BasicApiOld {
     RootDeadlineBases actualDeadlineBasesList;
     RootElementDeadlineBases createdValue;
     RootElementDeadlineBases changedValue;
@@ -16,7 +18,7 @@ public class DeadlineBasesRequests extends BasicApiTest {
      * **/
     @Test
     public void getDeadlineBasesListTest(){
-        actualDeadlineBasesList = getDeadlineBasesList(1);
+        BasicDeadlineBases.getDeadlineBasesList(1);
         Assert.assertTrue(actualDeadlineBasesList.data[0].name.contains("Й"));
     }
 
@@ -35,8 +37,8 @@ public class DeadlineBasesRequests extends BasicApiTest {
          * excluded - true
          * NOTICE!!! - In field duration_id we should choose ONLY (if we want positive plot) 3_days, 10_days, 30_days, 1_month
          * **/
-        createdValue = createValueDeadlineBases(1,"Test Automation", "SHORT_Test","","3_days",true, true);
-        actualDeadlineBasesList = getDeadlineBasesList(1);
+        BasicDeadlineBases.createDeadlineBases(1,"Test Automation", "SHORT_Test","","3_days",true, true);
+        BasicDeadlineBases.getDeadlineBasesList(1);
         Assert.assertTrue(actualDeadlineBasesList.data[0].name.contains("Test Automation"));
     }
 
@@ -53,8 +55,8 @@ public class DeadlineBasesRequests extends BasicApiTest {
          * Then we get list with values and check
          * that element 0 has name "New Automation Value"
          * "**/
-        changedValue = changeDeadlineBasesValue(1,72,"New Automation Value","","","3_days", true, false);
-        actualDeadlineBasesList = getDeadlineBasesList(1);
+        BasicDeadlineBases.updateDeadlineBasesValue(1,72,"New Automation Value","","","3_days", true, false);
+        BasicDeadlineBases.getDeadlineBasesList(1);
         Assert.assertTrue(actualDeadlineBasesList.data[0].name.contains("New Automation Value"));
 
     }
@@ -65,7 +67,7 @@ public class DeadlineBasesRequests extends BasicApiTest {
 
     @Test
     public void deleteDeadlineBasesValue(){
-        deleteDeadlineBasesValue(1,72);
+        BasicDeadlineBases.deleteDeadlineBasesValue(1,72);
     }
 
 

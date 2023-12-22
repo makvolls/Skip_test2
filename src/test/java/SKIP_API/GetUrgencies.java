@@ -1,12 +1,12 @@
 package SKIP_API;
 
-import BasicPageTestApi.BasicApiTest;
-import DTO.UrgenciesDTO.RootElementUrgencies;
-import DTO.UrgenciesDTO.RootUrgencies;
+import API.BasicUrgencies;
+import API.DTO.UrgenciesDTO.RootElementUrgencies;
+import API.DTO.UrgenciesDTO.RootUrgencies;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class GetUrgencies extends BasicApiTest {
+public class GetUrgencies extends BasicUrgencies {
     RootUrgencies actualUrgenciesList;
     RootElementUrgencies createdValue;
     RootElementUrgencies changedValue;
@@ -25,7 +25,7 @@ public class GetUrgencies extends BasicApiTest {
      * **/
     @Test
     public void createUrgenciesValue(){
-        createdValue = createValue(1,"AutomationTest",true);
+        createdValue = createUrgencies(1,"AutomationTest",true);
         //Assert.assertTrue(createdValue.getData().name.equals("AutomationTest"));
         /**
          * In this step we create value with id 19
@@ -38,7 +38,7 @@ public class GetUrgencies extends BasicApiTest {
      * **/
     @Test
     public void changeValue(){
-        changedValue = changeValue(1,19,"New Test Automation", false);
+        changedValue = updateUrgencies(1,19,"New Test Automation", false);
         actualUrgenciesList = getUrgenciesList(1);
         //Assert.assertTrue(actualUrgenciesList.data[1].name.contains("New Test Automation"));
         /**
@@ -55,7 +55,7 @@ public class GetUrgencies extends BasicApiTest {
      * **/
     @Test
     public void deleteValue(){
-        deleteValue(1,19);
+        deleteUrgencies(1,19);
         /**
          * In this step we delete value that we created
          * previously with id 19

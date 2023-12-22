@@ -41,6 +41,22 @@ public class BasicApi {
         return response;
     }
 
+    /**
+     * @ Method for "Control Subjects"
+     * with parameter - provider_id
+     * **/
+
+    static public ExtractableResponse<Response> getErrorControlSubjects(String path, int id) {
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .param("provider_id","525e9f767da3000002000001")
+                .get(path).then()
+                .log().all()
+                .statusCode(403)
+                .extract();
+        return response;
+    }
+
     static public ExtractableResponse<Response> post(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()
                 .header("Content-Type", "application/json")
@@ -78,6 +94,23 @@ public class BasicApi {
 
 
     }
+
+    /**
+     *  PUT request for "Control Subjects"
+     * **/
+
+    static public ExtractableResponse<Response> putControlSubjects(String path, int id, String requestBody){
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(requestBody)
+                .put(path).then()
+                .log().all()
+                .statusCode(200)
+                .extract();
+        return response;
+    }
+
     static public ExtractableResponse<Response> putErrors(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()
                 .header("Content-Type", "application/json")

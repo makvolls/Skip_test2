@@ -1,11 +1,11 @@
 package SKIP_API;
 
-import BasicPageTestApi.BasicApiTest;
-import DTO.RolesDto.RootRolesDto;
+import API.BasicRoles;
+import API.DTO.RolesDto.RootRolesDto;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class SearchRoles extends BasicApiTest {
+public class SearchRoles extends BasicRoles {
 
     RootRolesDto actualRoles;
 

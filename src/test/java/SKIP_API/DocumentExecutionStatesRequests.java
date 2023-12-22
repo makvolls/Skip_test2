@@ -1,12 +1,13 @@
 package SKIP_API;
 
-import BasicPageTestApi.BasicApiTest;
-import DTO.DocumentExecutionStatesDto.RootDocumentExecutionStates;
-import DTO.DocumentExecutionStatesDto.RootElementDocumentExecutionStates;
+import API.BasicApiOld;
+import API.BasicDocumentExecutionStates;
+import API.DTO.DocumentExecutionStatesDto.RootDocumentExecutionStates;
+import API.DTO.DocumentExecutionStatesDto.RootElementDocumentExecutionStates;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class DocumentExecutionStatesRequests extends BasicApiTest {
+public class DocumentExecutionStatesRequests extends BasicApiOld {
     RootDocumentExecutionStates actualDocumentExecutionStatesList;
     RootElementDocumentExecutionStates createdValue;
     RootElementDocumentExecutionStates changedValue;
@@ -16,7 +17,7 @@ public class DocumentExecutionStatesRequests extends BasicApiTest {
      * **/
     @Test
     public void getDocumentExecutionStatesListTest(){
-        actualDocumentExecutionStatesList = getDocumentExecutionStatesList(1);
+        BasicDocumentExecutionStates.getDocumentExecutionStatesList(1);
         Assert.assertTrue(actualDocumentExecutionStatesList.data[0].name.contains("TESTTESTTEST"));
     }
 
@@ -30,8 +31,8 @@ public class DocumentExecutionStatesRequests extends BasicApiTest {
          * and name "Test Automation" , short_name - "test",
          * excluded - true
          * **/
-        createdValue = createValueDocumentExecutionStates(1,"Test Automation","test",true);
-        actualDocumentExecutionStatesList = getDocumentExecutionStatesList(1);
+        BasicDocumentExecutionStates.createDocumentExecutionStates(1,"Test Automation","test",true);
+        BasicDocumentExecutionStates.getDocumentExecutionStatesList(1);
         Assert.assertTrue(actualDocumentExecutionStatesList.data[0].name.contains("Test Automation"));
     }
 
@@ -48,8 +49,8 @@ public class DocumentExecutionStatesRequests extends BasicApiTest {
          * Then we get list with values and check
          * that element 0 has name "New Automation Value"
          * **/
-        changedValue = changeDocumentExecutionStatesValue(1,23,"New Automation Value","TTTT",false);
-        actualDocumentExecutionStatesList = getDocumentExecutionStatesList(1);
+        BasicDocumentExecutionStates.updateDocumentExecutionStatesValue(1,23,"New Automation Value","TTTT",false);
+        BasicDocumentExecutionStates.getDocumentExecutionStatesList(1);
         Assert.assertTrue(actualDocumentExecutionStatesList.data[0].name.contains("New Automation Value"));
         Assert.assertTrue(actualDocumentExecutionStatesList.data[0].short_name.contains("TTTT"));
     }
@@ -58,6 +59,6 @@ public class DocumentExecutionStatesRequests extends BasicApiTest {
      * **/
     @Test
     public void deleteDocumentExecutionStatesValueTest(){
-        deleteDocumentExecutionStatesValue(1,23);
+        BasicDocumentExecutionStates.deleteDocumentExecutionStatesValue(1,23);
     }
 }

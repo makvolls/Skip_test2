@@ -1,11 +1,11 @@
 package SKIP_API;
 
-import BasicPageTestApi.BasicApiTest;
-import DTO.ProvidersDTO.RootPermissions;
+import API.BasicProviders;
+import API.DTO.ProvidersDTO.RootPermissions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class GetProviders extends BasicApiTest {
+public class GetProviders extends BasicProviders {
     RootPermissions actualProviders;
 
     @Test

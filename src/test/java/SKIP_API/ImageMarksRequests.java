@@ -1,12 +1,13 @@
 package SKIP_API;
 
-import BasicPageTestApi.BasicApiTest;
-import DTO.ImageMarksDto.RootElementImageMarks;
-import DTO.ImageMarksDto.RootImageMarks;
+import API.BasicApiOld;
+import API.BasicImageMarks;
+import API.DTO.ImageMarksDto.RootElementImageMarks;
+import API.DTO.ImageMarksDto.RootImageMarks;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ImageMarksRequests extends BasicApiTest {
+public class ImageMarksRequests extends BasicApiOld {
     RootImageMarks actualImageMarksList;
     RootElementImageMarks createdValue;
     RootElementImageMarks changedValue;
@@ -16,7 +17,7 @@ public class ImageMarksRequests extends BasicApiTest {
      * **/
     @Test
     public void getImageMarksListTest(){
-        actualImageMarksList = getImageMarksList(1);
+        BasicImageMarks.getImageMarksList(1);
         Assert.assertTrue(actualImageMarksList.data[0].name.contains("Test Auto"));
     }
 
@@ -30,8 +31,8 @@ public class ImageMarksRequests extends BasicApiTest {
          * and name "Test Automation" , short_name - "testtest",
          * excluded - true
          * **/
-        createdValue = createValueImageMarks(1,"Test Automation","testtest",true);
-        actualImageMarksList = getImageMarksList(1);
+        BasicImageMarks.createImageMarks(1,"Test Automation","testtest",true);
+        BasicImageMarks.getImageMarksList(1);
         Assert.assertTrue(actualImageMarksList.data[0].name.contains("Test Automation"));
     }
 
@@ -48,8 +49,8 @@ public class ImageMarksRequests extends BasicApiTest {
          * Then we get list with values and check
          * that element 0 has name "New Automation Value"
          * **/
-        changedValue = changeImageMarksValue(1,16,"New Automation Value","TESTTEST",false);
-        actualImageMarksList = getImageMarksList(1);
+        BasicImageMarks.updateImageMarksValue(1,16,"New Automation Value","TESTTEST",false);
+        BasicImageMarks.getImageMarksList(1);
         Assert.assertTrue(actualImageMarksList.data[0].short_name.contains("TESTTEST"));
     }
 
@@ -58,6 +59,6 @@ public class ImageMarksRequests extends BasicApiTest {
      * **/
     @Test
     public void deleteImageMarksValueTest(){
-        deleteImageMarksValue(1,16);
+        BasicImageMarks.deleteImageMarksValue(1,16);
     }
 }

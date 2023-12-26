@@ -52,7 +52,7 @@
             <artifactId>autotest-core</artifactId>
             <version>0.1</version>
             <scope>system</scope>
-            <systemPath>C:\Users\adorokhin\IdeaProjects\docker_tests\lib\autotest-core.jar</systemPath>
+            <systemPath>${project.basedir}/lib/autotest-core.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>jexcelapi</groupId>

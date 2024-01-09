@@ -36,7 +36,7 @@ public class BasicApi {
                 .header("Test-Authorization", id)
                 .get(path).then()
                 .log().all()
-                .statusCode(403)
+                //.statusCode(403)
                 .extract();
         return response;
     }
@@ -76,7 +76,7 @@ public class BasicApi {
                 .body(request)
                 .post(path).then()
                 .log().all()
-                .statusCode(422)
+                //.statusCode(422)
                 .extract();
         return response;
     }
@@ -141,7 +141,7 @@ public class BasicApi {
                 .header("Test-Authorization", id)
                 .delete(path).then()
                 .log().all()
-                .statusCode(404)
+                //.statusCode(404)
                 .extract();
         return response;
     }

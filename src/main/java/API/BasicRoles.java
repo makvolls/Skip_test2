@@ -23,6 +23,29 @@ public class BasicRoles {
         RootRolesDto actualRoles = BasicApi.get(API_ROLES, id).body().as(RootRolesDto.class);
         return actualRoles;
     }
+    public static RootError getNoAccessRoles(int id) {
+        RootError error = BasicApi.getError(API_ROLES, id).body().as(RootError.class);
+        return error;
+    }
+    /**
+     * Получение списка ролей
+     *
+     * @param id - id авторизуемого пользователя
+     */
+
+    public static RootResponseRolesDto getRole(int id, int idRole) {
+        RootResponseRolesDto actualRoles = BasicApi.get(API_ROLES + "/" + idRole, id).body()
+                .as(RootResponseRolesDto.class);
+        return actualRoles;
+    }
+    public static RootError getErrorRole(int id, int idRole) {
+        RootError error = BasicApi.getError(API_ROLES + "/" + idRole, id).body().as(RootError.class);
+        return error;
+    }
+    public static RootError getNoResult(int id, int idRole) {
+        RootError error = BasicApi.getError(API_ROLES + "/" + idRole, id).body().as(RootError.class);
+        return error;
+    }
 
     public static RootRolesDto getRolesParams(int id, String full_name, String excluded_id){
         Response response = (Response) given()
@@ -67,6 +90,16 @@ public class BasicRoles {
         RootNameErrors error = BasicApi.postError(API_ROLES, id, roles).as(RootNameErrors.class);
         return error;
     }
+    public static RootError createNoAccessRoles(int id, String name, boolean global, String... rights_ids){
+        RootCreateRolesDto roles = new RootCreateRolesDto(name, "1", global, rights_ids);
+        roles.setName(name);
+        roles.setDesc("1");
+        roles.setGlobal(global);
+        roles.setRights_ids(rights_ids);
+        RootError error = BasicApi.postError(API_ROLES, id, roles).as(RootError.class);
+        return error;
+    }
+
     public static RootNameErrors updateErrorRoles(int id, int idRoles, String name, boolean global, String... rights_ids){
         RootCreateRolesDto roles = new RootCreateRolesDto(name, "1", global, rights_ids);
         roles.setName(name);

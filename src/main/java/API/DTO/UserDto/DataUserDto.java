@@ -1,10 +1,7 @@
 package API.DTO.UserDto;
 
 public class DataUserDto {
-    public int id;
-    public String official_id;
-    public String provider_id;
-    public String full_name;
+
 
     public int getId() {
         return id;
@@ -12,20 +9,6 @@ public class DataUserDto {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public DataUserDto(int id, String official_id, String provider_id, String full_name, String position, String organization_short_title, String provider_name, String phone, String email, RoleUserDto[] roles, Object[] control_subjects) {
-        this.id = id;
-        this.official_id = official_id;
-        this.provider_id = provider_id;
-        this.full_name = full_name;
-        this.position = position;
-        this.organization_short_title = organization_short_title;
-        this.provider_name = provider_name;
-        this.phone = phone;
-        this.email = email;
-        this.roles = roles;
-        this.control_subjects = control_subjects;
     }
 
     public String getOfficial_id() {
@@ -100,19 +83,40 @@ public class DataUserDto {
         this.roles = roles;
     }
 
-    public Object[] getControl_subjects() {
-        return control_subjects;
+    public ControlSubjectsUser getControl_subject() {
+        return control_subject;
     }
 
-    public void setControl_subjects(Object[] control_subjects) {
-        this.control_subjects = control_subjects;
+    public void setControl_subject(ControlSubjectsUser control_subject) {
+        this.control_subject = control_subject;
     }
 
+    public DataUserDto(int id, String official_id, String provider_id,
+                       String full_name, String position, String organization_short_title,
+                       String provider_name, String phone, String email, RoleUserDto[] roles,
+                       ControlSubjectsUser control_subject) {
+        this.id = id;
+        this.official_id = official_id;
+        this.provider_id = provider_id;
+        this.full_name = full_name;
+        this.position = position;
+        this.organization_short_title = organization_short_title;
+        this.provider_name = provider_name;
+        this.phone = phone;
+        this.email = email;
+        this.roles = roles;
+        this.control_subject = control_subject;
+    }
+
+    public int id;
+    public String official_id;
+    public String provider_id;
+    public String full_name;
     public String position;
     public String organization_short_title;
     public String provider_name;
     public String phone;
     public String email;
     public RoleUserDto[] roles;
-    public Object[] control_subjects;
+    public ControlSubjectsUser control_subject;
 }

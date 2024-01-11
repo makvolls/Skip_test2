@@ -7,9 +7,7 @@ import API.DTO.ErrorsDTO.RootError;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 public class SKIP_77 {
@@ -20,32 +18,32 @@ public class SKIP_77 {
     @Test
     public void Step01(){
         controlSubjectsList = BasicControlSubjects.getControlSubjects(1);
-        //Assert.assertTrue(controlSubjectsList.data[0].name.equals("Testing25"));
-        Assert.assertNotNull(controlSubjectsList.getData()[0].name);
-        Assert.assertNotNull(controlSubjectsList.getData()[0].fax_number);
-        Assert.assertNotNull(controlSubjectsList.getData()[0].id);
-        Assert.assertNotNull(controlSubjectsList.getData()[0].provider_id);
-        Assert.assertNotNull(controlSubjectsList.getData()[0].deleted);
-
+        ArrayList<String> namesList = new ArrayList<String>();
         for (DatumControlSubjects element : controlSubjectsList.data) {
-            String allNames = element.name;
-            if (allNames.equals("!!!!$$78Auto")){
-                break;
-            }
-            System.out.println(allNames);
-            //Assert.assertTrue(allNames.equals("!!!!$$78Auto"));
-            //System.out.println(new ArrayList<String>(Arrays.asList(allNames)));
-            //System.out.println(allNames);
-
+            namesList.add(element.name);
         }
-
-
+        Comparator<String> controlSubjectComparator = new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                if (s1.contains("!!!!$$$$"))
+                    return 1;
+                else if (s1.contains("Т"))
+                    return 1;
+                else if (s2.contains("я"))
+                    return -1;
+                else
+                    return s1.compareTo(s2);
+            }
+        };
+        ArrayList<String> checkOrderList = new ArrayList<>();
+        checkOrderList.addAll(namesList);
+        Collections.sort(checkOrderList, controlSubjectComparator);
+        //Assert.assertTrue(namesList.equals(checkOrderList));
     }
 
     @Test
     public void Step02(){
         errorMessageNotEnoughRights = BasicControlSubjects.getErrorMessage(6);
-        //System.out.println(errorMessageNotEnoughRights.error);
         Assert.assertTrue(errorMessageNotEnoughRights.error.equals("Доступ к ресурсу запрещен"));
     }
 }

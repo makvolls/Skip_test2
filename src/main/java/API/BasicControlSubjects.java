@@ -1,13 +1,8 @@
 package API;
 
-import API.BasicApi;
-import API.DTO.ControlSubjects.CreateControlSubjects;
 import API.DTO.ControlSubjects.RootControlSubjects;
 
-import API.DTO.ControlSubjects.RootPutRequestControlSubjects;
 import API.DTO.ErrorsDTO.RootError;
-import API.DTO.RolesDto.RootRolesDto;
-import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
@@ -17,15 +12,8 @@ public class BasicControlSubjects {
 
     /**
      * Получение списка субъектов контроля
-     *
      * @param id - авторизуемого пользователя
      * **/
-
-//    public static RootControlSubjects getControlSubjectsList(int id){
-//        RootControlSubjects actualControlSubjects = BasicApi.get(API_CONTROL_SUBJECTS, id).
-//                body().as(RootControlSubjects.class);
-//        return actualControlSubjects;
-//    }
 
     public static RootControlSubjects getControlSubjects(int id){
         Response response = (Response) given()
@@ -43,6 +31,7 @@ public class BasicControlSubjects {
     /**
      * Получение сообщения об ошибке
      * - "доступ к ресурсу запрещен"
+     * при GET запросе
      * **/
     public static RootError getErrorMessage(int id){
         RootError error = BasicApi.getErrorControlSubjects(API_CONTROL_SUBJECTS, id).as(RootError.class);
@@ -58,61 +47,6 @@ public class BasicControlSubjects {
      * @param provider_id - значение параметра "provider_id"
      * **/
 
-//    public static RootControlSubjects createControlSubjects(int id, String name, String  fax_number,
-//                                                            boolean deleted, String provider_id){
-//        CreateControlSubjects requestData = new CreateControlSubjects(name, fax_number, provider_id, deleted);
-//        requestData.setName(name);
-//        requestData.setFax_number(fax_number);
-//        requestData.setProvider_id(provider_id);
-//        requestData.setDeleted(deleted);
-//
-//        RootControlSubjects createdElement = BasicApi.put(API_CONTROL_SUBJECTS, id, requestData)
-//                .body().as(RootControlSubjects.class);
-//        return  createdElement;
-//    }
-//
-//    public static RootPutRequestControlSubjects createControlSubjectsArray(int id, String name, String fax_number,
-//                                                                           boolean deleted, String provider_id){
-//        CreateControlSubjects requestData = new CreateControlSubjects(name, fax_number
-//        , provider_id, deleted);
-//        requestData.setName(name);
-//        requestData.setFax_number(fax_number);
-//        requestData.setProvider_id(provider_id);
-//        requestData.setDeleted(deleted);
-//
-//        RootPutRequestControlSubjects createdElement = BasicApi.put(API_CONTROL_SUBJECTS, id, requestData).body()
-//                .as(RootPutRequestControlSubjects.class);
-//        return createdElement;
-//    }
-
-    /**
-     * PUT request for "Control Subjects"
-     * for create a value
-     * **/
-
-    public static RootControlSubjects createControlSubjectsAndShowList(int id, String name, String fax_number,
-                                                                       String provider_id, boolean deleted){
-//        CreateControlSubjects bodyValues = new CreateControlSubjects(name, fax_number, provider_id, deleted);
-//        bodyValues.setName(name);
-//        bodyValues.setFax_number(fax_number);
-//        bodyValues.setProvider_id(provider_id);
-//        bodyValues.setDeleted(deleted);
-
-        //RootPutRequestControlSubjects body = new RootPutRequestControlSubjects(bodyValues);
-        //String requestTemplate = String.format("{\"control_subjects\":[{\"name\":%s,\"fax_number\":%s,\"deleted\":%s,\"provider_id\":%s}]}", name, fax_number, deleted, provider_id);
-        String anotherRequestTemplate = String.format("{\"control_subjects\":[{\"name\": \"%s\",\"fax_number\":\"%s\",\"deleted\":%s,\"provider_id\":\"%s\"}]}", name, fax_number, deleted, provider_id);
-
-        ExtractableResponse<Response> response = given()
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", id)
-                .body(anotherRequestTemplate) // Possible it could be "body", I need to found out it
-                .put(API_CONTROL_SUBJECTS).then()
-                .log().all()
-                .statusCode(200)
-                .extract();
-        RootControlSubjects listWithNewElement = response.body().as(RootControlSubjects.class);
-        return listWithNewElement;
-    }
 
     public static RootControlSubjects createControlSubjectAndGetList(int id, String name, String fax_number,
                                                                      String provider_id, boolean deleted){
@@ -124,26 +58,75 @@ public class BasicControlSubjects {
         return listWithNewElement;
     }
 
-//    public static RootControlSubjects createStrictSetControlSubject(int id){
-//        String requestBody = "{\"control_subjects\":[{\"name\": \"!String creation\",\"fax_number\":\"1\",\"deleted\":false,\"provider_id\":\"525e9f767da3000002000001\"}]}";
-//
-//        ExtractableResponse<Response> response = given()
-//                .header("Content-Type", "application/json")
-//                .header("Test-Authorization", id)
-//                .body(requestBody)
-//                .put(API_CONTROL_SUBJECTS).then()
-//                .log().all()
-//                .statusCode(200)
-//                .extract();
-//        RootControlSubjects listWithNewElement = response.body().as(RootControlSubjects.class);
-//        return listWithNewElement;
-//    }
-//    {
-//        "":[
-//        {
-//           "":"",
-//           "":""
-//        }
-//        ]
-//    }
+    /**
+     * Получение сообщения об ошибке - "Доступ к ресурсу запрещен"
+     * при PUT запросе - при создании элемента (не передаем id в запросе)
+     * **/
+
+    public static RootError putErrorMessageWithoutId(int id, String name, String fax_number,
+                                            String provider_id, boolean deleted){
+        String requestBody = String.format(
+                "{\"control_subjects\":[{\"name\": \"%s\",\"fax_number\":\"%s\",\"deleted\":%s,\"provider_id\":\"%s\"}]}"
+                , name, fax_number, deleted, provider_id);
+        RootError error = BasicApi.putErrorControlSubjects(API_CONTROL_SUBJECTS, id, requestBody).as(RootError.class);
+        return error;
+    }
+
+    /** Получение сообщения об ошибке - "Доступ к ресурсу запрещен"
+     * при PUT запросе - при редактировании или удалении элемента
+     * (передаем id в запросе)
+     * **/
+
+    public static RootError putErrorMessageWithId(int id, int idValue, String name,
+                                                  String fax_number, String provider_id,
+                                                  boolean deleted){
+        String requestBody = String
+                .format("{\"control_subjects\":[{\"id\": %s,\"name\": \"%s\"," +
+                                "\"fax_number\":\"%s\",\"deleted\":%s,\"provider_id\":\"%s\"}]}", idValue,
+                        name, fax_number, deleted, provider_id);
+        RootError error = BasicApi.putErrorControlSubjects(API_CONTROL_SUBJECTS, id, requestBody).as(RootError.class);
+        return error;
+    }
+
+
+
+    /**
+     * Редактирование элемента "Субъекты контроля"
+     * @param id - id авторизуемого пользователя
+     * @param idValue - id значения , в котором изменяется значение
+     * @param name - значение параметра "Наименование"
+     * @param fax_number - значение параметра "fax_number"
+     * @param deleted - значение параметра "deleted"
+     * @param provider_id - значение параметра "provider_id"
+     * **/
+
+    public static RootControlSubjects changeControlSubjectsAndGetList(int id, int idValue, String name,
+                                                                      String fax_number, String provider_id,
+                                                                      boolean deleted){
+        String requestBody = String
+                .format("{\"control_subjects\":[{\"id\": %s,\"name\": \"%s\"," +
+                        "\"fax_number\":\"%s\",\"deleted\":%s,\"provider_id\":\"%s\"}]}", idValue,
+                        name, fax_number, deleted, provider_id);
+        RootControlSubjects listWithChangedElement = BasicApi.putControlSubjects(API_CONTROL_SUBJECTS, id, requestBody)
+                .body().as(RootControlSubjects.class);
+        return listWithChangedElement;
+    }
+
+    /**
+     * Удаление элемента "Субъекты контроля"
+     * @param id - id авторизуемого пользователя
+     * @param idValue - id значения , которое будет удалено
+     * @param provider_id - значение параметра "provider_id"
+     * Значение параметра "deleted" всегда true
+     * **/
+
+    public static RootControlSubjects deleteControlSubjectElementAndGetList(int id, int idValue, String provider_id){
+        String requestBody = String.format("{\"control_subjects\":[{\"id\": %s,\"deleted\": true," +
+                "\"provider_id\":\"%s\"}]}", idValue, provider_id);
+        RootControlSubjects listWithoutDeletedElement = BasicApi.putControlSubjects(
+                API_CONTROL_SUBJECTS, id, requestBody).body().as(RootControlSubjects.class);
+        return listWithoutDeletedElement;
+    }
+
+
 }

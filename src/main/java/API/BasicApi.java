@@ -4,8 +4,13 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 public class BasicApi {
+
+    /**
+     * GET request
+     * **/
 
     static public ExtractableResponse<Response> get(String path, int id) {
         ExtractableResponse<Response> response = given()
@@ -17,7 +22,39 @@ public class BasicApi {
         return response;
     }
 
+    /**
+     * Get request and find value depended on "control_subject_id" value
+     * **/
 
+    static public ExtractableResponse<Response> getAndSearch(String path, int id, int control_subject_id){
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .param("control_subject_id",control_subject_id)
+                .get(path).then()
+                .log().all()
+                .statusCode(200)
+                .extract();
+        return response;
+    }
+
+    /**
+     * Get request and find value depended on "control_subject_id"
+     * value with error - 422
+     * **/
+
+    static public ExtractableResponse<Response> getAndSearchError(String path, int id, int[] control_subject_id){
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .param("control_subject_id",control_subject_id)
+                .get(path).then()
+                .log().all()
+                .extract();
+        return response;
+    }
+
+    /**
+     * GET request with sorting capabilities
+     * **/
 
     static public ExtractableResponse<Response> getSort(String path, int id, String sort, String sort_ord) {
         ExtractableResponse<Response> response = given()
@@ -31,6 +68,11 @@ public class BasicApi {
         return response;
     }
 
+    /**
+     * Get error message while try to get user data,
+     * status code - 403
+     * **/
+
     static public ExtractableResponse<Response> getError(String path, int id) {
         ExtractableResponse<Response> response = given()
                 .header("Test-Authorization", id)
@@ -42,8 +84,9 @@ public class BasicApi {
     }
 
     /**
-     * @ Method for "Control Subjects"
-     * with parameter - provider_id
+     * Method "Control Subjects" for GET request
+     * and getting error message "Not enough rights"
+     * status code - 403
      * **/
 
     static public ExtractableResponse<Response> getErrorControlSubjects(String path, int id) {
@@ -57,6 +100,10 @@ public class BasicApi {
         return response;
     }
 
+    /**
+     * POST request
+     * **/
+
     static public ExtractableResponse<Response> post(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()
                 .header("Content-Type", "application/json")
@@ -69,6 +116,11 @@ public class BasicApi {
         return response;
 
     }
+
+    /**
+     *  POST request and getting error with status code - 422
+     * **/
+
     static public ExtractableResponse<Response> postError(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()
                 .header("Content-Type", "application/json")
@@ -80,6 +132,45 @@ public class BasicApi {
                 .extract();
         return response;
     }
+
+    /**
+     *  POST request and getting error with status code - 403
+     * **/
+
+    static public ExtractableResponse<Response> postErrorAccessDenied(String path, int id, Object request) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(request)
+                .post(path).then()
+                .log().all()
+                .statusCode(403)
+                .extract();
+        return response;
+    }
+
+
+    /**
+     * Method "Control Subjects" for PUT request
+     * and getting error message "Not enough rights"
+     * status code - 403
+     * **/
+
+    static public ExtractableResponse<Response> putErrorControlSubjects(String path, int id, String requestBody){
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(requestBody)
+                .put(path).then()
+                .log().all()
+                .statusCode(403)
+                .extract();
+        return response;
+    }
+
+    /**
+     * PUT request
+     * **/
 
     static public ExtractableResponse<Response> put(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()
@@ -111,6 +202,45 @@ public class BasicApi {
         return response;
     }
 
+    /**
+     * PUT request and get error message
+     * "Already exist" , "Cannot be empty"
+     * and status - 422
+     * **/
+
+    static public ExtractableResponse<Response> putControlSubjectsAndGetError(String path, int id, String requestBody){
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(requestBody)
+                .put(path).then()
+                .log().all()
+                .statusCode(422)
+                .extract();
+        return response;
+    }
+
+    /**
+     * PUT request and get error message
+     * with status 500
+     * **/
+
+    static public ExtractableResponse<Response> putErrorFiveHundred(String path, int id, Object request) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(request)
+                .put(path).then()
+                .log().all()
+                .statusCode(500)
+                .extract();
+        return response;
+    }
+
+    /**
+     * PUT request without error assert
+     * **/
+
     static public ExtractableResponse<Response> putErrors(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()
                 .header("Content-Type", "application/json")
@@ -125,6 +255,10 @@ public class BasicApi {
 
     }
 
+    /**
+     * DELETE request with status code 204
+     * **/
+
     public static void delete(String path, int id) {
         ExtractableResponse<Response> response = given()
                 .header("Test-Authorization", id)
@@ -135,6 +269,10 @@ public class BasicApi {
         return;
 
     }
+
+    /**
+     * Check deleted element and get error message with status code 404
+     * **/
 
     public static ExtractableResponse<Response> deleteNotFound(String path, int id) {
         ExtractableResponse<Response> response = given()

@@ -1,6 +1,7 @@
 package API.DTO.UserDto;
 
-public class DataResponseUserDto {
+public class DataUserCS {
+
     public int getId() {
         return id;
     }
@@ -82,17 +83,17 @@ public class DataResponseUserDto {
     }
 
     public ControlSubjectsUser getControl_subjects() {
-        return control_subject;
+        return control_subjects;
     }
 
     public void setControl_subjects(ControlSubjectsUser control_subjects) {
-        this.control_subject = control_subjects;
+        this.control_subjects = control_subjects;
     }
 
-    public DataResponseUserDto(int id, String official_id, String provider_id, String full_name,
-                               String position, String organization_short_title, String provider_name,
-                               String phone, String email, RoleResponseUserDto[] roles,
-                               ControlSubjectsUser control_subject) {
+    public DataUserCS(int id, String official_id, String provider_id, String full_name,
+                      String position, String organization_short_title, String provider_name,
+                      String phone, String email, RoleResponseUserDto[] roles,
+                      ControlSubjectsUser control_subjects) {
         this.id = id;
         this.official_id = official_id;
         this.provider_id = provider_id;
@@ -103,7 +104,7 @@ public class DataResponseUserDto {
         this.phone = phone;
         this.email = email;
         this.roles = roles;
-        this.control_subject = control_subject;
+        this.control_subjects = control_subjects;
     }
 
     public int id;
@@ -116,5 +117,5 @@ public class DataResponseUserDto {
     public String phone;
     public String email;
     public RoleResponseUserDto[] roles;
-    public ControlSubjectsUser control_subject;
+    public ControlSubjectsUser control_subjects;
 }

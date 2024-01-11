@@ -114,6 +114,7 @@ public class SKIP_3 {
         error = BasicRoles.updateErrorRoles(1, 144, name3, false, "index_users");
         Assert.assertTrue(error.getErrors().global[0].equals("Данную роль используют пользователи в других провайдерах" +
                 ", поэтому чек-бокс «Глобальная роль» снять нельзя"));
+        // Error "full_name": "уже существует"
 
     }
     @Test

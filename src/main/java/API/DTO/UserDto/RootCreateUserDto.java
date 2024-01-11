@@ -24,4 +24,5 @@ public class RootCreateUserDto {
 
     public String official_id;
     public int[] role_ids;
+
 }

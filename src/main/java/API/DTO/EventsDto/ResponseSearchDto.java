@@ -1,5 +1,7 @@
 package API.DTO.EventsDto;
 
+import API.DTO.EventStatesDto.EventStateDto;
+
 public class ResponseSearchDto {
     public int id;
     public String name;

@@ -3,6 +3,7 @@ package API;
 import API.DTO.ErrorsDTO.ControlSubjects.RootUnintendedValue;
 import API.DTO.ErrorsDTO.ErrorNotException;
 import API.DTO.ErrorsDTO.RootError;
+import API.DTO.ErrorsDTO.UserErrors.UserErrorUnauthorized;
 import API.DTO.UserDto.*;
 
 import static io.restassured.RestAssured.given;
@@ -10,7 +11,8 @@ import static io.restassured.RestAssured.request;
 
 public class BasicUser {
     public static String API_USER = "http://api.skip.rtech.ru/v1/permissions/users";
-
+    public static String API_USER_PROFILE="http://api.skip.rtech.ru/v1/permissions/users/profile";
+    public static String API_USER_CURRENT="http://api.skip.rtech.ru/v1/permissions/users/current";
     /**
      * Получение пользователя по id
      *
@@ -125,6 +127,12 @@ public class BasicUser {
 
     }
 
+    public static RootGetUserCurrent getUserCurrent(int idAut){
+        RootGetUserCurrent actualUser = BasicApi.get(API_USER_CURRENT, idAut).as(RootGetUserCurrent.class);
+        return actualUser;
+
+    }
+
     /**
      * Получение сообщения об ошибке с кодом "403"
      * при попытке получить сведения о пользователе
@@ -135,6 +143,17 @@ public class BasicUser {
     public static RootError getErrorUser(int idAut, int id){
         RootError error = BasicApi.getError(API_USER + "/" + id, idAut).as(RootError.class);
         return error;
+
+    }
+    public static UserErrorUnauthorized getErrorUserUnauthorized(int idAut){
+        UserErrorUnauthorized error = BasicApi.getErrorUnauthorized(API_USER, idAut).as(UserErrorUnauthorized.class);
+        return error;
+
+    }
+
+    public static RootGetRequestUser getUserProfile(int idAut){
+        RootGetRequestUser actualUser = BasicApi.get(API_USER_PROFILE, idAut).as(RootGetRequestUser.class);
+        return actualUser;
 
     }
 
@@ -384,7 +403,7 @@ public class BasicUser {
      * Значение параметра idUser в формате строки
      * **/
 
-    public static void deleteUser(int id, String idUser){
+    public static void deleteUser(int id, int idUser){
         BasicApi.delete(API_USER + "/" + idUser, id);
         return;
     }

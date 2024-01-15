@@ -1,6 +1,6 @@
 package SKIP_API;
 
-;import API.BasicUser;
+import API.BasicUser;
 import API.DTO.ErrorsDTO.RootError;
 import API.DTO.UserDto.RootUserWithId;
 import org.testng.Assert;

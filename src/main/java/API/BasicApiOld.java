@@ -1,26 +1,5 @@
 package API;
 
-import API.DTO.AssignmentExecutionStatesDto.CreateValueAssignmentExecutionStates;
-import API.DTO.AssignmentExecutionStatesDto.RootAssignmentExecutionStates;
-import API.DTO.AssignmentExecutionStatesDto.RootElementAssignmentExecutionStates;
-import API.DTO.DeadlineBasesDto.CreateValueDeadlineBases;
-import API.DTO.DeadlineBasesDto.RootDeadlineBases;
-import API.DTO.DeadlineBasesDto.RootElementDeadlineBases;
-import API.DTO.DocumentExecutionStatesDto.CreateValueDocumentExecutionStates;
-import API.DTO.DocumentExecutionStatesDto.RootDocumentExecutionStates;
-import API.DTO.DocumentExecutionStatesDto.RootElementDocumentExecutionStates;
-import API.DTO.EventStatesDto.CreateValueClassEventStates;
-import API.DTO.EventStatesDto.RootElementEventStates;
-import API.DTO.EventStatesDto.RootEventStates;
-import API.DTO.ImageMarksDto.CreateValueImageMarks;
-import API.DTO.ImageMarksDto.RootElementImageMarks;
-import API.DTO.ImageMarksDto.RootImageMarks;
-import API.DTO.ThemesDto.CreateValueClassThemes;
-import API.DTO.ThemesDto.RootElementThemes;
-import API.DTO.ThemesDto.RootThemes;
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
-
 import static io.restassured.RestAssured.given;
 
 public class BasicApiOld {
@@ -701,5 +680,8 @@ public class BasicApiOld {
      * **/
 
 
+    public static class BasicOshsMvdOfficials {
 
+
+    }
 }

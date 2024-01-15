@@ -78,7 +78,7 @@ public class BasicApi {
                 .header("Test-Authorization", id)
                 .get(path).then()
                 .log().all()
-                //.statusCode(403)
+                .statusCode(403)
                 .extract();
         return response;
     }
@@ -128,7 +128,7 @@ public class BasicApi {
                 .body(request)
                 .post(path).then()
                 .log().all()
-                //.statusCode(422)
+                .statusCode(422)
                 .extract();
         return response;
     }
@@ -248,7 +248,7 @@ public class BasicApi {
                 .body(request)
                 .put(path).then()
                 .log().all()
-                //.statusCode(422)
+                .statusCode(422)
                 .extract();
         return response;
 
@@ -279,7 +279,55 @@ public class BasicApi {
                 .header("Test-Authorization", id)
                 .delete(path).then()
                 .log().all()
-                //.statusCode(404)
+                .statusCode(404)
+                .extract();
+        return response;
+    }
+
+    static public ExtractableResponse<Response> postErrorNoRights(String path, int id, Object request) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(request)
+                .post(path).then()
+                .log().all()
+                .statusCode(403)
+                .extract();
+        return response;
+    }
+    static public ExtractableResponse<Response> putErrorsNoRights(String path, int id, Object request) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(request)
+                .put(path).then()
+                .log().all()
+                .statusCode(403)
+                .extract();
+        return response;
+
+
+    }
+    static public ExtractableResponse<Response> putErrorsNoEventStatesId(String path, int id, Object request) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(request)
+                .put(path).then()
+                .log().all()
+                .statusCode(404)
+                .extract();
+        return response;
+
+
+    }
+
+    static public ExtractableResponse<Response> getErrorUnauthorized(String path, int id) {
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .get(path).then()
+                .log().all()
+                .statusCode(401)
                 .extract();
         return response;
     }

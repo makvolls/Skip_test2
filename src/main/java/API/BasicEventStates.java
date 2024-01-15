@@ -1,5 +1,7 @@
 package API;
 
+import API.DTO.ErrorsDTO.EventStateErrorsDto.RootEventStateErrorName;
+import API.DTO.ErrorsDTO.RootErrorNoRights;
 import API.DTO.EventStatesDto.CreateValueClassEventStates;
 import API.DTO.EventStatesDto.RootElementEventStates;
 import API.DTO.EventStatesDto.RootEventStates;
@@ -65,5 +67,29 @@ public class BasicEventStates {
     public static void deleteEventStateValue(int id, int idValue){
         BasicApi.delete(API_EVENT_STATES + "/" + idValue, id);
         return;
+    }
+
+    public static RootEventStateErrorName createEsErrorName(int id, String name, boolean excluded){
+        CreateValueClassEventStates value= new CreateValueClassEventStates(name, excluded);
+        value.setName(name);
+        value.setExcluded(excluded);
+        RootEventStateErrorName createdErrValue=BasicApi.postError(API_EVENT_STATES, id, value).body()
+                .as(RootEventStateErrorName.class);
+        return createdErrValue;
+    }
+    public static RootErrorNoRights createEsErrorNoRights (int id, String name, boolean excluded){
+        CreateValueClassEventStates value= new CreateValueClassEventStates(name, excluded);
+        value.setName(name);
+        value.setExcluded(excluded);
+        RootErrorNoRights createdErrValues=BasicApi.postErrorNoRights(API_EVENT_STATES, id, value).body()
+                .as(RootErrorNoRights.class);
+        return createdErrValues;
+    }
+    public static RootEventStateErrorName updateEsErrorName(int id,int idValue, String name, boolean excluded){
+        CreateValueClassEventStates value= new CreateValueClassEventStates(name, excluded);
+        value.setName(name);
+        value.setExcluded(excluded);
+        RootEventStateErrorName createdErrValue = BasicApi.putErrors(API_EVENT_STATES + "/" + idValue, id, value).body().as(RootEventStateErrorName.class);
+        return createdErrValue;
     }
 }

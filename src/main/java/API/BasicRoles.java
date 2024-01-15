@@ -5,6 +5,7 @@ import API.DTO.ErrorsDTO.RootError;
 import API.DTO.RolesDto.RootCreateRolesDto;
 import API.DTO.RolesDto.RootResponseRolesDto;
 import API.DTO.RolesDto.RootRolesDto;
+import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
@@ -142,6 +143,9 @@ public class BasicRoles {
 
 
     }
+
+
+
     /**
      * Удаление роли
      *
@@ -155,6 +159,20 @@ public class BasicRoles {
 
 
     }
+
+    public static void deleteRoleWithParams(int id, int idRoles) {
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .params("replace_with",32)
+                .delete(API_ROLES + "/" + idRoles).then()
+                .log().all()
+                .statusCode(204)
+                .extract();
+    }
+
+
+
+
     public static RootError deleteRoleТotFound(int id, int idRoles){
         RootError error = BasicApi.deleteNotFound(API_ROLES+ "/" + idRoles, id).as(RootError.class);
         return error;

@@ -2,8 +2,12 @@ package API;
 
 import API.BasicApi;
 import API.DTO.AssignmentExecutionStatesDto.CreateValueAssignmentExecutionStates;
+import API.DTO.AssignmentExecutionStatesDto.CreateValueAssignmentExecutionStatesName;
 import API.DTO.AssignmentExecutionStatesDto.RootAssignmentExecutionStates;
 import API.DTO.AssignmentExecutionStatesDto.RootElementAssignmentExecutionStates;
+import API.DTO.ErrorsDTO.RootErrorNameShortName;
+import API.DTO.ErrorsDTO.RootErrorNoRights;
+import API.DTO.ErrorsDTO.RootNameError;
 
 public class BasicAssignmentExecutionStates {
     public static String API_ASSIGNMENT_EXECUTION_STATES = "http://api.skip.rtech.ru/v1/classifiers/assignment_execution_states";
@@ -81,5 +85,55 @@ public class BasicAssignmentExecutionStates {
         return;
     }
 
+    public static RootNameError createValueErrorNameAssignmentExecutionStates(int id, String name,
+                                                                     String short_name,
+                                                                     boolean excluded) {
+        CreateValueAssignmentExecutionStates value = new CreateValueAssignmentExecutionStates(name, short_name,
+                excluded);
+        value.setName(name);
+        value.setShort_name(short_name);
+        value.setExcluded(excluded);
+        RootNameError createdValue = BasicApi.postError(API_ASSIGNMENT_EXECUTION_STATES, id, value).
+                body().as(RootNameError.class);
+        return createdValue;
+
+    }
+    public static RootErrorNameShortName createValueErrorNameShortNameAssignmentExecutionStates(int id, String name,
+                                                                                       String short_name,
+                                                                                       boolean excluded) {
+        CreateValueAssignmentExecutionStates value = new CreateValueAssignmentExecutionStates(name, short_name,
+                excluded);
+        value.setName(name);
+        value.setShort_name(short_name);
+        value.setExcluded(excluded);
+        RootErrorNameShortName createdValue = BasicApi.postError(API_ASSIGNMENT_EXECUTION_STATES, id, value).
+                body().as(RootErrorNameShortName.class);
+        return createdValue;
+
+    }
+
+    public static RootErrorNoRights createValueErrorNoRightsAssignmentExecutionStates(int id, String name,
+                                                                                           String short_name,
+                                                                                           boolean excluded) {
+        CreateValueAssignmentExecutionStates value = new CreateValueAssignmentExecutionStates(name, short_name,
+                excluded);
+        value.setName(name);
+        value.setShort_name(short_name);
+        value.setExcluded(excluded);
+        RootErrorNoRights createdValue = BasicApi.postErrorNoRights(API_ASSIGNMENT_EXECUTION_STATES, id, value).
+                body().as(RootErrorNoRights.class);
+        return createdValue;
+
+    }
+
+    public static RootElementAssignmentExecutionStates createValueAssignmentExecutionStatesName
+            (int id, String name) {
+        CreateValueAssignmentExecutionStatesName value = new CreateValueAssignmentExecutionStatesName(name);
+        value.setName(name);
+        RootElementAssignmentExecutionStates createdValue = BasicApi.post(API_ASSIGNMENT_EXECUTION_STATES, id, value).
+                body().as(RootElementAssignmentExecutionStates.class);
+        return createdValue;
+
+    }
 
 }

@@ -59,9 +59,14 @@ public class BasicProviders {
     }
     public static RootError updateProviderNoAccess(int id, String idProvider, boolean training){
         RootUpProvider value = new RootUpProvider(training);
-        RootError error = BasicApi.putErrors(API_PROVIDERS+ "/" + idProvider, id, value).as(RootError.class);
+        RootError error = BasicApi.putErrorsNoRights(API_PROVIDERS+ "/" + idProvider, id, value).as(RootError.class);
         return error;
     }
 
+    public static RootPermissions getProvidersName(int id,String name) {
+
+        RootPermissions actualProviders = BasicApi.get(API_PROVIDERS, id).as(RootPermissions.class);
+        return actualProviders;
+    }
 
 }

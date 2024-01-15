@@ -1,6 +1,9 @@
 package API;
 
+import API.DTO.ErrorsDTO.RootErrorNoRights;
+import API.DTO.ErrorsDTO.RootNameError;
 import API.DTO.UrgenciesDTO.CreateValueClass;
+import API.DTO.UrgenciesDTO.CreateValueUrgenciesOnlyName;
 import API.DTO.UrgenciesDTO.RootElementUrgencies;
 import API.DTO.UrgenciesDTO.RootUrgencies;
 
@@ -146,4 +149,36 @@ public class BasicUrgencies {
         BasicApi.delete(API_URGENCIES+ "/" + idValue, id);
         return;
     }
+    public static RootNameError createErrNameUrgencies(int id, String name, boolean excluded) {
+        CreateValueClass value = new CreateValueClass(name, excluded);
+        value.setName(name);
+        value.setExcluded(excluded);
+
+        RootNameError createdValue = BasicApi.postError(API_URGENCIES, id, value).as(RootNameError.class);
+        return createdValue;
+
+
+    }
+
+    public static RootErrorNoRights createErrNoRightsUrgencies(int id, String name, boolean excluded) {
+        CreateValueClass value = new CreateValueClass(name, excluded);
+        value.setName(name);
+        value.setExcluded(excluded);
+
+        RootErrorNoRights createdValue = BasicApi.postErrorNoRights(API_URGENCIES, id, value).as(RootErrorNoRights.class);
+        return createdValue;
+
+
+    }
+
+    public static RootElementUrgencies createUrgenciesOnlyName(int id, String name) {
+        CreateValueUrgenciesOnlyName value = new CreateValueUrgenciesOnlyName(name);
+        value.setName(name);
+
+        RootElementUrgencies createdValue = BasicApi.post(API_URGENCIES, id, value).as(RootElementUrgencies.class);
+        return createdValue;
+
+
+    }
+
 }

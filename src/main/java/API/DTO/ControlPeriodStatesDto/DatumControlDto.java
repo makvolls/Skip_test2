@@ -12,7 +12,8 @@ public class DatumControlDto {
         return id;
     }
 
-    public DatumControlDto(int id, String name, String short_name, int priority, boolean excluded, boolean deleted, String provider_id) {
+    public DatumControlDto(int id, String name, String short_name, int priority, boolean excluded, boolean deleted,
+                           String provider_id) {
         this.id = id;
         this.name = name;
         this.short_name = short_name;

@@ -4,6 +4,7 @@ import API.DTO.ErrorsDTO.ControlSubjects.RootUnintendedValue;
 import API.DTO.ErrorsDTO.ErrorNotException;
 import API.DTO.ErrorsDTO.RootError;
 import API.DTO.ErrorsDTO.UserErrors.UserErrorUnauthorized;
+import API.DTO.RolesDto.RootPutWithRole_ids;
 import API.DTO.UserDto.*;
 
 import static io.restassured.RestAssured.given;
@@ -126,9 +127,26 @@ public class BasicUser {
         return actualUser;
 
     }
+    public static GetUserRootDto getUsersNoId(int idAut){
+        GetUserRootDto actualUsers = BasicApi.get(API_USER, idAut).as(GetUserRootDto.class);
+        return actualUsers;
+
+    }
 
     public static RootGetUserCurrent getUserCurrent(int idAut){
         RootGetUserCurrent actualUser = BasicApi.get(API_USER_CURRENT, idAut).as(RootGetUserCurrent.class);
+        return actualUser;
+
+    }
+
+    public static RootError getUserError(int idAut){
+        RootError actualUser = BasicApi.getError(API_USER, idAut).as(RootError.class);
+        return actualUser;
+
+    }
+
+    public static RootError getUserErrorWithId(int idAut,int id){
+        RootError actualUser = BasicApi.getError(API_USER + "/" + id, idAut).as(RootError.class);
         return actualUser;
 
     }
@@ -215,6 +233,13 @@ public class BasicUser {
         RootResponseUserDto actualUser = BasicApi.post(API_USER, id, user).as(RootResponseUserDto.class);
         return actualUser;
     }
+    public static RootError createUserError(int id, String official_id, int...role_ids) {
+        RootCreateUserDto user = new RootCreateUserDto(official_id, role_ids);
+        user.setOfficial_id(official_id);
+        user.setRole_ids(role_ids);
+        RootError actualUser = BasicApi.postErrorNoRights(API_USER, id, user).as(RootError.class);
+        return actualUser;
+    }
 
     /**
      * Создание пользователя с указанием параметра
@@ -283,6 +308,21 @@ public class BasicUser {
         return actualUser;
     }
 
+
+
+
+    public static RootUserWithIdCS updateRoleWithRole_ids(int id, int idRoles, int... role_ids) {
+        RootPutWithRole_ids roles = new RootPutWithRole_ids(role_ids);
+        roles.setRole_ids(role_ids);
+
+        RootUserWithIdCS actualRoles = BasicApi.put(API_USER + "/" + idRoles, id, roles).body().as(RootUserWithIdCS.class);
+        return actualRoles;
+
+    }
+
+
+
+
     /**
      * Получение ошибки - "Доступ к ресурсу запрещен"
      * при попытке внести изменения пользователю
@@ -292,10 +332,17 @@ public class BasicUser {
      * @param role_ids - id ролей
      * **/
 
-    public static RootError updateUserRoleError(int id, int idUser, int[] role_ids){
+    public static RootError updateUserRoleError(int id, int idUser, int... role_ids){
         RootUpdateUserDto user = new RootUpdateUserDto(role_ids);
         user.setRole_ids(role_ids);
         RootError errorMessage = BasicApi.putErrors(API_USER + "/" + idUser, id, user)
+                .body().as(RootError.class);
+        return errorMessage;
+    }
+    public static RootError updateUserRoleErrorNoRights(int id, int idUser, int... role_ids){
+        RootUpdateUserDto user = new RootUpdateUserDto(role_ids);
+        user.setRole_ids(role_ids);
+        RootError errorMessage = BasicApi.putErrorsNoRights(API_USER + "/" + idUser, id, user)
                 .body().as(RootError.class);
         return errorMessage;
     }
@@ -425,6 +472,10 @@ public class BasicUser {
      * **/
     public static RootError deletedUserCheck(int idAut, int id){
         RootError errorMessage = BasicApi.deleteNotFound(API_USER + "/" + id, idAut).body().as(RootError.class);
+        return errorMessage;
+    }
+    public static RootError deletedUserNoRights(int idAut, int id){
+        RootError errorMessage = BasicApi.deleteErrorNoRights(API_USER + "/" + id, idAut).body().as(RootError.class);
         return errorMessage;
     }
 

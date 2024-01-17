@@ -283,6 +283,16 @@ public class BasicApi {
                 .extract();
         return response;
     }
+    public static ExtractableResponse<Response> deleteErrorNoRights(String path, int id) {
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .delete(path).then()
+                .log().all()
+                .statusCode(403)
+                .extract();
+        return response;
+    }
+
 
     static public ExtractableResponse<Response> postErrorNoRights(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()

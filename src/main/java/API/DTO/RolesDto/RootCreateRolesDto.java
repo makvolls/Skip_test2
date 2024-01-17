@@ -4,6 +4,9 @@ public class RootCreateRolesDto {
     public String name;
     public String desc;
 
+    public RootCreateRolesDto(String[] roleIds) {
+    }
+
     public String getName() {
         return name;
     }

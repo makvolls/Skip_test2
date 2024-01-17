@@ -1,7 +1,5 @@
 package API.DTO.UserDto;
 
-import DTO.UserDto.RoleUserDto;
-
 public class RootUpdateUserCSDto {
 
 

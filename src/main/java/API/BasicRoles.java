@@ -2,9 +2,8 @@ package API;
 
 import API.DTO.ErrorsDTO.RolesErrors.RootNameErrors;
 import API.DTO.ErrorsDTO.RootError;
-import API.DTO.RolesDto.RootCreateRolesDto;
-import API.DTO.RolesDto.RootResponseRolesDto;
-import API.DTO.RolesDto.RootRolesDto;
+import API.DTO.RolesDto.*;
+import API.DTO.UserDto.RootUserWithIdCS;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
@@ -27,6 +26,11 @@ public class BasicRoles {
     public static RootError getNoAccessRoles(int id) {
         RootError error = BasicApi.getError(API_ROLES, id).body().as(RootError.class);
         return error;
+    }
+
+    public static RootGetRolesWithId getRolesWithId(int autId,int idRoles) {
+        RootGetRolesWithId actualRoles = BasicApi.get(API_ROLES + "/"+ idRoles,autId).body().as(RootGetRolesWithId.class);
+        return actualRoles;
     }
     /**
      * Получение списка ролей
@@ -146,12 +150,12 @@ public class BasicRoles {
 
 
 
-    /**
-     * Удаление роли
-     *
-     * @param id      - авторизуемого пользователя
-     * @param idRoles - id удаляемой роли
-     */
+        /**
+         * Удаление роли
+         *
+         * @param id      - авторизуемого пользователя
+         * @param idRoles - id удаляемой роли
+         */
 
     public static void deleteRole(int id, int idRoles) {
         BasicApi.delete(API_ROLES+ "/" + idRoles, id);

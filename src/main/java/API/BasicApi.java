@@ -82,6 +82,15 @@ public class BasicApi {
                 .extract();
         return response;
     }
+    static public ExtractableResponse<Response> getErrorNoFound(String path, int id) {
+        ExtractableResponse<Response> response = given()
+                .header("Test-Authorization", id)
+                .get(path).then()
+                .log().all()
+                .statusCode(404)
+                .extract();
+        return response;
+    }
 
     /**
      * Method "Control Subjects" for GET request

@@ -48,8 +48,14 @@ public class BasicProviders {
     }
 
     public static RootError getProviderNoAccess(int id, String idProvider) {
-        RootError error = BasicApi.getError(API_PROVIDERS+ "/" + idProvider, id).as(RootError.class);
+        RootError error = BasicApi.getError(API_PROVIDERS + "/" + idProvider, id).as(RootError.class);
         return error;
+    }
+
+        public static RootError getProviderNotFound(int id, String idProvider) {
+            RootError error = BasicApi.getErrorNoFound(API_PROVIDERS+ "/" + idProvider, id).as(RootError.class);
+            return error;
+
     }
     public static RootSearchProvider updateProvider(int id, String idProvider, boolean training){
         RootUpProvider value = new RootUpProvider(training);

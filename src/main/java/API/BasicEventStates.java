@@ -1,6 +1,7 @@
 package API;
 
 import API.DTO.ErrorsDTO.EventStateErrorsDto.RootEventStateErrorName;
+import API.DTO.ErrorsDTO.RootError;
 import API.DTO.ErrorsDTO.RootErrorNoRights;
 import API.DTO.EventStatesDto.CreateValueClassEventStates;
 import API.DTO.EventStatesDto.RootElementEventStates;
@@ -67,6 +68,11 @@ public class BasicEventStates {
     public static void deleteEventStateValue(int id, int idValue){
         BasicApi.delete(API_EVENT_STATES + "/" + idValue, id);
         return;
+    }
+
+    public static RootError deletedESCheck(int idAut, int id){
+        RootError errorMessage = BasicApi.deleteNotFound(API_EVENT_STATES + "/" + id, idAut).body().as(RootError.class);
+        return errorMessage;
     }
 
     public static RootEventStateErrorName createEsErrorName(int id, String name, boolean excluded){

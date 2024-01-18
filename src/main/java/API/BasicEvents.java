@@ -1,5 +1,6 @@
 package API;
 
+import API.DTO.ErrorsDTO.EventsErrorsDto.RootErrorESI;
 import API.DTO.ErrorsDTO.EventsErrorsDto.RootEventStateError;
 import API.DTO.ErrorsDTO.EventsErrorsDto.RootNoEventsStatesErrorDto;
 import API.DTO.ErrorsDTO.RootErrorNameShortName;
@@ -53,6 +54,19 @@ public class BasicEvents {
         RootNameError createdErValue = BasicApi.postError(API_EVENT, id, value).body().as(RootNameError.class);
         return createdErValue;
     }
+
+    public static RootErrorESI createErrESI(int id, String name, String short_name, boolean excluded,
+                                                   Object... event_state_ids) {
+        RequestEventsDto value = new RequestEventsDto(name,short_name, excluded, event_state_ids);
+        value.setName(name);
+        value.setShort_name(short_name);
+        value.setExcluded(excluded);
+        value.setEvent_state_ids(event_state_ids);
+        RootErrorESI createdErValue = BasicApi.postError(API_EVENT, id, value).body().as(RootErrorESI.class);
+        return createdErValue;
+    }
+
+
 
     public static RootErrorNameShortName createErrNameShortNameEvents(int id, String name, String short_name, boolean excluded,
                                                                    Object... event_state_ids) {

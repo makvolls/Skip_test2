@@ -194,6 +194,18 @@ public class BasicApi {
 
 
     }
+    static public ExtractableResponse<Response> putNoBody(String path, int id) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .put(path).then()
+                .log().all()
+                .statusCode(200)
+                .extract();
+        return response;
+
+
+    }
 
     /**
      *  PUT request for "Control Subjects"
@@ -314,6 +326,8 @@ public class BasicApi {
                 .extract();
         return response;
     }
+
+
     static public ExtractableResponse<Response> putErrorsNoRights(String path, int id, Object request) {
         ExtractableResponse<Response> response = given()
                 .header("Content-Type", "application/json")

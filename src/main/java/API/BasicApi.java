@@ -126,6 +126,19 @@ public class BasicApi {
 
     }
 
+    static public ExtractableResponse<Response> postCalcDeadlines(String path, int id, Object request) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
+                .body(request)
+                .post(path).then()
+                .log().all()
+                .statusCode(200)
+                .extract();
+        return response;
+
+    }
+
     /**
      *  POST request and getting error with status code - 422
      * **/
@@ -135,6 +148,17 @@ public class BasicApi {
                 .header("Content-Type", "application/json")
                 .header("Test-Authorization", id)
                 .body(request)
+                .post(path).then()
+                .log().all()
+                .statusCode(422)
+                .extract();
+        return response;
+    }
+
+    static public ExtractableResponse<Response> postErrorWithoutBody(String path, int id) {
+        ExtractableResponse<Response> response = given()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", id)
                 .post(path).then()
                 .log().all()
                 .statusCode(422)

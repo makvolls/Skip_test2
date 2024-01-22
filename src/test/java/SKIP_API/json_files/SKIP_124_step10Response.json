@@ -1,0 +1,123 @@
+{
+  "data": {
+    "id": 218,
+    "skip_reg_number": 77,
+    "skip_reg_date": "2023-12-20T06:06:31.485Z",
+    "not_sed_document": false,
+    "sed_reg_number": null,
+    "sed_document_date": null,
+    "single_number": null,
+    "ddo_external_document_date": null,
+    "ddo_external_document_number": null,
+    "short_description": "Test 329",
+    "external_reg_date": null,
+    "external_document_number": null,
+    "sed_document_type": null,
+    "resolution": null,
+    "sed_note": null,
+    "came_from_name": null,
+    "came_from_id": null,
+    "came_from_type": null,
+    "signer_name": null,
+    "signer_id": null,
+    "signer_type": null,
+    "recipient_name": null,
+    "recipient_id": null,
+    "recipient_type": null,
+    "document_name": "Тест 329",
+    "internal": false,
+    "document_date": null,
+    "document_number": null,
+    "note": null,
+    "control_official": {
+      "id": "59e9be1f83c0000040000001",
+      "last_name": "11792",
+      "short_name_with_org_and_pos": "11792 М.В. (Центральный аппарат МВД РФ)",
+      "organization_short_title": "Центральный аппарат МВД РФ"
+    },
+    "control_subject": {
+      "id": 47,
+      "name": "А",
+      "deleted": false
+    },
+    "document_execution_state": {
+      "id": 1,
+      "name": "задача",
+      "deleted": false
+    },
+    "skip_document_type": {
+      "id": 1,
+      "name": "ю",
+      "excluded": false
+    },
+    "control_from_official": null,
+    "control_official_head": null,
+    "security_stamp": null,
+    "external_security_stamp": null,
+    "sed_security_stamp": null,
+    "ddo_security_stamp": null,
+    "urgency": null,
+    "assignments": [
+      {
+        "id": 75,
+        "number": "12345",
+        "content": "content",
+        "note": "note",
+        "themes": [
+          {
+            "id": 35,
+            "name": "?"
+          },
+          {
+            "id": 3,
+            "name": "!"
+          }
+        ],
+        "executors": [
+
+        ],
+        "head_executor": null
+      },
+      {
+        "id": 76,
+        "number": "12345",
+        "content": "content",
+        "note": "note",
+        "themes": [
+          {
+            "id": 35,
+            "name": "?"
+          },
+          {
+            "id": 3,
+            "name": "!"
+          }
+        ],
+        "executors": [
+
+        ],
+        "head_executor": null
+      },
+      {
+        "id": 77,
+        "number": "111",
+        "content": "some text",
+        "note": "some note",
+        "themes": [
+          {
+            "id": 17,
+            "name": "j"
+          },
+          {
+            "id": 16,
+            "name": "jg"
+          }
+        ],
+        "executors": [
+
+        ],
+        "head_executor": null
+      }
+    ]
+  }
+}

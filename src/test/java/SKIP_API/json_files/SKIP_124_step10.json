@@ -1,0 +1,18 @@
+{
+  "skip_reg_date": "2023-12-20T06:06:31.485Z",
+  "control_official_id": "59e9be1f83c0000040000001",
+  "control_subject_id": 47,
+  "document_name": "Тест 329",
+  "document_execution_state_id": 1,
+  "skip_document_type_id": 1,
+  "internal": false,
+  "short_description": "Test 329",
+  "assignments":[
+    {
+      "number": "111",
+      "content": "some text",
+      "note": "some note",
+      "theme_ids": [16, 17]
+    }
+  ]
+}

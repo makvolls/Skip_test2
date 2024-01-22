@@ -1,9 +1,7 @@
 package SKIP_API;
 
-import API.OSHS.CatalogOSHS.RootCatalogOSHS;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import net.javacrumbs.jsonunit.core.internal.JsonUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

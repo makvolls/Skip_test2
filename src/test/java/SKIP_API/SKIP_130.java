@@ -98,7 +98,7 @@ public class SKIP_130 {
         JsonPath jsonPath = response.jsonPath();
         int page = jsonPath.get("meta.page");
         int items = jsonPath.get("meta.items");
-        int pages = jsonPath.get("meta.pages");
+        //int pages = jsonPath.get("meta.pages");
         int count = jsonPath.get("meta.count");
      //   ps2 = pages;
         ct2 = count;

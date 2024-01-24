@@ -53,13 +53,13 @@ public class SKIP_21 {
     }
     @Test
     public void step04(){
-        updateErValue2=BasicControlPeriod.putErCpsSn(1,id1,"Тест32","е",true);
+        updateErValue2=BasicControlPeriod.putErCpsSn(1,id1,"Тест32",short_name2,true);
     Assert.assertTrue(updateErValue2.errors.getShort_name()[0].equals("уже существует"));
 
     }
 @Test
     public void step05(){
-        updateErValue3=BasicControlPeriod.putErrCpsNs(1,id1,"","е",true);
+        updateErValue3=BasicControlPeriod.putErrCpsNs(1,id1,"",short_name2,true);
         Assert.assertTrue(updateErValue3.errors.getName()[0].equals("не может быть пустым"));
         Assert.assertTrue(updateErValue3.errors.getShort_name()[0].equals("уже существует"));
 }

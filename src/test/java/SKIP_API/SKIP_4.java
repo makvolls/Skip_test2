@@ -9,12 +9,14 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
 public class SKIP_4 {
+    int idAut1 = 1;
+
     public static String API_RIGHTS = "http://api.skip.rtech.ru/v1/permissions/rights";
 
     @Test
     public void Step01() {
         Response response = given()
-                .header("Test-Authorization", 1)
+                .header("Test-Authorization", idAut1)
                 .log().all()
                 .get(API_RIGHTS)
                 .then().log().all()

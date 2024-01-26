@@ -86,16 +86,16 @@ public class SKIP_6 {
                 .extract().response();
 
         JsonPath jsonPath = response.jsonPath();
-        List<Integer> idRoles = jsonPath.get("data.roles.id[0]");
+        List<Integer> idRoles = jsonPath.get("data.roles.id");
         List<Integer> idUser = jsonPath.get("data.id");
-        List<String> full_name_roles = jsonPath.get("data.roles.full_name[0]");
+        List<String> full_name_roles = jsonPath.get("data.roles.full_name");
         List<String> full_name = jsonPath.get("data.full_name");
         List<String> organization_short_title = jsonPath.get("data.organization_short_title");
         Assert.assertTrue(idUser.contains(3));
         Assert.assertTrue(full_name.contains("Столярова Юлия Валентиновна"));
         Assert.assertTrue(organization_short_title.contains("ОДиР ГУВО МВД России"));
-        Assert.assertTrue(idRoles.contains(31));
-        Assert.assertTrue(full_name_roles.contains("Все права"));
+        Assert.assertTrue(idRoles.toString().contains("31"));
+        Assert.assertTrue(full_name_roles.toString().contains("Все права"));
         int count = jsonPath.get("meta.count");
         Assert.assertTrue(count != 0);
 
@@ -254,16 +254,16 @@ public class SKIP_6 {
                 .then().log().all()
                 .extract().response();
         JsonPath jsonPath = response.jsonPath();
-        List<Integer> idRoles = jsonPath.get("data.roles.id[0]");
+        List<Integer> idRoles = jsonPath.get("data.roles.id");
         List<Integer> idUser = jsonPath.get("data.id");
-        List<String> full_name_roles = jsonPath.get("data.roles.full_name[0]");
+        List<String> full_name_roles = jsonPath.get("data.roles.full_name");
         List<String> full_name = jsonPath.get("data.full_name");
         List<String> organization_short_title = jsonPath.get("data.organization_short_title");
         Assert.assertTrue(idUser.contains(3));
         Assert.assertTrue(full_name.contains("Столярова Юлия Валентиновна"));
         Assert.assertTrue(organization_short_title.contains("ОДиР ГУВО МВД России"));
-        Assert.assertTrue(idRoles.contains(31));
-        Assert.assertTrue(full_name_roles.contains("Все права"));
+        Assert.assertTrue(idRoles.toString().contains("31"));
+        Assert.assertTrue(full_name_roles.toString().contains("Все права"));
         int count = jsonPath.get("meta.count");
         Assert.assertTrue(count != 0);
 
@@ -280,16 +280,16 @@ public class SKIP_6 {
                 .then().log().all()
                 .extract().response();
         JsonPath jsonPath = response.jsonPath();
-        List<Integer> idRoles = jsonPath.get("data.roles.id[0]");
+        List<Integer> idRoles = jsonPath.get("data.roles.id");
         List<Integer> idUser = jsonPath.get("data.id");
-        List<String> full_name_roles = jsonPath.get("data.roles.full_name[0]");
+        List<String> full_name_roles = jsonPath.get("data.roles.full_name");
         List<String> full_name = jsonPath.get("data.full_name");
         List<String> organization_short_title = jsonPath.get("data.organization_short_title");
         Assert.assertTrue(idUser.contains(3));
         Assert.assertTrue(full_name.contains("Столярова Юлия Валентиновна"));
         Assert.assertTrue(organization_short_title.contains("ОДиР ГУВО МВД России"));
-        Assert.assertTrue(idRoles.contains(31));
-        Assert.assertTrue(full_name_roles.contains("Все права"));
+        Assert.assertTrue(idRoles.toString().contains("31"));
+        Assert.assertTrue(full_name_roles.toString().contains("Все права"));
         int count = jsonPath.get("meta.count");
         Assert.assertTrue(count != 0);
 

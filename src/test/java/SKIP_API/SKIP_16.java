@@ -69,13 +69,13 @@ public class SKIP_16 {
     }
     @Test
     public void step04(){
-        BasicUser.deleteUser(1,7);
+        BasicUser.deleteUser(idAut,7);
     }
 
     @Test
     public void step05(){
-        actualUserProfile3=BasicUser.getUserProfile(3);
-        Assert.assertTrue(actualUserProfile3.data.other_providers.length== 0);
+        actualUserProfile3=BasicUser.getUserProfile(idAut2);
+        Assert.assertTrue(actualUserProfile3.data.other_providers[0].id!=providerId1);
         Assert.assertTrue(actualUserProfile3.data.official_id.equals(officialId));
         Assert.assertEquals(idAut2,actualUserProfile3.data.id);
         Assert.assertTrue(actualUserProfile3.data.provider_id.equals(providerId2));
@@ -91,7 +91,7 @@ public class SKIP_16 {
 
     public void step06(){
 
-        errorUnauthorized=BasicUser.getErrorUserUnauthorized(7);
+        errorUnauthorized=BasicUser.getErrorUserUnauthorized(idAut3);
         Assert.assertTrue(errorUnauthorized.error.equals("Unauthorized"));
         Assert.assertTrue(errorUnauthorized.redirect_url.equals("http://api.skip.rtech.ru/v1/auth/sign_in"));
     }

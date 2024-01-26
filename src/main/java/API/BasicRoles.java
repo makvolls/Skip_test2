@@ -48,7 +48,7 @@ public class BasicRoles {
         return error;
     }
     public static RootError getNoResult(int id, int idRole) {
-        RootError error = BasicApi.getError(API_ROLES + "/" + idRole, id).body().as(RootError.class);
+        RootError error = BasicApi.getErrorNoFound(API_ROLES + "/" + idRole, id).body().as(RootError.class);
         return error;
     }
 
@@ -120,7 +120,7 @@ public class BasicRoles {
         roles.setDesc("1");
         roles.setGlobal(global);
         roles.setRights_ids(rights_ids);
-        RootError error = BasicApi.putErrors(API_ROLES + "/" + idRoles, id, roles).as(RootError.class);
+        RootError error = BasicApi.putErrorsNoRights(API_ROLES + "/" + idRoles, id, roles).as(RootError.class);
         return error;
     }
 

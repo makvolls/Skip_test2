@@ -256,9 +256,9 @@ public class SKIP_78 {
 
     @Test
     public void Step18(){
-        String needToFound = "Тест Задание 270 Пользователь 6 14 Step";
+        String needToFound = "Тест Задание 270 Пользователь 6 14 Шаг PUT";
         controlSubjectsListWithNewElement = BasicControlSubjects.
-                createControlSubjectAndGetList(1,"Тест Задание 270 Пользователь 6 14 Step"
+                createControlSubjectAndGetList(1,"Тест Задание 270 Пользователь 6 14 Шаг PUT"
                         ,"1",provider_idUserOne, false);
         ArrayList<String> namesList = new ArrayList<String>();
         for (DatumControlSubjects element : controlSubjectsListWithNewElement.data) {

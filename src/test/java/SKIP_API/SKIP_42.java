@@ -1055,8 +1055,8 @@ public class SKIP_42 {
     public void Step51() {
 
         Map<String, String> classifiers = new HashMap<>();
-        classifiers.put("name", "vdsfewrsaa");
-        classifiers.put("short_name", "fsevewsaa");
+        classifiers.put("name", "vdsfewrsaaa");
+        classifiers.put("short_name", "fsevewsaaa");
         Response response = given()
                 .header("Content-Type", "application/json")
                 .header("Test-Authorization", idAut1)
@@ -1068,8 +1068,8 @@ public class SKIP_42 {
         JsonPath jsonPath = response.jsonPath();
         String name = jsonPath.get("data.name");
         String short_name = jsonPath.get("data.short_name");
-        Assert.assertTrue(name.equals("vdsfewrsaa"));
-        Assert.assertTrue(short_name.equals("fsevewsaa"));
+        Assert.assertTrue(name.equals("vdsfewrsaaa"));
+        Assert.assertTrue(short_name.equals("fsevewsaaa"));
     }
 
     @Test
@@ -1085,8 +1085,8 @@ public class SKIP_42 {
         JsonPath jsonPath = response.jsonPath();
         String name = jsonPath.get("data.name");
         String short_name = jsonPath.get("data.short_name");
-        Assert.assertTrue(name.equals("vdsfewrsaa"));
-        Assert.assertTrue(short_name.equals("fsevewsaa"));
+        Assert.assertTrue(name.equals("vdsfewrsaaa"));
+        Assert.assertTrue(short_name.equals("fsevewsaaa"));
     }
 
 }

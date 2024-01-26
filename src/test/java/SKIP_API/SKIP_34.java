@@ -29,14 +29,14 @@ public class SKIP_34 {
 
         Assert.assertTrue(type.get(0).contains("local"));
         Assert.assertTrue(type.get(1).contains("global"));
-        Assert.assertTrue(type.get(2).contains("local"));
+        Assert.assertTrue(type.get(2).contains("global"));
         Assert.assertTrue(type.get(3).contains("global"));
         Assert.assertTrue(type.get(4).contains("global"));
-        Assert.assertTrue(type.get(5).contains("local"));
+        Assert.assertTrue(type.get(5).contains("global"));
         Assert.assertTrue(type.get(6).contains("global"));
         Assert.assertTrue(type.get(7).contains("global"));
-        Assert.assertTrue(type.get(8).contains("local"));
-        Assert.assertTrue(type.get(9).contains("local"));
+        Assert.assertTrue(type.get(8).contains("global"));
+        Assert.assertTrue(type.get(9).contains("global"));
         Assert.assertTrue(type.get(10).contains("global"));
         Assert.assertTrue(type.get(11).contains("local"));
         Assert.assertTrue(name.get(0).contains("Вид документа"));

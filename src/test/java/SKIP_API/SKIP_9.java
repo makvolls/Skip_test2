@@ -40,12 +40,12 @@ public class SKIP_9 {
     }
     @Test
     public void Step05(){
-        searchProviders = BasicProviders.getProviders(6);
+        searchProviders = BasicProviders.getProviders(5);
         Assert.assertNotNull(searchProviders.data);
     }
     @Test
     public void Step06(){
-        searchProvider = BasicProviders.getProvider(6, "525e9f767da3000002000001");
+        searchProvider = BasicProviders.getProvider(5, "525e9f767da3000002000001");
         Assert.assertNotNull(searchProvider.data);
         Assert.assertTrue(searchProvider.getData().id.equals("525e9f767da3000002000001"));
 
@@ -65,22 +65,22 @@ public class SKIP_9 {
     }
     @Test
     public void Step09(){
-        updateProvider = BasicProviders.updateProvider(6, "525e9f767da3000002000001", true);
+        updateProvider = BasicProviders.updateProvider(5, "525e9f767da3000002000001", true);
         Assert.assertTrue(updateProvider.getData().training);
 
     }
     @Test
     public void Step10(){
-        searchProviders = BasicProviders.getProviders(6);
+        searchProviders = BasicProviders.getProviders(5);
         Assert.assertNotNull(searchProviders.data);
 
-        searchProvider = BasicProviders.getProvider(6, "525e9f767da3000002000001");
+        searchProvider = BasicProviders.getProvider(5, "525e9f767da3000002000001");
         Assert.assertNotNull(searchProvider.data);
         Assert.assertTrue(searchProvider.getData().id.equals("525e9f767da3000002000001"));
     }
     @Test
     public void Step11(){
-        updateProvider = BasicProviders.updateProvider(6, "525e9f767da3000002000001", false);
+        updateProvider = BasicProviders.updateProvider(5, "525e9f767da3000002000001", false);
         Assert.assertTrue(!updateProvider.getData().training);
     }
     @Test

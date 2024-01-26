@@ -32,7 +32,8 @@ public class SKIP_62 {
     @AfterClass
     public void after() {
 
-        BasicEvents.deleteEvents(1, newValue.data.id);
+        BasicEvents.deleteEvents(1, firstValue);
+        BasicRoles.deleteRole(1,idRoles);
     }
 
     RootEventsDto newValue;
@@ -44,14 +45,14 @@ public class SKIP_62 {
     @Test
     public void step01() {
 
-        newValue = BasicEvents.createEvents(1, "dsfer", "dfser", true, 3, 3);
+        newValue = BasicEvents.createEvents(1, "dsfer1211", "dfser1211", true, 50, 50);
         arraySize = newValue.data.event_states.length;
         Assert.assertEquals(1, arraySize);
-        Assert.assertTrue(newValue.data.name.equals("dsfer"));
-        Assert.assertTrue(newValue.data.short_name.equals("dfser"));
+        Assert.assertTrue(newValue.data.name.equals("dsfer1211"));
+        Assert.assertTrue(newValue.data.short_name.equals("dfser1211"));
         Assert.assertTrue(newValue.data.excluded);
-        Assert.assertEquals(3, newValue.data.event_states[0].id);
-        Assert.assertTrue(newValue.data.event_states[0].name.equals("Тест"));
+        Assert.assertEquals(50, newValue.data.event_states[0].id);
+        Assert.assertTrue(newValue.data.event_states[0].name.equals("яауц"));
         // Assert.assertTrue(arraySize,1);
         firstValue = newValue.data.id;
 
@@ -77,12 +78,12 @@ public class SKIP_62 {
         }
 
         assert ((HashMap<?, ?>) data.get(index)).get("id").equals(firstValue);
-        assert ((HashMap<?, ?>) data.get(index)).get("name").equals("dsfer");
-        assert ((HashMap<?, ?>) data.get(index)).get("short_name").equals("dfser");
+        assert ((HashMap<?, ?>) data.get(index)).get("name").equals("dsfer1211");
+        assert ((HashMap<?, ?>) data.get(index)).get("short_name").equals("dfser1211");
         assert ((HashMap<?, ?>) data.get(index)).get("excluded").toString().contains("true");
-        assert ((HashMap<?, ?>) ((ArrayList<?>) ((HashMap<?, ?>) data.get(index)).get("event_states")).get(0)).get("name").equals("Тест");
+        assert ((HashMap<?, ?>) ((ArrayList<?>) ((HashMap<?, ?>) data.get(index)).get("event_states")).get(0)).get("name").equals("яауц");
 
-        assert ((HashMap<?, ?>) ((ArrayList<?>) ((HashMap<?, ?>) data.get(index)).get("event_states")).get(0)).get("id").equals(3);
+        assert ((HashMap<?, ?>) ((ArrayList<?>) ((HashMap<?, ?>) data.get(index)).get("event_states")).get(0)).get("id").equals(50);
 
         Assert.assertEquals(2, ((HashMap<?, ?>) ((ArrayList<?>) ((HashMap<?, ?>) data.get(index)).get("event_states")).get((0))).size());
 
@@ -153,9 +154,9 @@ public class SKIP_62 {
     @Test
     public void step07() {
 
-        newValueRoles = BasicRoles.createRoles(1, "fdsg", true, "index_users", "index_users");
+        newValueRoles = BasicRoles.createRoles(1, "fdsg12345111", true, "index_users", "index_users");
         Assert.assertTrue(newValueRoles.data.global);
-        Assert.assertTrue(newValueRoles.data.name.equals("fdsg"));
+        Assert.assertTrue(newValueRoles.data.name.equals("fdsg12345111"));
         Assert.assertTrue(newValueRoles.data.rights_ids[0].equals("index_users"));
         arraySize3 = newValueRoles.data.rights_ids.length;
         Assert.assertEquals(1, arraySize3);
@@ -169,7 +170,7 @@ public class SKIP_62 {
         actualValue = BasicRoles.getRole(1, idRoles);
 
         Assert.assertTrue(actualValue.data.global);
-        Assert.assertTrue(actualValue.data.name.equals("fdsg"));
+        Assert.assertTrue(actualValue.data.name.equals("fdsg12345111"));
         Assert.assertTrue(actualValue.data.rights_ids[0].equals("index_users"));
         arraySize4 = actualValue.data.rights_ids.length;
         Assert.assertEquals(1, arraySize4);

@@ -73,8 +73,8 @@ public void step04(){
 
 @Test
     public void step06(){
-    updateWithoutExcluded=createWithoutExcluded(8,id,"grgrewc");
-    Assert.assertTrue(updateWithoutExcluded.data.getName().equals("grgrewc"));
+    updateWithoutExcluded=createWithoutExcluded(8,id,"grgrewc1");
+    Assert.assertTrue(updateWithoutExcluded.data.getName().equals("grgrewc1"));
 }
     @Test
     public void step07(){

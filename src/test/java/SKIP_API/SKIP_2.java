@@ -11,10 +11,12 @@ public class SKIP_2 {
     RootRolesDto actual;
     RootRolesDto actual2;
     String id;
+    int idAut1=1;
+
 
     @Test
     public void Step1() {
-        actual = BasicRoles.getRoles(1);
+        actual = BasicRoles.getRoles(idAut1);
         Assert.assertTrue(actual.getData().equals(actual.data));
     }
 
@@ -22,7 +24,7 @@ public class SKIP_2 {
     @Test
     public void Step2() {
 
-        actual2 = BasicRoles.getRolesParams(1, actual.getData()[0].full_name.substring(0, 13), "");
+        actual2 = BasicRoles.getRolesParams(idAut1, actual.getData()[0].full_name.substring(0, 13), "");
         Assert.assertTrue(actual2.getData()[0].full_name.equals(actual.getData()[0].full_name));
 
     }
@@ -31,7 +33,7 @@ public class SKIP_2 {
     @Test
     public void Step3() {
 
-        actual2 = BasicRoles.getRolesParams(1, actual.getData()[0].full_name.toUpperCase().substring(0, 13), "");
+        actual2 = BasicRoles.getRolesParams(idAut1, actual.getData()[0].full_name.toUpperCase().substring(0, 13), "");
         Assert.assertTrue(actual2.getData()[0].full_name.equals(actual.getData()[0].full_name));
 
     }
@@ -39,15 +41,15 @@ public class SKIP_2 {
     @Test
     public void Step4() {
 
-        actual2 = BasicRoles.getRolesParams(1, actual.getData()[0].full_name, "");
+        actual2 = BasicRoles.getRolesParams(idAut1, actual.getData()[0].full_name, "");
         Assert.assertTrue(actual2.getData()[0].full_name.equals(actual.getData()[0].full_name));
 
     }
 
     @Test
     public void Step5() {
-        actual = BasicRoles.getRoles(1);
-        actual2 = BasicRoles.getRolesParams(1, "", actual.getData()[9].id);
+        actual = BasicRoles.getRoles(idAut1);
+        actual2 = BasicRoles.getRolesParams(idAut1, "", actual.getData()[9].id);
         id = actual.getData()[9].id;
 
         for (int i = 0; i < actual2.getData().length; i++) {

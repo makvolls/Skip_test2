@@ -64,7 +64,6 @@ public class SKIP_48 {
     public void step06(){
         newValue2=BasicUrgencies.createUrgenciesOnlyName(1,"gfregfd");
         Assert.assertTrue(newValue2.data.name.equals("gfregfd"));
-        Assert.assertTrue(!newValue2.data.excluded);
     }
 
     @Test

@@ -19,7 +19,7 @@ public class SKIP_24 {
     @AfterClass
 
     public void updateValueEnd(){
-BasicEventStates.updateEventStates(1,id1,"trwe",true);
+BasicEventStates.updateEventStates(1,id1,"trwe1",true);
     }
 
 

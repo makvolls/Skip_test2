@@ -101,7 +101,7 @@ public class BasicRoles {
         roles.setDesc("1");
         roles.setGlobal(global);
         roles.setRights_ids(rights_ids);
-        RootError error = BasicApi.postError(API_ROLES, id, roles).as(RootError.class);
+        RootError error = BasicApi.postErrorNoRights(API_ROLES, id, roles).as(RootError.class);
         return error;
     }
 
@@ -179,6 +179,11 @@ public class BasicRoles {
 
     public static RootError deleteRoleТotFound(int id, int idRoles){
         RootError error = BasicApi.deleteNotFound(API_ROLES+ "/" + idRoles, id).as(RootError.class);
+        return error;
+    }
+
+    public static RootError deleteRoleNoRights(int id, int idRoles){
+        RootError error = BasicApi.deleteErrorNoRights(API_ROLES+ "/" + idRoles, id).as(RootError.class);
         return error;
     }
 /*    *//**

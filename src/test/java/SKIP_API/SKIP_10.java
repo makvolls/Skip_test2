@@ -10,13 +10,14 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class SKIP_10 {
+    int idAut=1;
     public static String API_ORG = "http://api.skip.rtech.ru/v1/oshs/mvd/organizations";
 
     @Test
     public void Step01() {
         Response response = given()
                 .when()
-                .header("Test-Authorization", 1)
+                .header("Test-Authorization", idAut)
                 .get(API_ORG)
                 .then().log().all()
                 .body("data", notNullValue())
@@ -42,7 +43,7 @@ public class SKIP_10 {
     public void Step02() {
         Response response = given()
                 .when()
-                .header("Test-Authorization", 1)
+                .header("Test-Authorization", idAut)
                 .params("title", "гу")
                 .get(API_ORG)
                 .then().log().all()
@@ -76,7 +77,7 @@ public class SKIP_10 {
     public void Step03() {
         Response response = given()
                 .when()
-                .header("Test-Authorization", 1)
+                .header("Test-Authorization", idAut)
                 .params("title", "ддо")
                 .params("items", "100")
                 .get(API_ORG)
@@ -110,7 +111,7 @@ public class SKIP_10 {
     public void Step04() {
         Response response = given()
                 .when()
-                .header("Test-Authorization", 1)
+                .header("Test-Authorization", idAut)
                 .params("title", "гккккккккккккк")
                 .get(API_ORG)
                 .then().log().all()

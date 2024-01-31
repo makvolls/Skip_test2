@@ -48,7 +48,7 @@ public class BasicProviders {
     }
 
     public static RootError getProviderNoAccess(int id, String idProvider) {
-        RootError error = BasicApi.getErrorNoFound(API_PROVIDERS + "/" + idProvider, id).as(RootError.class);
+        RootError error = BasicApi.getError(API_PROVIDERS + "/" + idProvider, id).as(RootError.class);
         return error;
     }
 

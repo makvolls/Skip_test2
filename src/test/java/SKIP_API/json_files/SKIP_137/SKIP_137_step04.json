@@ -1,0 +1,46 @@
+{
+  "skip_reg_date": "2024-01-16T06:06:31.485Z",
+  "control_official_id": "5b3bf8a6b48f00020e000001",
+  "control_subject_id": 60,
+  "document_name": "Тест 358 document name",
+  "document_execution_state_id": 11,
+  "skip_document_type_id": 32,
+  "internal": false,
+  "short_description": "Test 358 short description",
+  "assignments":[
+    {
+      "number": "1",
+      "content": "content",
+      "note": "note",
+      "theme_ids": [16, 17],
+      "executors":[
+        {
+          "organization_id":"",
+          "executor_id": "56683141a64619317d000001",
+          "control_employee_id": "53bd047d393f000828000001",
+          "executor_head_id": "55132cdc17bf000663000001",
+          "organization_head_id": "5582e86af5f5011355000001",
+          "execution_deputy_head_id": "533ee3b263fc00097d000001",
+          "control_deputy_head_id": "54db770074e700c167000001"
+        }
+      ]
+    },
+    {
+      "number": "2",
+      "content": "content-content",
+      "note": "note-note",
+      "theme_ids": [30, 9],
+      "executors":[
+        {
+          "organization_id":"",
+          "executor_id": "56a0c409044e000dc8000001",
+          "control_employee_id": "56d3ff213ad301926a000001",
+          "executor_head_id": "5666c02d350b117255000001",
+          "organization_head_id": "546b68a7b08300085a000001",
+          "execution_deputy_head_id": "55928410e18a0e153e000001",
+          "control_deputy_head_id": "571954972b3000000c000001"
+        }
+      ]
+    }
+  ]
+}

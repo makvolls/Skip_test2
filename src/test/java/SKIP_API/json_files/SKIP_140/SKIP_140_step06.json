@@ -1,0 +1,45 @@
+
+{
+  "skip_reg_date": "2024-01-17T06:06:31.485Z",
+  "control_official_id": "54e35f6179fa007422000001",
+  "control_subject_id": 83,
+  "document_name": "Тест 404",
+  "document_execution_state_id": 11,
+  "skip_document_type_id": 32,
+  "internal": false,
+  "short_description": "404",
+  "assignments": [
+    {
+      "number": "1",
+      "content": "content",
+      "note": "note",
+      "theme_ids": [
+        5,
+        4
+      ],
+      "executors": [
+        {
+          "organization_id": "6426a7c3379100001e000001"
+        }
+      ],
+      "head_executor": {
+        "head_executor_id": "629dad05d5bf00000b000001",
+        "deadline_basis_id": 86,
+        "periodicity_id": 38,
+        "execution_state_id": 47,
+        "start_date": "2024-01-18T08:17:01.707Z",
+        "deadline_date": "2024-01-18T08:17:01.707Z",
+        "period_in_days": 5,
+        "note": "note"
+      },
+
+      "head_co_executors": [
+        {
+          "co_executor_id": "59d4e38e453d000062000001",
+          "co_executor_name": "test1"
+        }
+      ]
+
+    }
+  ]
+}

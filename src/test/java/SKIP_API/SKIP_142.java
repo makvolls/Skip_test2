@@ -45,7 +45,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл 0 байт.txt";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .when()
                 .header("Test-Authorization", idAut1)
@@ -70,7 +70,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл 4.77кб.jfif";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test")
                 .when()
@@ -110,7 +110,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\Файл 50 мб.jpg";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test2")
                 .when()
@@ -150,7 +150,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл exe.exe";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .when()
                 .header("Test-Authorization", idAut1)
@@ -177,7 +177,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\Файл класс.class";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -205,7 +205,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл 290мб.mp4";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -246,7 +246,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\Файл 353 мб.mp4";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -274,7 +274,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\dll файл.dll";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -302,7 +302,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл ocx.ocx";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -330,7 +330,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл scr.scr";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -358,7 +358,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл msi.msi";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -385,7 +385,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл elf.elf";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -413,7 +413,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл deb.deb";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -441,7 +441,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл rpm.rpm";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -469,7 +469,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл eps.eps";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -497,7 +497,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл iso.iso";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -525,7 +525,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл cab.cab";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -553,7 +553,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл jar.jar";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -581,7 +581,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл accdb.accdb";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -609,7 +609,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл accde.accde";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -637,7 +637,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл accdp.accdp";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -664,7 +664,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл accdr.accdr";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -692,7 +692,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл accdc.accdc";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -719,7 +719,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл mdb.mdb";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -747,7 +747,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл mdt.mdt";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()
@@ -774,7 +774,7 @@ public class SKIP_142 {
         String filePath = "C:\\Users\\mvolobuev\\Desktop\\файлы для прокидывания\\Файлы с расширениями\\файл свое расширение.dымамаа";
         File file = new File(filePath);
         Response response = RestAssured.given()
-                .multiPart("original_file", file, "multipart/form-data")
+                .multiPart("original_file", file)
                 .formParam("document_id", idDoc)
                 .formParam("name","test3")
                 .when()

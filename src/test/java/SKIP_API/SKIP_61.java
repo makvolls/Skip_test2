@@ -12,6 +12,7 @@ public class SKIP_61 {
     String otherProvidersId = "525e9f767da3000002000001"; // Delete after testing - "525e9f767da3000002000001"
     String providerUserIdOne = "5273bd3cef93000033000001"; // Main provider user with id 1
     String providerUserIdTwo = "528f018123c700002c000001"; // Provider that doesn't have user with id 1
+    String setCookie;
 
     @Test
     public void step01(){
@@ -52,6 +53,9 @@ public class SKIP_61 {
                 .extract().response();
 
         JsonPath jsonPath = response.jsonPath();
+        setCookie = response.getHeader("Set-Cookie");
+
+        System.out.println("Set Cookie : " + setCookie);
 
         String providerName = jsonPath.get("data.provider_name").toString();
         String otherProviders = jsonPath.get("data.other_providers[0].name").toString();
@@ -67,7 +71,8 @@ public class SKIP_61 {
     public void step03(){
         Response response = given()
                 .when()
-                .header("Test-Authorization",2)
+                .header("Cookie",setCookie)
+                //.header("Test-Authorization",2) // Delete header to get desirable result
                 .get(API_PROFILE)
                 .then().log().all()
                 .extract().response();
@@ -77,15 +82,14 @@ public class SKIP_61 {
         String providerName = jsonPath.get("data.provider_name").toString();
         String otherProviders = jsonPath.get("data.other_providers[0].name").toString();
 
-        //System.out.println(providerName);
-        //System.out.println(otherProviders);
-        // Требуется фикс, тест не проходит
+        System.out.println(providerName);
+        System.out.println(otherProviders);
 
-//        Assert.assertTrue(providerName.equals("Департамент делопроизводства и работы с обращениями " +
-//                "граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
-//        Assert.assertTrue(otherProviders.equals("Отдел делопроизводства и режима Департамента " +
-//                "информационных технологий, связи и защиты информации Министерства внутренних дел " +
-//                "Российской Федерации (ОДиР ДИТСиЗИ МВД России)"));
+        Assert.assertTrue(providerName.equals("Департамент делопроизводства и работы с обращениями " +
+                "граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
+        Assert.assertTrue(otherProviders.equals("Отдел делопроизводства и режима Департамента " +
+                "информационных технологий, связи и защиты информации Министерства внутренних дел " +
+                "Российской Федерации (ОДиР ДИТСиЗИ МВД России)"));
     }
 
     @Test

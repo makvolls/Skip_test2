@@ -9,6 +9,7 @@ import API.DTO.ProvidersDTO.RootSearchProvider;
 import API.DTO.RolesDto.RootResponseRolesDto;
 import API.DTO.RolesDto.RootRolesDto;
 import API.DTO.UserDto.RootResponseUserDto;
+import Utils.RandomGenerateText;
 import autotest.core.util.Assistant;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -40,9 +41,9 @@ public class SKIP_9 {
     RootResponseUserDto upUser;
     RootResponseRolesDto newRole,newRole2;
 
-    String test1=Assistant.generateUniqeTextRussianString(6);
-    String test2=Assistant.generateUniqeTextRussianString(6);
-    String test3=Assistant.generateUniqeTextRussianString(6);
+    String test1= RandomGenerateText.generateUniqeTextRussianString(6);
+    String test2=RandomGenerateText.generateUniqeTextRussianString(6);
+    String test3=RandomGenerateText.generateUniqeTextRussianString(6);
     String idOfficial="5b640f1482a9000012000001";
     String idProvider="525e9f767da3000002000001";
 

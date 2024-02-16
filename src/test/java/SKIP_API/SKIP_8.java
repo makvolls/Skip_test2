@@ -6,6 +6,7 @@ import API.DTO.ErrorsDTO.RootError;
 import API.DTO.RolesDto.RootResponseRolesDto;
 import API.DTO.RolesDto.RootRolesDto;
 import API.DTO.UserDto.RootResponseUserDto;
+import Utils.RandomGenerateText;
 import autotest.core.util.Assistant;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -13,7 +14,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.internal.reflect.InjectableParameter;
 
 import java.util.List;
 
@@ -35,13 +35,13 @@ public class SKIP_8 {
     RootResponseUserDto upUser;
     RootResponseRolesDto newRole,newRole2;
 
-    String name = Assistant.generateUniqeTextRussianString(5);
-    String upName = Assistant.generateUniqeTextRussianString(6);
-    String test1=Assistant.generateUniqeTextRussianString(6);
-    String test2=Assistant.generateUniqeTextRussianString(6);
-    String test3=Assistant.generateUniqeTextRussianString(6);
-    String test4=Assistant.generateUniqeTextRussianString(6);
-    String test5=Assistant.generateUniqeTextRussianString(6);
+    String name = RandomGenerateText.generateUniqeTextRussianString(5);
+    String upName = RandomGenerateText.generateUniqeTextRussianString(6);
+    String test1= RandomGenerateText.generateUniqeTextRussianString(6);
+    String test2=RandomGenerateText.generateUniqeTextRussianString(6);
+    String test3=RandomGenerateText.generateUniqeTextRussianString(6);
+    String test4=RandomGenerateText.generateUniqeTextRussianString(6);
+    String test5=RandomGenerateText.generateUniqeTextRussianString(6);
 
 
     @BeforeClass

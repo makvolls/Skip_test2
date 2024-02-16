@@ -16,17 +16,19 @@ public class SKIP_13 {
     RootSearchProvider updProvider;
     String idProv = "525e9f767da3000002000001";
     String notValidIdProv = "525e9f767da300000200000";
+    int idAut1=1;
+    int idAut3=3;
 
     @Test
     public void Step01() {
-        updProvider = BasicProviders.updateProvider(3, idProv, true);
+        updProvider = BasicProviders.updateProvider(idAut3, idProv, true);
         Assert.assertTrue(updProvider.getData().training);
 
     }
 
     @Test
     public void Step02() {
-        updProvider = BasicProviders.updateProvider(3, idProv, false);
+        updProvider = BasicProviders.updateProvider(idAut3, idProv, false);
         Assert.assertTrue(!updProvider.getData().training);
     }
 
@@ -35,7 +37,7 @@ public class SKIP_13 {
         Response response = given()
                 .when()
                 .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
+                .header("Test-Authorization", idAut1)
                 .put(API_PROVIDERS + notValidIdProv)
                 .then().log().all()
                 .statusCode(404)
@@ -51,7 +53,7 @@ public class SKIP_13 {
         Response response = given()
                 .when()
                 .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
+                .header("Test-Authorization", idAut1)
                 .put(API_PROVIDERS + idProv)
                 .then().log().all()
                 .statusCode(422)

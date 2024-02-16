@@ -3,6 +3,7 @@ package SKIP_API;
 import API.BasicRoles;
 import API.DTO.ErrorsDTO.RootError;
 import API.DTO.RolesDto.RootResponseRolesDto;
+import Utils.RandomGenerateText;
 import autotest.core.util.Assistant;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -17,10 +18,10 @@ public class SKIP_5 {
     int idAut1 = 1;
     int idAut2 = 3;
     int id1, id2, id3, id4;
-    String name = Assistant.generateUniqeTextRussianString(7);
-    String name2 = Assistant.generateUniqeTextRussianString(7);
-    String name3 = Assistant.generateUniqeTextRussianString(7);
-    String name4 = Assistant.generateUniqeTextRussianString(7);
+    String name = RandomGenerateText.generateUniqeTextRussianString(7);
+    String name2 = RandomGenerateText.generateUniqeTextRussianString(7);
+    String name3 = RandomGenerateText.generateUniqeTextRussianString(7);
+    String name4 = RandomGenerateText.generateUniqeTextRussianString(7);
 
     @BeforeClass
     public void newRoles() {

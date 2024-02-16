@@ -6,6 +6,7 @@ import API.DTO.ErrorsDTO.RootError;
 import API.DTO.RolesDto.RootResponseRolesDto;
 import API.DTO.UserDto.RootResponseUserDto;
 import API.DTO.UserDto.RootUserWithId;
+import Utils.RandomGenerateText;
 import autotest.core.util.Assistant;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -32,7 +33,7 @@ public class SKIP_1 {
     int idUser;
     int idRole;
 
-    String test1= Assistant.generateUniqeTextRussianString(7);
+    String test1= RandomGenerateText.generateUniqeTextRussianString(7);
 
 
 

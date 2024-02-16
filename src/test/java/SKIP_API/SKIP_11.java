@@ -16,6 +16,7 @@ public class SKIP_11 {
 
   public static String API_PROVIDERS = "http://api.skip.rtech.ru/v1/permissions/providers";
   RootPermissions searchValue;
+  int idAut1=1;
 
   @Test
   public void step01() {
@@ -28,7 +29,7 @@ public class SKIP_11 {
   public void step02() {
     Response response = given()
             .when()
-            .header("Test-Authorization", 1)
+            .header("Test-Authorization", idAut1)
             .params("name", "деп")
             .get(API_PROVIDERS)
             .then().log().all()
@@ -55,7 +56,7 @@ public class SKIP_11 {
   public void step03() {
     Response response = given()
             .when()
-            .header("Test-Authorization", 1)
+            .header("Test-Authorization", idAut1)
             .params("name", "ДЕП")
             .get(API_PROVIDERS)
             .then().log().all()
@@ -81,7 +82,7 @@ public class SKIP_11 {
   public void step04() {
     Response response = given()
             .when()
-            .header("Test-Authorization", 1)
+            .header("Test-Authorization", idAut1)
             .params("name", "Департамент делопроизводства и работы с " +
                     "обращениями граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)")
             .get(API_PROVIDERS)
@@ -101,7 +102,7 @@ public class SKIP_11 {
   public void step05() {
     Response response = given()
             .when()
-            .header("Test-Authorization", 1)
+            .header("Test-Authorization", idAut1)
             .params("name", "ДДО МВД России")
             .get(API_PROVIDERS)
             .then().log().all()
@@ -121,7 +122,7 @@ public class SKIP_11 {
   public void step06() {
     Response response = given()
             .when()
-            .header("Test-Authorization", 1)
+            .header("Test-Authorization", idAut1)
             .params("id", "5273bd3cef93000033000001")
             .get(API_PROVIDERS)
             .then().log().all()
@@ -142,7 +143,7 @@ public class SKIP_11 {
   public void step07() {
     Response response = given()
             .when()
-            .header("Test-Authorization", 1)
+            .header("Test-Authorization", idAut1)
             .params("id", "1")
             .get(API_PROVIDERS)
             .then().log().all()
@@ -160,7 +161,7 @@ public class SKIP_11 {
   public void step08() {
     Response response = given()
             .when()
-            .header("Test-Authorization", 1)
+            .header("Test-Authorization", idAut1)
             .params("id", "12345678")
             .get(API_PROVIDERS)
             .then().log().all()

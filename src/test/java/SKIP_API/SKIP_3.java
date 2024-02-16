@@ -7,6 +7,7 @@ import API.DTO.ErrorsDTO.RolesErrors.RootNameErrors;
 import API.DTO.ErrorsDTO.RootError;
 import API.DTO.RolesDto.RootResponseRolesDto;
 import API.DTO.UserDto.RootResponseUserDto;
+import Utils.RandomGenerateText;
 import autotest.core.util.Assistant;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -35,7 +36,7 @@ public class SKIP_3 {
     String name = "Автотест111";
     String name2 = "Автотест2";
     String name3 = "Автотест3";
-    String test1= Assistant.generateUniqeTextRussianString(7);
+    String test1= RandomGenerateText.generateUniqeTextRussianString(7);
 
     @BeforeClass
     public void postUser() {

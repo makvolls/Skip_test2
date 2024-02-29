@@ -4,20 +4,26 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static Frontend.common.Config.CLEAR_COOKIES_AND_STORAGE;
+import static Frontend.constants.Constant.URLS.*;
+import static Frontend.constants.Constant.TimeoutVariable.*;
+import static Frontend.pages.base.BasePageXpath.XPATH.*;
+import static Frontend.pages.base.BasePageXpath.AuthorizationParameters.*;
+
 public class BasePage {
 
-    public static final String SUDIS_AUTHORIZATION_PAGE_URL = "http://idp.int.sudis.at-consulting.ru/idp/account/";
-    public static final int IMPLICIT_WAIT = 10;
-    public static final int EXPLICIT_WAIT = 10;
     protected WebDriver driver;
     public BasePage(WebDriver driver){
         this.driver = driver;
     }
+
+    //WebDriverWait wait = new WebDriverWait(driver, IMPLICIT_WAIT);
 
     /**
      * Follow certain link
@@ -32,7 +38,7 @@ public class BasePage {
      * **/
 
     public void openMainPage(){
-        driver.get("http://skip.rtech.ru/");
+        driver.get(SKIP_MAIN_PAGE_URL);
     }
 
     /**
@@ -143,12 +149,12 @@ public class BasePage {
 
     public void authorization(){
         openAuthorizationPage();
-        waitElementDisplay("//button[@class=\"form-button form-button_last form-button_minor\"]");
-        click("//button[@class=\"form-button form-button_last form-button_minor\"]");
-        sendKeys("//input[@id=\"login\"]","authorization_test");
-        sendKeys("//input[@id=\"password\"]","crjhjcnm");
-        click("//button[@type=\"submit\"]");
-        waitElementDisplay("//div[@class=\"col-sm-6 b-title\"]");
+        waitElementDisplay(BUTTON_SIGN_IN_WITH_PASSWORD);
+        click(BUTTON_SIGN_IN_WITH_PASSWORD);
+        sendKeys(INPUT_FIELD_LOGIN,SUDIS_LOGIN);
+        sendKeys(INPUT_FIELD_PASSWORD,SUDIS_PASSWORD);
+        click(BUTTON_SIGN_IN);
+        waitElementDisplay(TITLE_PAGE);
     }
 
     /**
@@ -159,4 +165,27 @@ public class BasePage {
         waitElementDisplay(locator);
         return getText(locator);
     }
+
+    /**
+     * Clear cookies
+     * **/
+
+    public void clearCookiesAndLocalStorage(){
+        if (CLEAR_COOKIES_AND_STORAGE) {
+            JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+            driver.manage().deleteAllCookies();
+            javascriptExecutor.executeScript("window.sessionStorage.clear()");
+        }
+    }
+
+//    /**
+//     * Checking displaying certain element on the page
+//     * @return true - Если элемент не отображается на странице
+//     * ; false - Если элемент отображается на странице
+//     * **/
+//
+//    public boolean isBlockNotDisplayed(String locator){
+//        return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locator)));
+//    }
+
 }

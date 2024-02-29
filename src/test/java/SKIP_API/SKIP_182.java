@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import Frontend.pages.base.BasePage;
 import Frontend.pages.control.PutUnderControlPage;
 
+
 public class SKIP_182{
     private WebDriver driver;
     private BasePage basePage;
@@ -18,6 +19,7 @@ public class SKIP_182{
     public void setup(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+//        driver = CommonActions.createDriver();
         basePage = new BasePage(driver);
         putUnderControlPage = new PutUnderControlPage(driver);
         basePage.setup();
@@ -40,9 +42,53 @@ public class SKIP_182{
     @Test
     public void step02(){
         putUnderControlPage.pressAddAssignment();
-        String titleBlock = putUnderControlPage.getTitleFromBlock();
+        String titleBlock = putUnderControlPage.getTitleAssignmentBlock();
         Assert.assertTrue(titleBlock.equals("Поручение 1"));
         Assert.assertTrue(putUnderControlPage.checkFieldsHeadExecutor());
+    }
+
+    @Test
+    public void step03(){
+        putUnderControlPage.pressAddCoExecutor();
+        Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
+    }
+
+    @Test
+    public void step04(){
+        putUnderControlPage.inputRandomValueCoExecutorTextField();
+        putUnderControlPage.clickButtonYesCoExecutor();
+        Assert.assertTrue(putUnderControlPage.isAddLetterButtonActive());
+    }
+
+    @Test
+    public void step05(){
+        putUnderControlPage.pressButtonAddLetterCoExecutorHeadExecutor();
+        Assert.assertTrue(putUnderControlPage.isFieldsAddLetterCoExecutorHeadExecutorRevealed());
+    }
+
+    @Test
+    public void step06(){
+        putUnderControlPage.pressButtonDeleteCoExOneHeadEx();
+        Assert.assertTrue(putUnderControlPage.isModalWindowRevealed());
+    }
+
+    @Test
+    public void step07(){
+        putUnderControlPage.pressYesDeleteWindowCoExecutor();
+        Assert.assertTrue(putUnderControlPage.isBlockCoExecutorNotDisplayed());
+    }
+
+    @Test
+    public void step08(){
+        putUnderControlPage.pressAddCoExecutor();
+        putUnderControlPage.clickArrowIconCoExecutorHeadExecutor();
+        Assert.assertTrue(putUnderControlPage.isBlockCoExecutorOneNotDisplayed());
+    }
+
+    @Test
+    public void step09(){
+        putUnderControlPage.clickArrowIconCoExecutorHeadExecutor();
+        Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
     }
 
 }

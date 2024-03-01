@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -188,4 +189,14 @@ public class BasePage {
 //        return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locator)));
 //    }
 
+
+
+public void moveToElement(WebDriver driver, String locator) {
+    Actions actions = new Actions(driver);
+    WebElement element = driver.findElement(By.xpath(locator));
+    actions.moveToElement(element).build().perform();
 }
+
+
+}
+

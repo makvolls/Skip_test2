@@ -1,6 +1,7 @@
 package SKIP_API;
 
-import Frontend.common.CommonActions;
+import Frontend.pages.base.BasePage;
+import Frontend.pages.control.PutUnderControlPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.TimeoutException;
@@ -10,21 +11,19 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import Frontend.pages.base.BasePage;
-import Frontend.pages.control.PutUnderControlPage;
 
-
-public class SKIP_182{
+public class SKIP_184 {
     private WebDriver driver;
     private BasePage basePage;
     private PutUnderControlPage putUnderControlPage;
-    private static final Logger logger = Logger.getLogger(SKIP_182.class);
+    private static final Logger logger = Logger.getLogger(SKIP_184.class);
+
     @BeforeTest
     public void setup(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         // In case to run local driver that has a version 122
-//        driver = CommonActions.createDriver();
+        //driver = CommonActions.createDriver();
         basePage = new BasePage(driver);
         putUnderControlPage = new PutUnderControlPage(driver);
         basePage.setup();
@@ -69,9 +68,7 @@ public class SKIP_182{
         try{
             putUnderControlPage.pressAddAssignment();
             logger.info("Press button - 'Добавить поручение'.");
-            String titleBlock = putUnderControlPage.getTitleAssignmentBlock();
-            Assert.assertTrue(titleBlock.equals("Поручение 1"));
-            Assert.assertTrue(putUnderControlPage.isFieldsHeadExecutorRevealed());
+            Assert.assertTrue(putUnderControlPage.isAssignmentOneRevealed());
             logger.info("Step 2 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -91,9 +88,9 @@ public class SKIP_182{
     @Test
     public void step03(){
         try{
-            putUnderControlPage.pressAddCoExecutorHeadEx();
-            logger.info("Press button - 'Добавить соисполнителя'.");
-            Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
+            putUnderControlPage.pressAddAssignment();
+            logger.info("Press button - 'Добавить поручение'.");
+            Assert.assertTrue(putUnderControlPage.isAssignmentTwoRevealed());
             logger.info("Step 3 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -113,11 +110,10 @@ public class SKIP_182{
     @Test
     public void step04(){
         try{
-            putUnderControlPage.inputRandomValueCoExecutorTextField();
-            logger.info("Input a random value to the text field - 'Соисполнитель' in the block 'Соисполнитель 1'.");
-            putUnderControlPage.clickButtonYesCoExecutor();
-            logger.info("Press 'Да' on the form 'Факт предоставления'.");
-            Assert.assertTrue(putUnderControlPage.isAddLetterButtonActive());
+            putUnderControlPage.inputBigValueAssignmentNumber();
+            logger.info("Input value with multiple symbols to the text field " +
+                    "- 'Номер поручения (пункт, абзац и т.д.)'.");
+            Assert.assertTrue(putUnderControlPage.getValueAssignmentTwo().contains("ааааа"));
             logger.info("Step 4 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -137,11 +133,9 @@ public class SKIP_182{
     @Test
     public void step05(){
         try{
-            putUnderControlPage.textFieldCoExecutorClick();
-            logger.info("Click on field 'Соисполнитель'.");
-            putUnderControlPage.pressButtonAddLetterCoExecutorHeadExecutor();
-            logger.info("Press button 'Добавить письмо от соисполнителя'.");
-            Assert.assertTrue(putUnderControlPage.isFieldsAddLetterCoExecutorHeadExecutorRevealed());
+            putUnderControlPage.holdCursorAssignmentTwoTitle();
+            logger.info("Hold cursor on the element with title - 'ааааа...'.");
+            Assert.assertTrue(putUnderControlPage.isTooltipAppeared());
             logger.info("Step 5 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -161,9 +155,9 @@ public class SKIP_182{
     @Test
     public void step06(){
         try{
-            putUnderControlPage.pressButtonDeleteCoExOneHeadEx();
-            logger.info("Press on the button 'Удалить' in the block 'Соисполнитель 1'.");
-            Assert.assertTrue(putUnderControlPage.isModalWindowRevealed());
+            putUnderControlPage.pressButtonSaveExecution();
+            logger.info("Press button - 'Сохранить' in the execution block.");
+            Assert.assertTrue(putUnderControlPage.isButtonSaveOnPage());
             logger.info("Step 6 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -183,9 +177,12 @@ public class SKIP_182{
     @Test
     public void step07(){
         try{
-            putUnderControlPage.pressYesDeleteWindowCoExecutor();
-            logger.info("Press 'Да' in the modal window.");
-            Assert.assertTrue(putUnderControlPage.isBlockCoExecutorNotDisplayed());
+            putUnderControlPage.chooseFirstAssignment();
+            logger.info("Choose first assignment in dropdown menu.");
+            putUnderControlPage.pressButtonRedirectAssignment();
+            logger.info("Press button - 'Перейти' in the block " +
+                    "'Поручения, включенные в документ и подлежащие контролю'.");
+            Assert.assertTrue(putUnderControlPage.isFirstAssignmentSelected());
             logger.info("Step 7 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -205,11 +202,10 @@ public class SKIP_182{
     @Test
     public void step08(){
         try{
-            putUnderControlPage.pressAddCoExecutor();
-            logger.info("Press button 'Добавить соисполнителя'.");
-            putUnderControlPage.clickArrowIconCoExHeadEx();
-            logger.info("Click on the arrow icon element to hide block.");
-            Assert.assertTrue(putUnderControlPage.isBlockCoExecutorOneNotDisplayed());
+            putUnderControlPage.pressTittleNoActiveAssignment();
+            logger.info("Press on title with no active assignment - 'Поручение 1'.");
+            Thread.sleep(2000);
+            Assert.assertTrue(putUnderControlPage.isNamedAssignmentSelected("аааааааааааааааааааа"));
             logger.info("Step 8 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -229,9 +225,12 @@ public class SKIP_182{
     @Test
     public void step09(){
         try{
-            putUnderControlPage.clickArrowIconCoExHeadEx();
-            logger.info("Click on the arrow icon element to reveal block.");
-            Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
+            putUnderControlPage.chooseFirstAssignment();
+            logger.info("Choose first assignment in dropdown menu.");
+            putUnderControlPage.pressButtonRedirectAssignment();
+            logger.info("Press button - 'Перейти' in the block " +
+                    "'Поручения, включенные в документ и подлежащие контролю'.");
+            Assert.assertTrue(putUnderControlPage.isFirstAssignmentSelected());
             logger.info("Step 9 is successfully completed!");
         } catch (TimeoutException timeoutException) {
             logger.error("TimeoutException - " + timeoutException.getMessage());
@@ -247,5 +246,4 @@ public class SKIP_182{
             Assert.fail();
         }
     }
-
 }

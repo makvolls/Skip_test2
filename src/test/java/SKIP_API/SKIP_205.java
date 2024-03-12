@@ -27,8 +27,8 @@ public class SKIP_205 {
     private static String API_DOCUMENT_EXECUTION_STATES = "http://api.skip.rtech.ru" +
             "/v1/classifiers/document_execution_states";
     private static String API_PERIODICITY = "http://api.skip.rtech.ru/v1/classifiers/periodicity";
-    private static String API_OSHS_MVD_OFFICIALS="http://api.skip.rtech.ru/v1/oshs/mvd/officials";
-    private static String API_ORGANIZATIONS="http://api.skip.rtech.ru/v1/oshs/mvd/organizations";
+    private static String API_OSHS_MVD_OFFICIALS= "http://api.skip.rtech.ru/v1/oshs/mvd/officials";
+    private static String API_ORGANIZATIONS = "http://api.skip.rtech.ru/v1/oshs/mvd/organizations";
     // Authorization parameters:
     int userIdOne = 1; // User that have all rights, role id = 29
     int userIdSix = 6; // User that have right - "show_roles"

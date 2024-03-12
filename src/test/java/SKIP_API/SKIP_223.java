@@ -10,7 +10,10 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -20,6 +23,12 @@ public class SKIP_223 {
     private static String API_DOCUMENT_SED = "http://api.skip.rtech.ru/v1/sed/documents";
     private static String API_DOCUMENTS = "http://api.skip.rtech.ru/v1/documents";
     private static String API_IMAGES_SED = "http://api.skip.rtech.ru/v1/sed_images";
+    private static String API_USER = "http://api.skip.rtech.ru/v1/permissions/users";
+    private static String API_CONTROL_SUBJECTS = "http://api.skip.rtech.ru/v1/permissions/control_subjects";
+    private static String API_DOC_TYPE = "http://api.skip.rtech.ru/v1/classifiers/document_types";
+    private static String API_DOCUMENT_EXECUTION_STATES = "http://api.skip.rtech.ru" +
+            "/v1/classifiers/document_execution_states";
+    private static String API_OSHS_MVD_OFFICIALS= "http://api.skip.rtech.ru/v1/oshs/mvd/officials";
 
     // Authorization parameters:
     int userIdOne = 1; // User that have all rights, role id = 29
@@ -29,13 +38,17 @@ public class SKIP_223 {
     int idControlSubject; // Created control subject value
     int idDocumentExecutionState; // Created document execution state value
     int idDocumentType; // Created document type value
-    int idDeadlineBases; // Created deadline bases values.
-    int idMark = 24;
-    int idCreatedDocument;
-    int idImageNotRecognized = 36; // From testcase
+    String idRandomOfficial; // Random official
+    int idMark = 24; // Value for mark_id from testcase
+    int idCreatedDocument; // Document's id that will be created in step 2
+    int idImageNotRecognized = 36; // Value for image's id from testcase
 
     // UUID document that has 10 links from SED
     String uuid = "02b2ac9dd0ecb336f15a4dc312dfcd1eb33f252e27cab32d2162ffbec1f624e510";
+
+    // Name for created element
+    String nameTemplate = "SKIP_223_Autotest";
+    String shortNameTemplate = "SKIP_223";
 
     // Variables for image's fields
     // First file :
@@ -194,11 +207,142 @@ public class SKIP_223 {
     @BeforeTest
     public void setup(){
         logger.info("Before test method is running.");
+
+        // Check that user with id 6 has role with id = 5
+        Response response = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", 1)
+                .get(API_USER + "/6");
+
+        JsonPath jsonPath = response.jsonPath();
+
+        String roleId = jsonPath.getString("data.roles[0].id");
+
+        if (roleId.equals("5")){
+            logger.info("User has role id - 5");
+        } else {
+            logger.info("User has role id - " + roleId);
+            // Change role id
+            String requestBody = "{\"role_ids\": [5]}";
+            Response responseChangeRoleId = given()
+                    .when()
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", 1)
+                    .body(requestBody)
+                    .put(API_USER + "/6");
+
+            JsonPath jsonPathChangeRoleId = responseChangeRoleId.jsonPath();
+
+            String roleIdUpdated = jsonPathChangeRoleId.getString("data.roles[0].id");
+
+            logger.info("New role id - " + roleIdUpdated);
+        }
+
+        // Create control_subject
+        String requestBody = String.format(
+                "{\"control_subjects\":[{\"name\": \"%s\",\"fax_number\":\"%s\",\"deleted\":%s,\"provider_id\":\"%s\"}]}"
+                , nameTemplate, "1", false, "525e9f767da3000002000001");
+        Response responseControlSubjectCreate = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", 1)
+                .body(requestBody)
+                .put(API_CONTROL_SUBJECTS);
+
+        JsonPath jsonPathControlSubjectsCreate = responseControlSubjectCreate.jsonPath();
+
+        int id = jsonPathControlSubjectsCreate.getInt("data.find { it.name == '" + nameTemplate + "' }.id");
+        logger.info("Created element's id - " + id);
+        idControlSubject = id;
+
+        // Create document execution state
+        Map<String, String> requestBodyDocumentExSt = new HashMap<>();
+        requestBodyDocumentExSt.put("name", nameTemplate);
+        requestBodyDocumentExSt.put("short_name", shortNameTemplate);
+        requestBodyDocumentExSt.put("excluded", "false");
+        Response responseDocumentExecutionStateCreate = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", 1)
+                .body(requestBodyDocumentExSt)
+                .post(API_DOCUMENT_EXECUTION_STATES);
+
+        JsonPath jsonPathDocumentExecutionStateCreate = responseDocumentExecutionStateCreate.jsonPath();
+        idDocumentExecutionState = jsonPathDocumentExecutionStateCreate.getInt("data.id");
+        logger.info("Id document ex state - " + idDocumentExecutionState);
+
+        // Create document type
+        Map<String,Object> requestBodyDocumentType = new HashMap<>();
+        requestBodyDocumentType.put("name",nameTemplate);
+        requestBodyDocumentType.put("short_name",shortNameTemplate);
+        requestBodyDocumentType.put("internal", false);
+        requestBodyDocumentType.put("genitive_name",shortNameTemplate);
+        requestBodyDocumentType.put("excluded", true);
+        Response responseDocumentTypeCreate = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", 1)
+                .body(requestBodyDocumentType)
+                .post(API_DOC_TYPE);
+
+        JsonPath jsonPathDocumentTypeCreate = responseDocumentTypeCreate.jsonPath();
+        idDocumentType = jsonPathDocumentTypeCreate.getInt("data.id");
+        logger.info("Created document type id - " + idDocumentType);
+
+        // Random official from officials_oshs_mvd
+        Response responseOfficials = given()
+                .when()
+                .params("items","100")
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", 1)
+                .get(API_OSHS_MVD_OFFICIALS);
+
+        JsonPath jsonPathOfficials = responseOfficials.jsonPath();
+
+        List<String> idOfficials = jsonPathOfficials.getList("data.id");
+        Random randomOff = new Random();
+        String randomIdOff = idOfficials.get(randomOff.nextInt(idOfficials.size()));
+        logger.info("Random id : " + randomIdOff);
+        idRandomOfficial = randomIdOff;
     }
 
     @AfterTest
     public void tearDown(){
         logger.info("After test method is running.");
+
+        // Delete control_subject_id
+        String requestBodyCS = "{\n" +
+                "  \"control_subjects\": [\n" +
+                "    {\n" +
+                "      \"id\": " + idControlSubject + ",\n" +
+                "      \"provider_id\": \"525e9f767da3000002000001\",\n" +
+                "      \"deleted\": true\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+        Response responseControlSubjectDelete = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", 1)
+                .body(requestBodyCS)
+                .put(API_CONTROL_SUBJECTS);
+
+        logger.info("Created control subject was deleted.");
+
+        // Delete document execution state
+        Response responseDESDeleteFirst = (Response) given()
+                .header("Test-Authorization", 1)
+                .delete(API_DOCUMENT_EXECUTION_STATES + String.format("/%s",idDocumentExecutionState));
+
+        logger.info("Created document execution state was deleted.");
+
+        // Delete document type
+        Response responseDocumentType = (Response) given()
+                .header("Test-Authorization", 1)
+                .delete(API_DOC_TYPE + String.format("/%s",idDocumentType));
+
+        logger.info("Created document type was deleted.");
     }
 
     @Test
@@ -358,14 +502,13 @@ public class SKIP_223 {
 
     @Test
     public void step02(){
-
         JsonObject requestDocuments = new JsonObject();
         requestDocuments.addProperty("skip_reg_date", "2024-02-20T06:06:31.485Z");
-        requestDocuments.addProperty("control_official_id", "54e35f6179fa007422000001");
-        requestDocuments.addProperty("control_subject_id", 83);
+        requestDocuments.addProperty("control_official_id", idRandomOfficial);
+        requestDocuments.addProperty("control_subject_id", idControlSubject);
         requestDocuments.addProperty("document_name", "Тест 429");
-        requestDocuments.addProperty("document_execution_state_id", 11);
-        requestDocuments.addProperty("skip_document_type_id", 32);
+        requestDocuments.addProperty("document_execution_state_id", idDocumentExecutionState);
+        requestDocuments.addProperty("skip_document_type_id", idDocumentType);
         requestDocuments.addProperty("internal", false);
         requestDocuments.addProperty("short_description", "429");
 
@@ -575,7 +718,7 @@ public class SKIP_223 {
 
     @Test
     public void step04(){
-        // Need to write SQL request through SSL
+        // Шаг не автоматизирован.
         /**
          * 1) Connect to database.
          * 2) Execute script  :
@@ -584,6 +727,7 @@ public class SKIP_223 {
          * WHERE recognition_state is null;
          * 3) Get first id and store it - idImageNotRecognized
          * **/
+        logger.info("Step 4 successfully completed!");
     }
 
     @Test

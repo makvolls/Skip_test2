@@ -21,6 +21,7 @@ import static io.restassured.RestAssured.given;
 
 
 public class SKIP_1 {
+    
 
     RootUserWithId actual;
     RootError actual2;

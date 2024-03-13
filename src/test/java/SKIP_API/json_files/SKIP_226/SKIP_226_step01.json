@@ -1,0 +1,782 @@
+{
+  "data": {
+    "row_types": [
+      {
+        "id": "documents",
+        "name": "Документы"
+      },
+      {
+        "id": "assignments",
+        "name": "Поручения"
+      },
+      {
+        "id": "deadlines",
+        "name": "Сроки"
+      },
+      {
+        "id": "events",
+        "name": "События"
+      }
+    ],
+    "fields": [
+      {
+        "id": "document.skip_reg_number",
+        "name": "Рег. № СКИП",
+        "type": "integer",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.skip_reg_date",
+        "name": "Дата СКИП",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.not_sed_document",
+        "name": "Документ не из СЭД",
+        "type": "boolean",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.sed_reg_number",
+        "name": "Рег. № документа СЭД (ОДИР)",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.sed_document_date",
+        "name": "Дата документа СЭД (ОДИР)",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.sed_security_stamp_id",
+        "name": "Гриф СЭД (ОДИР)",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/security_classifications"
+      },
+      {
+        "id": "document.single_number",
+        "name": "Единый номер документа СЭД",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.ddo_external_document_date",
+        "name": "Дата СЭД подр. отпр.",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.ddo_external_document_number",
+        "name": "№ СЭД подр. отпр.",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.ddo_security_stamp_id",
+        "name": "Гриф СЭД подр. отпр.",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/security_classifications"
+      },
+      {
+        "id": "document.urgency_id",
+        "name": "Срочность",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/urgencies"
+      },
+      {
+        "id": "document.came_from",
+        "name": "Откуда поступил документ",
+        "type": "association",
+        "polymorphic": true,
+        "allow_manual": true,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Organization&types[]=Oshs::Esd::Organization"
+      },
+      {
+        "id": "document.external_reg_date",
+        "name": "Дата поступившего документа",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.external_document_number",
+        "name": "№ поступившего документа",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.external_security_stamp_id",
+        "name": "Гриф пост. док.",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/security_classifications"
+      },
+      {
+        "id": "document.signer",
+        "name": "Подписал",
+        "type": "association",
+        "polymorphic": true,
+        "allow_manual": true,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "document.recipient",
+        "name": "Получатель",
+        "type": "association",
+        "polymorphic": true,
+        "allow_manual": true,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "document.sed_document_type",
+        "name": "Вид документа в СЭД",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.resolution",
+        "name": "Резолюции",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.short_description",
+        "name": "Краткое содержание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.sed_note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.control_from_official_id",
+        "name": "Кем поставлен на контроль",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "document.control_official_head_id",
+        "name": "Руководитель контролирующего сотрудника",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "document.control_subject_id",
+        "name": "Субъект контроля",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/permissions/control_subjects"
+      },
+      {
+        "id": "document.control_official_id",
+        "name": "Контролирующий сотрудник",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "document.document_name",
+        "name": "Наименование контролируемого документа",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.document_date",
+        "name": "Дата создания документа\"",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.document_number",
+        "name": "Номер документа",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.security_stamp_id",
+        "name": "Гриф документа",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/security_classifications"
+      },
+      {
+        "id": "document.document_execution_state_id",
+        "name": "Состояние исполнения документа",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/document_execution_states"
+      },
+      {
+        "id": "document.skip_document_type_id",
+        "name": "Вид документа в СКИП",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/document_types"
+      },
+      {
+        "id": "document.internal",
+        "name": "Внутренний",
+        "type": "boolean",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "document.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "assignment.number",
+        "name": "Номер поручения",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "assignment.theme_ids",
+        "name": "Тематика поручения",
+        "type": "associations",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/themes"
+      },
+      {
+        "id": "assignment.content",
+        "name": "Содержание поручения",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "assignment.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executor.head_executor_id",
+        "name": "Головной исполнитель",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Esd::Organization"
+      },
+      {
+        "id": "head_executor.deadline_basis_id",
+        "name": "Основание срока",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/deadline_bases"
+      },
+      {
+        "id": "head_executor.periodicity_id",
+        "name": "Периодичность",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/periodicity"
+      },
+      {
+        "id": "head_executor.start_date",
+        "name": "Дата начала",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executor.deadline_date",
+        "name": "Срок исполнения",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executor.execution_state_id",
+        "name": "Состояние исполнения",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/assignment_execution_states"
+      },
+      {
+        "id": "head_executor.period_in_days",
+        "name": "Период в днях",
+        "type": "integer",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executor.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executors_deadline.deadline_date",
+        "name": "Дата контрольного срока",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executors_deadline.deadline_basis_id",
+        "name": "Основание срока",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/deadline_bases"
+      },
+      {
+        "id": "head_executors_deadline.content",
+        "name": "Содержание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executors_co_executor.co_executor",
+        "name": "Соисполнитель",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": true,
+        "path": "/v1/oshs?types[]=Oshs::Esd::Organization"
+      },
+      {
+        "id": "head_executors_co_executor.provided",
+        "name": "Факт представления",
+        "type": "boolean",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "head_executors_letter.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executors_deadline_calculation.periodicity_id",
+        "name": "Периодичность",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/periodicity"
+      },
+      {
+        "id": "executors_deadline_calculation.periodicity_day",
+        "name": "Период в днях",
+        "type": "integer",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executors_deadline_calculation.start_date",
+        "name": "Дата начала",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executors_deadline_calculation.deadline_date",
+        "name": "Срок исполнения",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executors_deadline_calculation.deadline_basis_id",
+        "name": "Основание срока",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/deadline_bases"
+      },
+      {
+        "id": "executors_deadline_calculation.execution_state_id",
+        "name": "Состояние исполнения",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/assignment_execution_states"
+      },
+      {
+        "id": "executors_deadline_calculation.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executors_deadline.deadline_date",
+        "name": "Дата контрольного срока",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executors_deadline.deadline_basis_id",
+        "name": "Основание срока",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/deadline_bases"
+      },
+      {
+        "id": "executors_deadline.content",
+        "name": "Содержание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executor.organization_id",
+        "name": "Подразделение исполнителя",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Organization"
+      },
+      {
+        "id": "executor.executor_id",
+        "name": "Исполнитель",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executor.control_employee_id",
+        "name": "Контролирующий сотрудник в подразделении исполнителя",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executor.executor_head_id",
+        "name": "Руководитель исполнителя",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executor.organization_head_id",
+        "name": "Рук. отв. за подразделение",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executor.execution_deputy_head_id",
+        "name": "Зам. рук. подр. отв. за исп. поручения",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executor.control_deputy_head_id",
+        "name": "Зам. рук. подр. отв. за контроль",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executors_co_executor.organization",
+        "name": "Подразделение соисполнителя",
+        "type": "association",
+        "polymorphic": true,
+        "allow_manual": true,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Organization&types[]=Oshs::Esd::Organization"
+      },
+      {
+        "id": "executors_co_executor.co_executor",
+        "name": "Соисполнитель",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": true,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executors_co_executor.head_co_executor",
+        "name": "Руководитель соиспонителя",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": true,
+        "path": "/v1/oshs?types[]=Oshs::Mvd::Official"
+      },
+      {
+        "id": "executors_co_executor.provided",
+        "name": "Факт представления",
+        "type": "boolean",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "executors_letter.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "execution.deadline_date",
+        "name": "Дата контрольного срока",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "execution.deadline_basis_id",
+        "name": "Основание даты контроля",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/deadline_bases"
+      },
+      {
+        "id": "execution.control_state_id",
+        "name": "Состояние контроля",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/control_period_states"
+      },
+      {
+        "id": "execution.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "execution.actual_info",
+        "name": "Актуальная информация",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "event.event_id",
+        "name": "Событие",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/events"
+      },
+      {
+        "id": "event.state_id",
+        "name": "Состояние",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/event_states"
+      },
+      {
+        "id": "event.basis_id",
+        "name": "Основание",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/deadline_bases"
+      },
+      {
+        "id": "event.content",
+        "name": "Содержание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "event.note",
+        "name": "Примечание",
+        "type": "string",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      },
+      {
+        "id": "event.control_state_id",
+        "name": "Состояние контроля",
+        "type": "association",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": "/v1/classifiers/control_period_states"
+      },
+      {
+        "id": "event.new_deadline_date",
+        "name": "Новая дата контрольного срока",
+        "type": "date",
+        "polymorphic": null,
+        "allow_manual": null,
+        "path": null
+      }
+    ],
+    "conditions": [
+      {
+        "id": "equal",
+        "name": "Точное совпадение",
+        "field_types": [
+          "string",
+          "association",
+          "associations",
+          "integer",
+          "datetime",
+          "date",
+          "boolean"
+        ]
+      },
+      {
+        "id": "not_equal",
+        "name": "Не",
+        "field_types": [
+          "string",
+          "association",
+          "associations",
+          "integer",
+          "datetime",
+          "date",
+          "boolean"
+        ]
+      },
+      {
+        "id": "regexp",
+        "name": "Частичное совпадение",
+        "field_types": [
+          "string"
+        ]
+      },
+      {
+        "id": "interval",
+        "name": "Интервал",
+        "field_types": [
+          "integer",
+          "datetime",
+          "date"
+        ]
+      },
+      {
+        "id": "empty",
+        "name": "Пусто",
+        "field_types": [
+          "string",
+          "association",
+          "associations",
+          "integer",
+          "datetime",
+          "date"
+        ]
+      }
+    ],
+    "date_formats": [
+      {
+        "id": "%d.%m.%Y",
+        "name": "ДД.ММ.ГГГГ"
+      },
+      {
+        "id": "%d/%m/%Y",
+        "name": "ДД/ММ/ГГГГ"
+      },
+      {
+        "id": "%d-%m-%Y",
+        "name": "ДД-ММ-ГГГГ"
+      },
+      {
+        "id": "%d %B %Y",
+        "name": "ДД <месяц в Р.п.> ГГГГ"
+      },
+      {
+        "id": "%B %Y",
+        "name": "<месяц> ГГГГ"
+      }
+    ]
+  }
+}

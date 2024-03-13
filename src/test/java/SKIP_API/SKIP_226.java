@@ -11,26 +11,24 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class SKIP_4 {
+public class SKIP_226 {
     int idAut1 = 1;
-
-    public static String API_RIGHTS = "http://api.skip.rtech.ru/v1/permissions/rights";
+    String API_TABULAR_REPORTS = "http://api.skip.rtech.ru/v1/constructor/tabular_reports/classifiers";
 
     @Test
-    public void Step01() throws IOException, JSONException {
+    public void step01() throws IOException, JSONException {
+
         String expectedJson = new String(Files.readAllBytes(Paths
-                .get("src/test/java/SKIP_API/json_files/SKIP_4/SKIP_4_step01.json")));
+                .get("src/test/java/SKIP_API/json_files/SKIP_226/SKIP_226_step01.json")));
         Response response = given()
+                .when()
+                .header("Content-Type", "application/json")
                 .header("Test-Authorization", idAut1)
-                .log().all()
-                .get(API_RIGHTS)
+                .get(API_TABULAR_REPORTS)
                 .then().log().all()
                 .extract().response();
         String jsonResponse = response.getBody().asString();
 
         JSONAssert.assertEquals(expectedJson, jsonResponse, true);
-
     }
 }
-
-

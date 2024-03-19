@@ -209,102 +209,116 @@ public class SKIP_223 {
         logger.info("Before test method is running.");
 
         // Check that user with id 6 has role with id = 5
-        Response response = given()
-                .when()
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
-                .get(API_USER + "/6");
+        try {
+            Response response = given()
+                    .when()
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", 1)
+                    .get(API_USER + "/6");
+            JsonPath jsonPath = response.jsonPath();
+            String roleId = jsonPath.getString("data.roles[0].id");
+            if (roleId.equals("5")){
+                logger.info("User has role id - 5");
+            } else {
+                logger.info("User has role id - " + roleId);
+                // Change role id
+                String requestBody = "{\"role_ids\": [5]}";
+                Response responseChangeRoleId = given()
+                        .when()
+                        .header("Content-Type", "application/json")
+                        .header("Test-Authorization", 1)
+                        .body(requestBody)
+                        .put(API_USER + "/6");
+                JsonPath jsonPathChangeRoleId = responseChangeRoleId.jsonPath();
+                String roleIdUpdated = jsonPathChangeRoleId.getString("data.roles[0].id");
+                logger.info("New role id - " + roleIdUpdated);
+            }
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
+        }
 
-        JsonPath jsonPath = response.jsonPath();
-
-        String roleId = jsonPath.getString("data.roles[0].id");
-
-        if (roleId.equals("5")){
-            logger.info("User has role id - 5");
-        } else {
-            logger.info("User has role id - " + roleId);
-            // Change role id
-            String requestBody = "{\"role_ids\": [5]}";
-            Response responseChangeRoleId = given()
+        // Create control_subject
+        try {
+            String requestBody = String.format(
+                    "{\"control_subjects\":[{\"name\": \"%s\",\"fax_number\":\"%s\",\"deleted\":%s,\"provider_id\":\"%s\"}]}"
+                    , nameTemplate, "1", false, "525e9f767da3000002000001");
+            Response responseControlSubjectCreate = given()
                     .when()
                     .header("Content-Type", "application/json")
                     .header("Test-Authorization", 1)
                     .body(requestBody)
-                    .put(API_USER + "/6");
-
-            JsonPath jsonPathChangeRoleId = responseChangeRoleId.jsonPath();
-
-            String roleIdUpdated = jsonPathChangeRoleId.getString("data.roles[0].id");
-
-            logger.info("New role id - " + roleIdUpdated);
+                    .put(API_CONTROL_SUBJECTS);
+            JsonPath jsonPathControlSubjectsCreate = responseControlSubjectCreate.jsonPath();
+            int id = jsonPathControlSubjectsCreate.getInt("data.find { it.name == '" + nameTemplate + "' }.id");
+            logger.info("Created element's id - " + id);
+            idControlSubject = id;
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
         }
 
-        // Create control_subject
-        String requestBody = String.format(
-                "{\"control_subjects\":[{\"name\": \"%s\",\"fax_number\":\"%s\",\"deleted\":%s,\"provider_id\":\"%s\"}]}"
-                , nameTemplate, "1", false, "525e9f767da3000002000001");
-        Response responseControlSubjectCreate = given()
-                .when()
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
-                .body(requestBody)
-                .put(API_CONTROL_SUBJECTS);
-
-        JsonPath jsonPathControlSubjectsCreate = responseControlSubjectCreate.jsonPath();
-
-        int id = jsonPathControlSubjectsCreate.getInt("data.find { it.name == '" + nameTemplate + "' }.id");
-        logger.info("Created element's id - " + id);
-        idControlSubject = id;
-
         // Create document execution state
-        Map<String, String> requestBodyDocumentExSt = new HashMap<>();
-        requestBodyDocumentExSt.put("name", nameTemplate);
-        requestBodyDocumentExSt.put("short_name", shortNameTemplate);
-        requestBodyDocumentExSt.put("excluded", "false");
-        Response responseDocumentExecutionStateCreate = given()
-                .when()
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
-                .body(requestBodyDocumentExSt)
-                .post(API_DOCUMENT_EXECUTION_STATES);
-
-        JsonPath jsonPathDocumentExecutionStateCreate = responseDocumentExecutionStateCreate.jsonPath();
-        idDocumentExecutionState = jsonPathDocumentExecutionStateCreate.getInt("data.id");
-        logger.info("Id document ex state - " + idDocumentExecutionState);
+        try {
+            Map<String, String> requestBodyDocumentExSt = new HashMap<>();
+            requestBodyDocumentExSt.put("name", nameTemplate);
+            requestBodyDocumentExSt.put("short_name", shortNameTemplate);
+            requestBodyDocumentExSt.put("excluded", "false");
+            Response responseDocumentExecutionStateCreate = given()
+                    .when()
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", 1)
+                    .body(requestBodyDocumentExSt)
+                    .post(API_DOCUMENT_EXECUTION_STATES);
+            JsonPath jsonPathDocumentExecutionStateCreate = responseDocumentExecutionStateCreate.jsonPath();
+            idDocumentExecutionState = jsonPathDocumentExecutionStateCreate.getInt("data.id");
+            logger.info("Id document ex state - " + idDocumentExecutionState);
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
+        }
 
         // Create document type
-        Map<String,Object> requestBodyDocumentType = new HashMap<>();
-        requestBodyDocumentType.put("name",nameTemplate);
-        requestBodyDocumentType.put("short_name",shortNameTemplate);
-        requestBodyDocumentType.put("internal", false);
-        requestBodyDocumentType.put("genitive_name",shortNameTemplate);
-        requestBodyDocumentType.put("excluded", true);
-        Response responseDocumentTypeCreate = given()
-                .when()
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
-                .body(requestBodyDocumentType)
-                .post(API_DOC_TYPE);
-
-        JsonPath jsonPathDocumentTypeCreate = responseDocumentTypeCreate.jsonPath();
-        idDocumentType = jsonPathDocumentTypeCreate.getInt("data.id");
-        logger.info("Created document type id - " + idDocumentType);
+        try {
+            Map<String,Object> requestBodyDocumentType = new HashMap<>();
+            requestBodyDocumentType.put("name",nameTemplate);
+            requestBodyDocumentType.put("short_name",shortNameTemplate);
+            requestBodyDocumentType.put("internal", false);
+            requestBodyDocumentType.put("genitive_name",shortNameTemplate);
+            requestBodyDocumentType.put("excluded", true);
+            Response responseDocumentTypeCreate = given()
+                    .when()
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", 1)
+                    .body(requestBodyDocumentType)
+                    .post(API_DOC_TYPE);
+            JsonPath jsonPathDocumentTypeCreate = responseDocumentTypeCreate.jsonPath();
+            idDocumentType = jsonPathDocumentTypeCreate.getInt("data.id");
+            logger.info("Created document type id - " + idDocumentType);
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
+        }
 
         // Random official from officials_oshs_mvd
-        Response responseOfficials = given()
-                .when()
-                .params("items","100")
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
-                .get(API_OSHS_MVD_OFFICIALS);
+        try {
+            Response responseOfficials = given()
+                    .when()
+                    .params("items","100")
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", 1)
+                    .get(API_OSHS_MVD_OFFICIALS);
 
-        JsonPath jsonPathOfficials = responseOfficials.jsonPath();
-
-        List<String> idOfficials = jsonPathOfficials.getList("data.id");
-        Random randomOff = new Random();
-        String randomIdOff = idOfficials.get(randomOff.nextInt(idOfficials.size()));
-        logger.info("Random id : " + randomIdOff);
-        idRandomOfficial = randomIdOff;
+            JsonPath jsonPathOfficials = responseOfficials.jsonPath();
+            List<String> idOfficials = jsonPathOfficials.getList("data.id");
+            Random randomOff = new Random();
+            String randomIdOff = idOfficials.get(randomOff.nextInt(idOfficials.size()));
+            logger.info("Random id : " + randomIdOff);
+            idRandomOfficial = randomIdOff;
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
+        }
     }
 
     @AfterTest
@@ -312,37 +326,49 @@ public class SKIP_223 {
         logger.info("After test method is running.");
 
         // Delete control_subject_id
-        String requestBodyCS = "{\n" +
-                "  \"control_subjects\": [\n" +
-                "    {\n" +
-                "      \"id\": " + idControlSubject + ",\n" +
-                "      \"provider_id\": \"525e9f767da3000002000001\",\n" +
-                "      \"deleted\": true\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
-        Response responseControlSubjectDelete = given()
-                .when()
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
-                .body(requestBodyCS)
-                .put(API_CONTROL_SUBJECTS);
-
-        logger.info("Created control subject was deleted.");
+        try {
+            String requestBodyCS = "{\n" +
+                    "  \"control_subjects\": [\n" +
+                    "    {\n" +
+                    "      \"id\": " + idControlSubject + ",\n" +
+                    "      \"provider_id\": \"525e9f767da3000002000001\",\n" +
+                    "      \"deleted\": true\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+            Response responseControlSubjectDelete = given()
+                    .when()
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", 1)
+                    .body(requestBodyCS)
+                    .put(API_CONTROL_SUBJECTS);
+            logger.info("Created control subject was deleted.");
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
+        }
 
         // Delete document execution state
-        Response responseDESDeleteFirst = (Response) given()
-                .header("Test-Authorization", 1)
-                .delete(API_DOCUMENT_EXECUTION_STATES + String.format("/%s",idDocumentExecutionState));
-
-        logger.info("Created document execution state was deleted.");
+        try {
+            Response responseDESDeleteFirst = (Response) given()
+                    .header("Test-Authorization", 1)
+                    .delete(API_DOCUMENT_EXECUTION_STATES + String.format("/%s",idDocumentExecutionState));
+            logger.info("Created document execution state was deleted.");
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
+        }
 
         // Delete document type
-        Response responseDocumentType = (Response) given()
-                .header("Test-Authorization", 1)
-                .delete(API_DOC_TYPE + String.format("/%s",idDocumentType));
-
-        logger.info("Created document type was deleted.");
+        try {
+            Response responseDocumentType = (Response) given()
+                    .header("Test-Authorization", 1)
+                    .delete(API_DOC_TYPE + String.format("/%s",idDocumentType));
+            logger.info("Created document type was deleted.");
+        } catch (Exception e) {
+            logger.error("Error : " + e.getMessage());
+            Assert.fail();
+        }
     }
 
     @Test
@@ -358,8 +384,7 @@ public class SKIP_223 {
             logger.info("Data is not null.");
 
             sed_id_first = jsonPath.getString("data.images[0].sed_id");
-            name_first = jsonPath.getString("data.images[0].name");
-            full_name_first = jsonPath.getString("data.images[0].full_name");
+            name_first = jsonPath.getString("data.images[0].name");full_name_first = jsonPath.getString("data.images[0].full_name");
             pdf_name_first = jsonPath.getString("data.images[0].pdf_name");
             original_name_first = jsonPath.getString("data.images[0].original_name");
             system_code_first = jsonPath.getString("data.images[0].system_code");
@@ -699,7 +724,7 @@ public class SKIP_223 {
                     .when()
                     .header("Content-Type", "application/json")
                     .header("Test-Authorization", userIdOne)
-                    .post(API_DOCUMENTS + String.format("/%s", idCreatedDocument));
+                    .get(API_DOCUMENTS + String.format("/%s", idCreatedDocument));
             JsonPath jsonPath = response.jsonPath();
 
             List<String> imagesNames = jsonPath.getList("data.sed_images.name");
@@ -737,8 +762,7 @@ public class SKIP_223 {
                     .when()
                     .header("Content-Type", "application/json")
                     .header("Test-Authorization", userIdOne)
-                    .post(API_IMAGES_SED + String.format("/%s/recognized", idImageNotRecognized));
-            //JsonPath jsonPath = response.jsonPath();
+                    .post(API_IMAGES_SED + String.format("/%s/recognize", idImageNotRecognized));
 
             int statusCode = response.getStatusCode();
             Assert.assertTrue(statusCode == 204);
@@ -760,7 +784,7 @@ public class SKIP_223 {
                     .when()
                     .header("Content-Type", "application/json")
                     .header("Test-Authorization", userIdSix)
-                    .post(API_IMAGES_SED + String.format("/%s/recognized", idImageNotRecognized));
+                    .post(API_IMAGES_SED + String.format("/%s/recognize", idImageNotRecognized));
             JsonPath jsonPath = response.jsonPath();
 
             String errorMessage = jsonPath.getString("error");

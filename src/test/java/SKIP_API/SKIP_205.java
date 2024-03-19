@@ -362,11 +362,30 @@ public class SKIP_205 {
             }
         }
 
+        // Firstfully create event_state_id
+        // Create state_id - event_state
+        Map<String,Object> requestBodyEventState = new HashMap<>();
+        requestBodyEventState.put("name",nameTemplate);
+        requestBodyEventState.put("excluded", true);
+        Response responseEventStateCreate = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", 1)
+                .body(requestBodyEventState)
+                .post(API_EVENT_STATES)
+                .then().log().all()
+                .extract().response();
+
+        JsonPath jsonPathEventStateCreate = responseEventStateCreate.jsonPath();
+        idCreatedState = jsonPathEventStateCreate.getInt("data.id");
+        System.out.println("Created event state id - " + idCreatedState);
+
         // Create new events
         Map<String,Object> requestBodyEvents = new HashMap<>();
         requestBodyEvents.put("name",nameTemplate);
         requestBodyEvents.put("short_name",shortNameTemplate);
-        List<Integer> event_state_ids_value = Collections.singletonList(48);
+//        List<Integer> event_state_ids_value = Collections.singletonList(48);
+        List<Integer> event_state_ids_value = Collections.singletonList(idCreatedState);
         requestBodyEvents.put("event_state_ids",event_state_ids_value);
         requestBodyEvents.put("excluded", true);
         Response responseEventsCreate = given()
@@ -408,22 +427,23 @@ public class SKIP_205 {
                 System.out.println("Event with id = 151 represented in list.");
             }
         }
-        // Create state_id - event_state
-        Map<String,Object> requestBodyEventState = new HashMap<>();
-        requestBodyEventState.put("name",nameTemplate);
-        requestBodyEventState.put("excluded", true);
-        Response responseEventStateCreate = given()
-                .when()
-                .header("Content-Type", "application/json")
-                .header("Test-Authorization", 1)
-                .body(requestBodyEventState)
-                .post(API_EVENT_STATES)
-                .then().log().all()
-                .extract().response();
 
-        JsonPath jsonPathEventStateCreate = responseEventStateCreate.jsonPath();
-        idCreatedState = jsonPathEventStateCreate.getInt("data.id");
-        System.out.println("Created event state id - " + idCreatedState);
+//        // Create state_id - event_state
+//        Map<String,Object> requestBodyEventState = new HashMap<>();
+//        requestBodyEventState.put("name",nameTemplate);
+//        requestBodyEventState.put("excluded", true);
+//        Response responseEventStateCreate = given()
+//                .when()
+//                .header("Content-Type", "application/json")
+//                .header("Test-Authorization", 1)
+//                .body(requestBodyEventState)
+//                .post(API_EVENT_STATES)
+//                .then().log().all()
+//                .extract().response();
+//
+//        JsonPath jsonPathEventStateCreate = responseEventStateCreate.jsonPath();
+//        idCreatedState = jsonPathEventStateCreate.getInt("data.id");
+//        System.out.println("Created event state id - " + idCreatedState);
 
         // Create control_state_id. Check that id = 62 existed
         // Create control_period_state

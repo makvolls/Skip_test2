@@ -957,40 +957,40 @@ public class SKIP_150 {
 
     @Test
     public void step13(){
-            String requestBody = "{\n" +
-                    "    \"assignments\": [\n" +
-                    "        {\n" +
-                    "            \"id\": " + idCreatedAssignment + ",\n" +
-                    "            \"head_executor\": {\n" +
-                    "                \"id\": " + idCreatedHeadExecutor + ",\n" +
-                    "                \"co_executors\": [\n" +
-                    "                    {\n" +
-                    "                        \"id\": " + idCreatedCoExecutor + ",\n" +
-                    "                        \"letters\": [\n" +
-                    "                            {\n" +
-                    "                                \"id\": " + idFirstLetter + ",\n" +
-                    "                                \"document_type\": \"Documents::Document\",\n" +
-                    "                                \"document_id\": 101,\n" +
-                    "                                \"document_name\": \"1\",\n" +
-                    "                                \"note\": \"string\",\n" +
-                    "                                \"deleted\": true\n" +
-                    "                            }\n" +
-                    "                        ]\n" +
-                    "                    }\n" +
-                    "                ]\n" +
-                    "            }\n" +
-                    "        }\n" +
-                    "    ]\n" +
-                    "}";
-            Response response = given()
-                    .when()
-                    .header("Content-Type", "application/json")
-                    .header("Test-Authorization", userIdOne)
-                    .body(requestBody)
-                    .put(API_DOCUMENTS + String.format("/%s",idCreatedDocument))
-                    .then().log().all()
-                    .extract().response();
-            JsonPath jsonPath = response.jsonPath();
+        String requestBody = "{\n" +
+                "    \"assignments\": [\n" +
+                "        {\n" +
+                "            \"id\": " + idCreatedAssignment + ",\n" +
+                "            \"head_executor\": {\n" +
+                "                \"id\": " + idCreatedHeadExecutor + ",\n" +
+                "                \"co_executors\": [\n" +
+                "                    {\n" +
+                "                        \"id\": " + idCreatedCoExecutor + ",\n" +
+                "                        \"letters\": [\n" +
+                "                            {\n" +
+                "                                \"id\": " + idFirstLetter + ",\n" +
+                "                                \"document_type\": \"Documents::Document\",\n" +
+                "                                \"document_id\": 101,\n" +
+                "                                \"document_name\": \"1\",\n" +
+                "                                \"note\": \"string\",\n" +
+                "                                \"deleted\": true\n" +
+                "                            }\n" +
+                "                        ]\n" +
+                "                    }\n" +
+                "                ]\n" +
+                "            }\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+        Response response = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", userIdOne)
+                .body(requestBody)
+                .put(API_DOCUMENTS + String.format("/%s",idCreatedDocument))
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath = response.jsonPath();
 
         List<Integer> idLetters = jsonPath.
                 getList("data.assignments[0].head_executor.co_executors[0].letters.id");

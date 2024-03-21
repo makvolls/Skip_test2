@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="СКИП" parallel="tests" thread-count="1">
+
+    <test name="SKIP-82">
+        <classes>
+            <class name="SKIP_UI.SKIP_82"/>
+        </classes>
+    </test>
+
+    <test name="SKIP-60">
+        <classes>
+            <class name="SKIP_UI.SKIP_60"/>
+        </classes>
+
+    </test> <test name="SKIP-59">
+        <classes>
+            <class name="SKIP_UI.SKIP_59"/>
+        </classes>
+
+    </test> <test name="SKIP-58">
+        <classes>
+            <class name="SKIP_UI.SKIP_58"/>
+        </classes>
+    </test>
+
+</suite>

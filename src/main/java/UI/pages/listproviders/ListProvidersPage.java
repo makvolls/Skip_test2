@@ -5,20 +5,32 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static UI.pages.userprofile.UserProfileSystemPage.locatorNameLabel;
+
 public class ListProvidersPage extends BasePage {
-    public static String locatorLabelList(String blockName) {
-        return "//div [@class = 'el-form-item__label' and text()[contains(.,'" + blockName + "')]]/parent::div";
+    public static String locatorLabelList(String labelName) {
+        return "//label[contains(.,'" + labelName + "')]/following-sibling::div";
+    }
+    public static String locatorFilterNotFound(String textFilter) {
+        return "//div/p[contains(.,'" + textFilter + "')]";
+    }
+    public static String locatorInputLabel(String nameLabel) {
+        return "//label[contains(.,'" + nameLabel + "')]/following::input[@role = 'button']";
+    }
+    public static String dropdownElement(String value) {
+        return "//ul[contains(@class,'el-dropdown-menu')]/li[contains(.,'" + value + "')]";
     }
 
     public static String locatorNameProviderInTable(String nameTable, String nameProvider) {
-        return "//h2[text() ='" + nameTable + "']/following::td/..//span[contains(.,' " + nameProvider + " ')]";
+        return "//h2[text() ='" + nameTable + "']/following::td/..//span[text() = '" + nameProvider + "']";
     }
 
-    public static String locatorTextDropdownList = "//div[@class = 'el-vl__window el-select-dropdown__list']/div";
+    public static String locatorTextDropdownList = "//ul[@class = 'el-dropdown-menu']/li";
 
-    public static String locatorLabelNameProvider = "//div [@class = 'el-form-item__label' and text()[contains(.,'Наименование провайдера')]]/following-sibling::div";
+    public static String locatorLabelNameProvider = "//label[contains(.,'Наименование провайдера')]/following-sibling::div";
 
     public ListProvidersPage(WebDriver driver) {
         super(driver);
@@ -41,23 +53,37 @@ public class ListProvidersPage extends BasePage {
         click(locatorLabelNameProvider);
     }
 
-    public String getTextDropdownList() {
+    public List<String> getTextDropdownList() {
         List<WebElement> listProvider = driver.findElements(By.xpath(locatorTextDropdownList));
-        String result = null;
-        for (WebElement webElement : listProvider) {
-            result = webElement.getText();
+        List<String> listValue = new ArrayList<>();
+        int count = listProvider.size();
+        for (int i = 0; i <count ; i++) {
+            if (isElementDisplay(locatorTextDropdownList)) {
+                String text = listProvider.get(i).getText();
+                listValue.add(text);
+
+            }
+
         }
-        return result;
+        return listValue;
+
     }
-
-
     public boolean isDisplayTextInDropDownList(String nameText) {
-        String listValue = getTextDropdownList();
+        List<String> listValue = getTextDropdownList();
         return listValue.contains(nameText);
 
     }
-
     public boolean isDisplayTNameProviderInTable(String nameTable, String nameProvide) {
         return isElementDisplay(locatorNameProviderInTable(nameTable, nameProvide));
+    }
+    public boolean isDisplayMassageFilterNotFound(String textFilter) {
+        return isElementDisplay(locatorFilterNotFound(textFilter));
+    }
+    public String getTextInLabel(String nameLabel ){
+        return getAttributeValue(locatorInputLabel(nameLabel));
+    }
+    public boolean isDisplayTextInLabel(String nameLabel, String text) {
+        String value = getTextInLabel(nameLabel);
+        return value.contains(text);
     }
 }

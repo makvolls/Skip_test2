@@ -69,7 +69,6 @@ public class SKIP_82 extends BaseTest {
         try {
             listProvidersPage.clickLabelListProvider();
 
-
             Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Департамент делопроизводства и работы с обращениями граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
             Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Департамента информационных технологий, связи и защиты информации Министерства внутренних дел Российской Федерации (ОДиР ДИТСиЗИ МВД России)"));
             Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ГУВО МВД России (ОДиР ГУВО)"));
@@ -77,8 +76,10 @@ public class SKIP_82 extends BaseTest {
             Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Управление делопроизводства и режима Главного управления Министерства внутренних дел Российской Федерации по городу Москве (УДиР ГУ МВД России по г. Москве)"));
             Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел документационнного обеспечения и режима секретности ФКУ \"ГИАЦ МВД РОССИИ\" (ОДОиРС ФКУ ГИАЦ МВД РОССИИ)"));
             Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ОУ МВД России (ОДиР ОУ МВД России)"));
-          //  Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("10 Отдел делопроизводства и режима ФКУ \"ГЦСиЗИ МВД России\" (ОДиР ФКУ \"ГЦСиЗИ МВД России\")"));
-          //  Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Федеральное государственное казенное учреждение «Экспертно-криминалистический центр Министерства внутренних дел Российской Федерации» (ОДиР ФГКУ ЭКЦ МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отделение делопроизводства и режима КРУ 1 МВД России (ОДиР КРУ 1 МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("10 Отдел делопроизводства и режима ФКУ \"ГЦСиЗИ МВД России\" (ОДиР ФКУ \"ГЦСиЗИ МВД России\")"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Федеральное государственное казенное учреждение «Экспертно-криминалистический центр Министерства внутренних дел Российской Федерации» (ОДиР ФГКУ ЭКЦ МВД России)"));
+
 
         } catch (Exception e) {
             logFailure(e);
@@ -92,11 +93,10 @@ public class SKIP_82 extends BaseTest {
             + "В таблице 'Список провайдеров' отобразился данный провайдер")
     public void SKIP_82_step_03() {
         try {
-            listProvidersPage.setSelectWithSendKeys("Наименование провайдера","Отдел");
+            listProvidersPage.setSelectWithSendKeys("Наименование провайдера","Департамент делопроизводства и работы с обращениями граждан и организаций Министерства внутренних дел");
             listProvidersPage.clickButton("Искать");
 
             Assert.assertTrue(listProvidersPage.isDisplayTNameProviderInTable("Список провайдеров","Департамент делопроизводства и работы с обращениями граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
-
 
 
         } catch (Exception e) {
@@ -110,7 +110,9 @@ public class SKIP_82 extends BaseTest {
             + "Строка поиска 'Наименование провайдера' очистилась, В таблице 'Список провайдеров' отображаются все провайдеры")
     public void SKIP_82_step_04() {
         try {
+            listProvidersPage.clickButton("Очистить");
 
+            Assert.assertTrue(listProvidersPage.isDisplayTNameProviderInTable("Список провайдеров","Департамент делопроизводства и работы с обращениями граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
 
 
         } catch (Exception e) {
@@ -124,7 +126,19 @@ public class SKIP_82 extends BaseTest {
             + "В выпадающем списке отображаются провайдеры в названии которых присутствует слово 'отдел'(регистр не учитывается)")
     public void SKIP_82_step_05() {
         try {
+            listProvidersPage.setLabelText("Наименование провайдера","отдел");
 
+
+            Assert.assertFalse(listProvidersPage.isDisplayTextInDropDownList("Департамент делопроизводства и работы с обращениями граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Департамента информационных технологий, связи и защиты информации Министерства внутренних дел Российской Федерации (ОДиР ДИТСиЗИ МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ГУВО МВД России (ОДиР ГУВО)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ФЭД МВД (Отдел делопроизводства и режима ФЭД МВД)"));
+            Assert.assertFalse(listProvidersPage.isDisplayTextInDropDownList("Управление делопроизводства и режима Главного управления Министерства внутренних дел Российской Федерации по городу Москве (УДиР ГУ МВД России по г. Москве)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел документационнного обеспечения и режима секретности ФКУ \"ГИАЦ МВД РОССИИ\" (ОДОиРС ФКУ ГИАЦ МВД РОССИИ)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ОУ МВД России (ОДиР ОУ МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отделение делопроизводства и режима КРУ 1 МВД России (ОДиР КРУ 1 МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("10 Отдел делопроизводства и режима ФКУ \"ГЦСиЗИ МВД России\" (ОДиР ФКУ \"ГЦСиЗИ МВД России\")"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Федеральное государственное казенное учреждение «Экспертно-криминалистический центр Министерства внутренних дел Российской Федерации» (ОДиР ФГКУ ЭКЦ МВД России)"));
 
 
         } catch (Exception e) {
@@ -138,7 +152,20 @@ public class SKIP_82 extends BaseTest {
             + "В выпадающем списке отображаются провайдеры в названии которых присутствует слово 'ОТДЕЛ'(регистр не учитывается)")
     public void SKIP_82_step_06() {
         try {
+            listProvidersPage.clickLabelListProvider();
+            listProvidersPage.clickButton("Очистить");
+            listProvidersPage.setLabelText("Наименование провайдера","ОТДЕЛ");
 
+            Assert.assertFalse(listProvidersPage.isDisplayTextInDropDownList("Департамент делопроизводства и работы с обращениями граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Департамента информационных технологий, связи и защиты информации Министерства внутренних дел Российской Федерации (ОДиР ДИТСиЗИ МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ГУВО МВД России (ОДиР ГУВО)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ФЭД МВД (Отдел делопроизводства и режима ФЭД МВД)"));
+            Assert.assertFalse(listProvidersPage.isDisplayTextInDropDownList("Управление делопроизводства и режима Главного управления Министерства внутренних дел Российской Федерации по городу Москве (УДиР ГУ МВД России по г. Москве)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел документационнного обеспечения и режима секретности ФКУ \"ГИАЦ МВД РОССИИ\" (ОДОиРС ФКУ ГИАЦ МВД РОССИИ)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ОУ МВД России (ОДиР ОУ МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отделение делопроизводства и режима КРУ 1 МВД России (ОДиР КРУ 1 МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("10 Отдел делопроизводства и режима ФКУ \"ГЦСиЗИ МВД России\" (ОДиР ФКУ \"ГЦСиЗИ МВД России\")"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Федеральное государственное казенное учреждение «Экспертно-криминалистический центр Министерства внутренних дел Российской Федерации» (ОДиР ФГКУ ЭКЦ МВД России)"));
 
 
         } catch (Exception e) {
@@ -152,7 +179,20 @@ public class SKIP_82 extends BaseTest {
             + "В выпадающем списке отображаются провайдеры в названии которых присутствует буква 'а'(регистр не учитывается)")
     public void SKIP_82_step_07() {
         try {
+            listProvidersPage.clickLabelListProvider();
+            listProvidersPage.clickButton("Очистить");
+            listProvidersPage.setLabelText("Наименование провайдера","а");
 
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Департамент делопроизводства и работы с обращениями граждан и организаций Министерства внутренних дел Российской Федерации (ДДО МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Департамента информационных технологий, связи и защиты информации Министерства внутренних дел Российской Федерации (ОДиР ДИТСиЗИ МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ГУВО МВД России (ОДиР ГУВО)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ФЭД МВД (Отдел делопроизводства и режима ФЭД МВД)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Управление делопроизводства и режима Главного управления Министерства внутренних дел Российской Федерации по городу Москве (УДиР ГУ МВД России по г. Москве)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел документационнного обеспечения и режима секретности ФКУ \"ГИАЦ МВД РОССИИ\" (ОДОиРС ФКУ ГИАЦ МВД РОССИИ)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима ОУ МВД России (ОДиР ОУ МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отделение делопроизводства и режима КРУ 1 МВД России (ОДиР КРУ 1 МВД России)"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("10 Отдел делопроизводства и режима ФКУ \"ГЦСиЗИ МВД России\" (ОДиР ФКУ \"ГЦСиЗИ МВД России\")"));
+            Assert.assertTrue(listProvidersPage.isDisplayTextInDropDownList("Отдел делопроизводства и режима Федеральное государственное казенное учреждение «Экспертно-криминалистический центр Министерства внутренних дел Российской Федерации» (ОДиР ФГКУ ЭКЦ МВД России)"));
 
 
         } catch (Exception e) {
@@ -166,7 +206,11 @@ public class SKIP_82 extends BaseTest {
             + "В выпадающем списке отображается надпись 'Данных, удовлетворяющих условиям фильтра, не найдено'")
     public void SKIP_82_step_08() {
         try {
+            listProvidersPage.clickLabelListProvider();
+            listProvidersPage.clickButton("Очистить");
+            listProvidersPage.setLabelText("Наименование провайдера","параправв");
 
+            Assert.assertTrue(listProvidersPage.isDisplayMassageFilterNotFound("Данных, удовлетворяющих условиям фильтра, не найдено"));
 
 
         } catch (Exception e) {
@@ -183,7 +227,12 @@ public class SKIP_82 extends BaseTest {
             + "Введенные данные исчезли из строки поиска, в строке поиска остался выбранный провайдер(После реализации задачи SKIP2023-419: Введенные символы не должны пропадать, то есть должна быть возможность ввести произвольный текст и искать по нему)")
     public void SKIP_82_step_09() {
         try {
+            listProvidersPage.clickLabelListProvider();
+            listProvidersPage.clickButton("Очистить");
+            listProvidersPage.setLabelText("Наименование провайдера","Отдел делопроизводства и режима ГУВО МВД России (ОДиР ГУВО)");
+            listProvidersPage.clickLabelListProvider();
 
+            Assert.assertTrue(listProvidersPage.isDisplayTextInLabel("Наименование провайдера","Отдел делопроизводства и режима ГУВО МВД России (ОДиР ГУВО)"));
 
 
         } catch (Exception e) {

@@ -4,7 +4,6 @@ import UI.driver.DriverManager;
 import UI.pages.authorization.AuthorizationPage;
 import UI.pages.base.BasePage;
 import UI.pages.log.Log4j2Example;
-import UI.pages.log.Log4j2Example;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

@@ -1,6 +1,7 @@
 package UI.pages.base;
 
 import UI.constants.TimeoutVariable;
+import UI.pages.listproviders.ListProvidersPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,22 +20,6 @@ public class BasePage {
     public static String locatorButton(String nameButton) {
         return "//span[text()[contains(.,'" + nameButton + "')]]/parent::button";
     }
-
-    public static String locatorLabel(String nameLabel) {
-        return "//div[text()='" + nameLabel + "']/following-sibling::div";
-    }
-
-    public static String locatorInputLabel(String nameLabel) {
-        return "//div[text()='Наименование провайдера']/following-sibling::div[@class ='el-form-item__content']/..//input";
-    }
-
-    public static String dropdownElement(String value) {
-        return "//div/li[contains(@class,'el-select-dropdown')]/span[contains(.,'" + value + "')]";
-    }
-
-//    public static String locatorButton(String nameButton) {
-//        return "//button[contains(@class, 'el-button')]/span[contains(.,'" + nameButton + "')]";
-//    }
 
     protected WebDriver driver;
 
@@ -136,8 +121,12 @@ public class BasePage {
         waitElementIsPresence(locator);
         findElement(locator).sendKeys(text);
     }
+
     public String getText(String locator) {
         return findElement(locator).getText();
+    }
+    public String getAttributeValue(String locator) {
+        return findElement(locator).getAttribute("value");
     }
 
     public boolean isElementDisplay(String locator) {
@@ -147,16 +136,20 @@ public class BasePage {
             return false;
         }
     }
+
     public boolean isDisplayBlock(String blockName) {
         return isElementDisplay(locatorNameBlock(blockName));
     }
+
     public boolean isDisplayLabel(String labelName) {
         return isElementDisplay(locatorNameLabel(labelName));
     }
+
     public boolean isDisplayButton(String buttonName) {
         return isElementDisplay(locatorButton(buttonName));
 
     }
+
     public void waitLoading() throws InterruptedException {
         sleep(1);
         long start = System.currentTimeMillis();
@@ -167,15 +160,22 @@ public class BasePage {
             }
         }
     }
-    public void setSelectWithSendKeys (String nameLabel, String value) {
-        String elLocator = dropdownElement(value);
-        click(locatorLabel(nameLabel));
-        sendKeys(locatorInputLabel(nameLabel), value);
+
+    public void setSelectWithSendKeys(String nameLabel, String value) {
+        String elLocator = ListProvidersPage.dropdownElement(value);
+        click(ListProvidersPage.locatorLabelList(nameLabel));
+        sendKeys(ListProvidersPage.locatorInputLabel(nameLabel), value);
         waitElementIsVisible(elLocator);
         click(elLocator);
         waitElementIsInvisible(elLocator);
 
-   }
+    }
+
+    public void setLabelText(String nameLabel, String value) {
+        click(ListProvidersPage.locatorLabelList(nameLabel));
+        sendKeys(ListProvidersPage.locatorInputLabel(nameLabel), value);
+
+}
     public void clickButton(String buttonName) {
         waitElementIsPresence(locatorButton(buttonName));
         waitElementIsVisible(locatorButton(buttonName));

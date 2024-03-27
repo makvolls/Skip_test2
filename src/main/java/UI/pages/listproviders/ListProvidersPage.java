@@ -21,7 +21,7 @@ public class ListProvidersPage extends BasePage {
         return "//label[contains(.,'" + nameLabel + "')]/following::input[@role = 'button']";
     }
     public static String dropdownElement(String value) {
-        return "//ul[contains(@class,'el-dropdown-menu')]/li[contains(.,'" + value + "')]";
+        return "//div[@class = 'el-popper is-pure is-light el-dropdown__popper remote-select__popover' and not(contains(@style, 'display: none;'))]/descendant::ul/li[contains(.,'" + value + "')]";
     }
 
     public static String locatorNameProviderInTable(String nameTable, String nameProvider) {
@@ -79,9 +79,7 @@ public class ListProvidersPage extends BasePage {
     public boolean isDisplayMassageFilterNotFound(String textFilter) {
         return isElementDisplay(locatorFilterNotFound(textFilter));
     }
-    public String getTextInLabel(String nameLabel ){
-        return getAttributeValue(locatorInputLabel(nameLabel));
-    }
+
     public boolean isDisplayTextInLabel(String nameLabel, String text) {
         String value = getTextInLabel(nameLabel);
         return value.contains(text);

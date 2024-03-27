@@ -39,12 +39,4 @@ public class UserProfileSystemPage extends BasePage {
     public static final String CLICK_INSCRIPTION = "//span[@class='el-link__inner']";
 
 
-
-    public boolean isDisplayTextInLabel(String labelName, String text) {
-        return isElementDisplay(locatorTextInLabel(labelName, text));
-    }
-    public boolean isDisplayTextLinkInLabel(String labelName, String text) {
-        return isElementDisplay(locatorTextLinkInLabel(labelName, text));
-    }
-
 }

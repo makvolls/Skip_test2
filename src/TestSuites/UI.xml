@@ -24,4 +24,11 @@
         </classes>
     </test>
 
+    <test name="SKIP-242">
+        <classes>
+            <class name="SKIP_UI.SKIP_242"/>
+        </classes>
+    </test>
+
+
 </suite>

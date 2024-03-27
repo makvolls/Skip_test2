@@ -5,9 +5,6 @@ import UI.constants.Users;
 import UI.pages.base.BasePage;
 import UI.pages.listproviders.ListProvidersPage;
 import UI.pages.main.MainPage;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

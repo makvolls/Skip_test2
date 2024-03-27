@@ -10,8 +10,7 @@ import java.util.List;
 import static UI.constants.TimeoutVariable.EXPLICIT_ELEMENT_PRESENCE_WAIT;
 import static UI.constants.TimeoutVariable.EXPLICIT_WAIT;
 import static UI.constants.Urls.START_PAGE;
-import static UI.pages.userprofile.UserProfileSystemPage.locatorNameBlock;
-import static UI.pages.userprofile.UserProfileSystemPage.locatorNameLabel;
+import static UI.pages.userprofile.UserProfileSystemPage.*;
 import static java.lang.Thread.sleep;
 
 
@@ -20,6 +19,12 @@ public class BasePage {
     public static String locatorButton(String nameButton) {
         return "//span[text()[contains(.,'" + nameButton + "')]]/parent::button";
     }
+
+    public static String locatorInputLabel(String namelabel) {
+        return "//label[contains(.,'" + namelabel + "')]/..//input";
+    }
+
+    private static String locatorNameService = "//div[@class = 'header__container_text']";
 
     protected WebDriver driver;
 
@@ -125,6 +130,7 @@ public class BasePage {
     public String getText(String locator) {
         return findElement(locator).getText();
     }
+
     public String getAttributeValue(String locator) {
         return findElement(locator).getAttribute("value");
     }
@@ -163,11 +169,17 @@ public class BasePage {
 
     public void setSelectWithSendKeys(String nameLabel, String value) {
         String elLocator = ListProvidersPage.dropdownElement(value);
-        click(ListProvidersPage.locatorLabelList(nameLabel));
         sendKeys(ListProvidersPage.locatorInputLabel(nameLabel), value);
-        waitElementIsVisible(elLocator);
+        waitElementIsVisible(elLocator, 10);
         click(elLocator);
-        waitElementIsInvisible(elLocator);
+
+
+    }
+
+    public void clearDropdownField(String nameLabel) {
+        waitElementIsVisible(locatorInputLabel(nameLabel));
+        waitElementIsPresence(locatorInputLabel(nameLabel));
+        clear(locatorInputLabel(nameLabel));
 
     }
 
@@ -175,7 +187,8 @@ public class BasePage {
         click(ListProvidersPage.locatorLabelList(nameLabel));
         sendKeys(ListProvidersPage.locatorInputLabel(nameLabel), value);
 
-}
+    }
+
     public void clickButton(String buttonName) {
         waitElementIsPresence(locatorButton(buttonName));
         waitElementIsVisible(locatorButton(buttonName));
@@ -183,4 +196,35 @@ public class BasePage {
         click(locatorButton(buttonName));
     }
 
+    public boolean isDisplayTextInLabel(String labelName, String text) {
+        return isElementDisplay(locatorTextInLabel(labelName, text));
+    }
+
+    public boolean isDisplayTextLinkInLabel(String labelName, String text) {
+        return isElementDisplay(locatorTextLinkInLabel(labelName, text));
+    }
+
+    public boolean isDisplayTextLinkInLabelTest(String labelName, String text) {
+        return isElementDisplay(locatorTextLinkInLabel(labelName, text));
+    }
+
+    public void clickNameService() {
+        waitElementIsPresence(locatorNameService);
+        waitElementIsVisible(locatorNameService);
+        click(locatorNameService);
+    }
+
+    public String getTextInLabel(String nameLabel) {
+        return getAttributeValue(locatorInputLabel(nameLabel));
+    }
+
+    public boolean isDisplayTextInDropdownLabel(String nameLabel, String text) {
+        String value = getTextInLabel(nameLabel);
+        return value.contains(text);
+    }
 }
+
+
+
+
+

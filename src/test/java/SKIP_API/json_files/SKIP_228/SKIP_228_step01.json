@@ -1,0 +1,107 @@
+{
+  "skip_reg_date": "2024-03-11T06:35:49.038Z",
+  "short_description": "string",
+  "control_official_id": "60177410cf25000032000001",
+  "document_name": "string",
+  "document_execution_state_id": 11,
+  "skip_document_type_id": 32,
+  "internal": true,
+  "control_subject_id": 83,
+  "not_sed_document": true,
+  "sed_reg_number": "string",
+  "sed_document_date": "2024-03-11T06:35:49.038Z",
+  "single_number": "string",
+  "ddo_external_document_date": "2024-03-11T06:35:49.038Z",
+  "ddo_external_document_number": "string",
+  "external_reg_date": "2024-03-11T06:35:49.038Z",
+  "external_document_number": "string",
+  "sed_document_type": "string",
+  "resolution": "string",
+  "sed_note": "string",
+  "document_date": "2024-03-11T06:35:49.038Z",
+  "document_number": "string",
+  "note": "string",
+  "assignments": [
+    {
+      "number": "string",
+      "content": "string",
+      "note": "string",
+      "head_executor": {
+        "head_executor_id": "59d4e38e453d000062000001",
+        "deadline_basis_id": 91,
+        "periodicity_id": 35,
+        "execution_state_id": 30,
+        "start_date": "2024-03-11T06:35:49.038Z",
+        "deadline_date": "2024-03-11T06:35:49.038Z",
+        "deadlines": [
+          {
+            "id": "870d5bb0-7b57-486c-9522-53e6e3808c04",
+            "deadline_date": "2024-03-11T06:35:49.038Z",
+            "deadline_basis_id": 91,
+            "content": "string"
+          }
+        ],
+        "co_executors": [
+          {
+            "co_executor_id": "629dad05d5bf00000b000001",
+            "co_executor_name": "string",
+            "provided": true,
+            "letters": [
+              {
+                "document_type": "Documents::Document",
+                "document_id": 106,
+                "document_name": "string",
+                "note": "string"
+              }
+            ]
+          }
+        ]
+      },
+      "executor_deadline_calculation": {
+        "periodicity_id": 35,
+        "start_date": "2024-03-11T06:35:49.038Z",
+        "deadline_basis_id": 91,
+        "execution_state_id": 30,
+        "deadline_date": "2024-03-11T06:35:49.038Z",
+        "deadlines": [
+          {
+            "id": "5ba2b453-35c9-4391-9db4-d5c05a8bc36d",
+            "deadline_date": "2024-03-11T06:35:49.038Z",
+            "deadline_basis_id": 91,
+            "content": "string"
+          }
+        ]
+      },
+      "executors": [
+        {
+          "organization_id": "553fa47d06c422325e000001",
+          "co_executors": [
+            {
+              "organization_short_title": "string",
+              "organization_id": "553fa47d06c4223261000001",
+              "organization_type": "Oshs::Mvd::Organization",
+              "organization_name": "name",
+              "provided": true,
+              "letters": [
+                {
+                  "document_id": 106,
+                  "document_type": "Documents::Document",
+                  "document_name": "string",
+                  "note": "string"
+                }
+              ]
+            }
+          ],
+          "executions": [
+            {
+              "deadline_id": "5ba2b453-35c9-4391-9db4-d5c05a8bc36d",
+              "deadline_basis_id": 91,
+              "note": "string",
+              "actual_info": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

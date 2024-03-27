@@ -106,7 +106,8 @@ public class Providers extends BasePage {
     /**
      * Field "Наименование субъекта контроля"
      **/
-    public static final String ENTRY_FIELD_NAME="(//div[@class='el-input__wrapper'])[1]";
+    public static final String ENTRY_FIELD_NAME="//div[@class='el-input__wrapper']" +
+            "/input[@placeholder='Введите наименование']";
     /**
      * Text "Номер факса"
      **/
@@ -131,6 +132,28 @@ public class Providers extends BasePage {
      * Button "Сохранить"
      **/
     public static final String BUTTON_SAVE="//button[@class='el-button el-button--primary el-button--large']/span[text()='Сохранить']";
+    /**
+     * Text "Номер факса(первое значение в таблице)"
+     **/
+    public static final String NUMBER_FAX_FROM_TABLE="(//label[normalize-space()='Номер факса'])[2]";
+    /**
+     * Text "Не может быть пустым"
+     **/
+    public static final String CANNOT_BE_EMPTY="//div[@class='el-form-item__error'][normalize-space()='Не может быть пустым']";
+    /**
+     * Field "Искомый субъект контроля(номер факса)"
+     **/
+    public static final String LAST_CS_NUMBER_FAX="//h2[text()='Список субъектов контроля']//parent::div//parent::" +
+            "div//label[text()='Номер факса']//parent::div//input";
+    /**
+     * Field "Искомый субъект контроля(Название)"
+     **/
+    public static final String PRE_LAST_NAME_CS="//h2[text()='Список субъектов контроля']//parent::div//parent::" +
+            "div//label[text()='Наименование субъекта контроля']//parent::div//input";
+    /**
+     * Text "Уже существует"
+     **/
+    public static final String ALREADY_EXISTS="//div[@class='el-form-item__error']";
 
 
     //Methods:

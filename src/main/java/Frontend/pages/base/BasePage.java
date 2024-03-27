@@ -208,5 +208,9 @@ public class BasePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, 0)");
     }
+    public void clearInputField(WebDriver driver, By locator) {
+        WebElement inputField = driver.findElement(locator);
+        inputField.clear();
 
+    }
 }

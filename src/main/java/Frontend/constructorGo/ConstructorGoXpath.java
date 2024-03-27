@@ -12,7 +12,7 @@ public class ConstructorGoXpath extends BasePage {
     /**
      * Xpath for pictogram - "Администрирование"
      * **/
-    public static final String SHIELD = "//li[@class='el-side-navigation-sub-menu'][1]";
+    public static final String SHIELD = "//li[@class='el-side-navigation-sub-menu'][2]";
     /**
      * Xpath for button with text - "Конструктор(поле из выпадающего списка)"
      * **/

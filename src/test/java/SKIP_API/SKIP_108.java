@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -29,10 +30,10 @@ public class SKIP_108 {
         basePage.setup();
         providers.setup();
     }
-//    @AfterTest
-//    public void tearDown() {
-//        basePage.tearDown();
-//    }
+  //  @AfterTest
+   // public void tearDown() {
+   //    basePage.tearDown();
+  //  }
 
     @Test
     public void step01() {
@@ -137,6 +138,7 @@ public class SKIP_108 {
         WebElement list_cs = basePage.findElement(LIST_CS);
         WebElement button_close = basePage.findElement(BUTTON_CLOSE);
         WebElement button_save = basePage.findElement(BUTTON_SAVE);
+        WebElement number_fax=basePage.findElement(NUMBER_FAX);
 
 
         Assert.assertTrue(block_cs.getText().contains("Субъекты контроля"));
@@ -147,6 +149,7 @@ public class SKIP_108 {
         Assert.assertTrue(list_cs.getText().contains("Список субъектов контроля"));
         Assert.assertTrue(button_close.isDisplayed() && button_close.isEnabled() && button_close.getText().contains("Закрыть"));
         Assert.assertTrue(button_save.isDisplayed() && button_save.isEnabled() && button_save.getText().contains("Сохранить"));
+        Assert.assertTrue(number_fax.getText().contains("Номер факса"));
 
     }
 
@@ -187,5 +190,13 @@ public class SKIP_108 {
         Assert.assertTrue(provider_inc_org.getText().contains("Провайдер включает в себя следующие организации:"));
     }
 
+    @Test
+    public void step08(){
+        basePage.click(CLOSE);
+        basePage.waitElementDisplay(LIST_PROVIDERS_FORM);
+        WebElement block = basePage.findElement(LIST_PROVIDERS_FORM);
+
+        Assert.assertTrue(block.getText().contains("Список провайдеров"));
+    }
 
 }

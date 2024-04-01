@@ -1,6 +1,7 @@
 package SKIP_API;
 
 import API.BasicProviders;
+import API.BasicRoles;
 import API.DTO.ProvidersDTO.RootPermissions;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -21,8 +22,16 @@ public class SKIP_11 {
   @Test
   public void step01() {
 
-    searchValue = BasicProviders.getProviders(1);
-    Assert.assertNotNull(searchValue);
+    Response response = given()
+            .when()
+            .header("Content-Type", "application/json")
+            .header("Test-Authorization", idAut1)
+            .get(BasicProviders.API_PROVIDERS)
+            .then().log().all()
+            .extract().response();
+    JsonPath jsonPath = response.jsonPath();
+    String data=jsonPath.getString("data");
+    Assert.assertFalse(data.isEmpty());
 
   }
   @Test

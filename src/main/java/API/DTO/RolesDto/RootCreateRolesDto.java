@@ -2,9 +2,12 @@ package API.DTO.RolesDto;
 
 public class RootCreateRolesDto {
     public String name;
-    public String desc;
 
-    public RootCreateRolesDto(String[] roleIds) {
+    public RootCreateRolesDto(String name, String desc, boolean global, String[] rights_ids) {
+        this.name = name;
+        this.desc = desc;
+        this.global = global;
+        this.rights_ids = rights_ids;
     }
 
     public String getName() {
@@ -13,13 +16,6 @@ public class RootCreateRolesDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public RootCreateRolesDto(String name, String desc, boolean global, String[] rights_ids) {
-        this.name = name;
-        this.desc = desc;
-        this.global = global;
-        this.rights_ids = rights_ids;
     }
 
     public String getDesc() {
@@ -46,6 +42,7 @@ public class RootCreateRolesDto {
         this.rights_ids = rights_ids;
     }
 
+    public String desc;
     public boolean global;
     public String[] rights_ids;
 }

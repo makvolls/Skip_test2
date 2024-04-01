@@ -1,17 +1,20 @@
 package SKIP_API;
 
-import API.BasicApi;
 import API.BasicRoles;
 import API.BasicUser;
 import API.DTO.ErrorsDTO.RolesErrors.RootNameErrors;
 import API.DTO.ErrorsDTO.RootError;
 import API.DTO.RolesDto.RootResponseRolesDto;
-import API.DTO.UserDto.RootResponseUserDto;
 import Utils.RandomGenerateText;
-import autotest.core.util.Assistant;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.IDynamicGraph;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,33 +22,52 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.responseSpecification;
 
 public class SKIP_3 {
-    RootResponseRolesDto roles, roles2, roles3, roles4, roles5, roles6, roles7;
-    RootNameErrors error;
-    RootError error1, delete;
-    RootResponseRolesDto newRole;
-    RootResponseUserDto updateUser;
-    RootResponseUserDto newUser;
     int idAut1 = 1;
-    int idAut2 = 3;
+    int idAut2 = 2;
+    int idAut6=6;
 
+    int idRole, idRole2, idRole3;
+    String test1 = RandomGenerateText.generateUniqeTextRussianString(7);
+    String test2 = RandomGenerateText.generateUniqeTextRussianString(7);
+    String test3 = RandomGenerateText.generateUniqeTextRussianString(7);
+    String test5 = RandomGenerateText.generateUniqeTextRussianString(7);
 
-    int idUser;
-    int idRole;
-    String name = "Автотест111";
-    String name2 = "Автотест2";
-    String name3 = "Автотест3";
-    String test1= RandomGenerateText.generateUniqeTextRussianString(7);
+    int idUserB;
+    int idRoleB;
+    String test4 = RandomGenerateText.generateUniqeTextRussianString(7);
+    RootError delete;
 
     @BeforeClass
-    public void postUser() {
-        newRole = BasicRoles.createRoles(idAut1, test1, true, "context_search");
-        idRole = newRole.data.id;
+    public void post0001() {
+
+        JsonObject object = new JsonObject();
+        object.addProperty("name", test4);
+        object.addProperty("desc", "1");
+        object.addProperty("global", true);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("context_search");
+        object.add("rights_ids", rights_ids);
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .post(BasicRoles.API_ROLES)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        int id = jsonPath0.getInt("data.id");
+        idRoleB = id;
+
         Response response = given()
                 .when()
+                .header("Content-Type", "application/json")
                 .header("Test-Authorization", idAut2)
-                .params("official_id", "59d4035c21c30002d7000001")
+                .params("official_id", "5b3bf8a6b48f00020e000001")
                 .get(BasicUser.API_USER)
                 .then().log().all()
                 .extract().response();
@@ -53,165 +75,475 @@ public class SKIP_3 {
         List<String> official_id = jsonPath.get("data");
 
         if (official_id.isEmpty()) {
-            newUser = BasicUser.createUser(idAut2, "59d4035c21c30002d7000001", idRole);
-            idUser = newUser.data.id;
+
+            JsonObject object1 = new JsonObject();
+            JsonArray array = new JsonArray();
+            array.add(idRoleB);
+            object1.add("role_ids", array);
+            object1.addProperty("control_subject_id", (String) null);
+
+            JsonObject object3 = new JsonObject();
+            object3.addProperty("official_id", "5b3bf8a6b48f00020e000001");
+            JsonArray array3 = new JsonArray();
+            array3.add(idRoleB);
+            object3.add("role_ids", array3);
+            object3.addProperty("control_subject_id", (String) null);
+            Response response2 = given()
+                    .when()
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", idAut2)
+                    .body(object3.toString())
+                    .post(BasicUser.API_USER)
+                    .then().log().all()
+                    .extract().response();
+            JsonPath jsonPath2 = response2.jsonPath();
+            int id2 = jsonPath2.getInt("data.id");
+            idUserB = id2;
+
         } else {
 
             Response response1 = given()
                     .when()
                     .header("Test-Authorization", idAut2)
-                    .params("official_id", "59d4035c21c30002d7000001")
+                    .params("official_id", "5b3bf8a6b48f00020e000001")
                     .get(BasicUser.API_USER)
                     .then().log().all()
                     .extract().response();
             JsonPath jsonPath1 = response1.jsonPath();
-            idUser = jsonPath1.get("data[0].id");
-            updateUser= BasicUser.updateUser(idAut2,idUser,idRole);
-            idUser=updateUser.data.id;
+            idUserB = jsonPath1.get("data[0].id");
 
-            Step01();
+            JsonObject object1 = new JsonObject();
+            JsonArray array = new JsonArray();
+            array.add(idRoleB);
+            object1.add("role_ids", array);
+            object1.addProperty("control_subject_id", (String) null);
+
+            Response response2 = given()
+                    .when()
+                    .header("Content-Type", "application/json")
+                    .header("Test-Authorization", idAut2)
+                    .body(object1.toString())
+                    .put(BasicUser.API_USER + "/" + idUserB)
+                    .then().log().all()
+                    .extract().response();
         }
-        updateUser= BasicUser.updateUser(idAut2,idUser,idRole);
-        idUser=updateUser.data.id;
+    }
 
+    @AfterClass
+    public void Step14(){
+        Response response = given()
+                .header("Test-Authorization", idAut1)
+                .delete(BasicRoles.API_ROLES+"/"+idRole2)
+                .then().log().all()
+                .extract().response();
+        int SC=response.statusCode();
+        Assert.assertTrue(SC==204);
+        Response response2 = given()
+                .header("Test-Authorization", idAut1)
+                .delete(BasicRoles.API_ROLES+"/"+idRole2)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath = response2.jsonPath();
+        String error=jsonPath.getString("error");
+        Assert.assertTrue(error.equals("Запись для Permissions::Role с id = "+idRole2+" не найдена"));
     }
     @AfterClass
-    public void delete(){
-        BasicUser.updateUser(idAut2, idUser, 5);
-        BasicRoles.deleteRole(idAut1,idRole);
-        BasicUser.deleteUser(idAut2,idUser);
-
+    public void Step15(){
+        Response response = given()
+                .header("Test-Authorization", idAut1)
+                .delete(BasicRoles.API_ROLES+"/"+idRole3)
+                .then().log().all()
+                .extract().response();
+        int SC=response.statusCode();
+        Assert.assertTrue(SC==204);
     }
+    @AfterClass
+    public void delete() {
 
-        @Test
-    public void Step01(){
-        roles = BasicRoles.createRoles(idAut1, name, true, "index_users");
-        Assert.assertNotNull(roles.getData().id);
-        Assert.assertNotNull(roles.getData().name);
-        Assert.assertNotNull(roles.getData().full_name);
-        Assert.assertNotNull(roles.getData().global);
-        Assert.assertNotNull(roles.getData().provider_short_title);
-        Assert.assertNotNull(roles.getData().rights_ids);
-        Assert.assertNotNull(roles.getData().provider_id);
+        JsonObject object1 = new JsonObject();
+        JsonArray array = new JsonArray();
+        array.add(5);
+        object1.add("role_ids", array);
+        object1.addProperty("control_subject_id", (String) null);
 
-    }
-    @Test
-    public void Step02(){
-        roles2 = BasicRoles.createRoles(idAut1, name, false, "index_users");
-        Assert.assertTrue(!roles2.data.global);
-    }
+        Response response2 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut2)
+                .body(object1.toString())
+                .put(BasicUser.API_USER + "/" + idUserB)
+                .then().log().all()
+                .extract().response();
 
-    @Test
-    public void Step03(){
-        error =  BasicRoles.createErrorRoles(idAut1, "", false, "index_users");
-        Assert.assertTrue(error.getErrors().getName()[0].equals("не может быть пустым"));
-
-    }
-
-    @Test
-    public void Step04(){
-        error =  BasicRoles.createErrorRoles(idAut1, name, false, "");
-        Assert.assertTrue(error.getErrors().getFull_name()[0].equals("уже существует"));
-        Assert.assertTrue(error.getErrors().getRights_ids()[0].equals("имеет непредусмотренное значение"));
+        BasicRoles.deleteRole(idAut1, idRoleB);
+        BasicUser.deleteUser(idAut2, idUserB);
 
 
     }
     @Test
-    public void Step05(){
-        roles3 = BasicRoles.updateRole(idAut1, roles.getData().id, name2, false,
-                "index_users" );
-        Assert.assertTrue(roles3.data.name.equals(name2));
-        Assert.assertTrue(roles3.data.full_name.equals(name2));
-        Assert.assertTrue(roles3.data.provider_short_title.equals("ДДО МВД России"));
-        Assert.assertTrue(roles3.data.rights_ids[0].equals("index_users"));
-        Assert.assertTrue(!roles3.data.global);
-        Assert.assertTrue(roles3.data.provider_id.equals("525e9f767da3000002000001"));
+    public void Step01() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test1);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", true);
 
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .post(BasicRoles.API_ROLES)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        int id = jsonPath0.getInt("data.id");
+        idRole = id;
+        String name0 = jsonPath0.getString("data.name");
+        boolean global = jsonPath0.getBoolean("data.global");
+        String right_ids = jsonPath0.getString("data.rights_ids[0]");
+
+        Assert.assertTrue(name0.equals(test1));
+        Assert.assertTrue(global);
+        Assert.assertTrue(right_ids.equals("update_users"));
+    }
+
+    @Test
+    public void Step02() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test1);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", false);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .post(BasicRoles.API_ROLES)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        int id = jsonPath0.getInt("data.id");
+        idRole2 = id;
+        String name0 = jsonPath0.getString("data.name");
+        boolean global = jsonPath0.getBoolean("data.global");
+        String right_ids = jsonPath0.getString("data.rights_ids[0]");
+
+        Assert.assertTrue(name0.equals(test1));
+        Assert.assertTrue(!global);
+        Assert.assertTrue(right_ids.equals("update_users"));
+    }
+
+    @Test
+    public void Step03() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", "");
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", false);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .post(BasicRoles.API_ROLES)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        String error = jsonPath0.getString("errors.name[0]");
+        Assert.assertTrue(error.equals("не может быть пустым"));
+    }
+
+    @Test
+    public void Step04() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test1);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", false);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .post(BasicRoles.API_ROLES)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        String error1 = jsonPath0.getString("errors.full_name[0]");
+        String error2 = jsonPath0.getString("errors.rights_ids[0]");
+        Assert.assertTrue(error1.equals("уже существует"));
+        Assert.assertTrue(error2.equals("имеет непредусмотренное значение"));
+    }
+
+    @Test
+    public void Step05() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test2);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", false);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .put(BasicRoles.API_ROLES + "/" + idRole)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        String name0 = jsonPath0.getString("data.name");
+        boolean global = jsonPath0.getBoolean("data.global");
+        String right_ids = jsonPath0.getString("data.rights_ids[0]");
+
+        Assert.assertTrue(name0.equals(test2));
+        Assert.assertTrue(!global);
+        Assert.assertTrue(right_ids.equals("update_users"));
+    }
+
+    @Test
+    public void Step06() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test2);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", true);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .put(BasicRoles.API_ROLES + "/" + idRole2)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        String name0 = jsonPath0.getString("data.name");
+        boolean global = jsonPath0.getBoolean("data.global");
+        String right_ids = jsonPath0.getString("data.rights_ids[0]");
+
+        Assert.assertTrue(name0.equals(test2));
+        Assert.assertTrue(global);
+        Assert.assertTrue(right_ids.equals("update_users"));
+    }
+
+    @Test
+    public void Step07() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test2);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", true);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        rights_ids.add("setup_banners");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .put(BasicRoles.API_ROLES + "/" + idRole2)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        String name0 = jsonPath0.getString("data.name");
+        boolean global = jsonPath0.getBoolean("data.global");
+        String right_ids = jsonPath0.getString("data.rights_ids[0]");
+        String right_ids2 = jsonPath0.getString("data.rights_ids[1]");
+
+        Assert.assertTrue(name0.equals(test2));
+        Assert.assertTrue(global);
+        Assert.assertTrue(right_ids.equals("update_users"));
+        Assert.assertTrue(right_ids2.equals("setup_banners"));
 
     }
     @Test
-    public void Step06(){
-        roles4 = BasicRoles.updateRole(idAut1, roles2.getData().id, name2, true,
-                "index_users");
-        Assert.assertTrue(roles4.data.name.equals(name2));
-        Assert.assertTrue(roles4.data.full_name.equals(name2 + " (ДДО МВД России)"));
-        Assert.assertTrue(roles4.data.provider_short_title.equals("ДДО МВД России"));
-        Assert.assertTrue(roles4.data.rights_ids[0].equals("index_users"));
-        Assert.assertTrue(roles4.data.global);
-        Assert.assertTrue(roles4.data.provider_id.equals("525e9f767da3000002000001"));
+    public void Step08() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test3);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", true);
 
-    }
-    @Test
-    public void Step07(){
-        roles5 = BasicRoles.updateRole(idAut1, roles2.getData().id, name2, true,
-                "index_users", "setup_banners");
-        Assert.assertTrue(roles5.data.name.equals(name2));
-        Assert.assertTrue(roles5.data.full_name.equals(name2 + " (ДДО МВД России)"));
-        Assert.assertTrue(roles5.data.provider_short_title.equals("ДДО МВД России"));
-        Assert.assertTrue(roles5.data.rights_ids[0].contains("index_users"));
-        Assert.assertTrue(roles5.data.rights_ids[1].contains("setup_banners"));
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
 
-        Assert.assertTrue(roles5.data.global);
-        Assert.assertTrue(roles5.data.provider_id.equals("525e9f767da3000002000001"));
-    }
-    @Test
-    public void Step08(){
-        roles6 = BasicRoles.createRoles(idAut1, name3, true, "index_users");
-        Assert.assertTrue(roles6.data.name.equals(name3));
-        Assert.assertTrue(roles6.data.full_name.equals(name3 + " (ДДО МВД России)"));
-        Assert.assertTrue(roles6.data.provider_short_title.equals("ДДО МВД России"));
-        Assert.assertTrue(roles6.data.rights_ids[0].equals("index_users"));
-        Assert.assertTrue(roles6.data.global);
-        Assert.assertTrue(roles6.data.provider_id.equals("525e9f767da3000002000001"));
-    }
-    @Test
-    public void Step09(){
-        roles7 = BasicRoles.updateRole(idAut1, roles6.getData().id, name3, false, "index_users");
-        Assert.assertTrue(roles7.data.name.equals(name3));
-        Assert.assertTrue(roles7.data.full_name.equals(name3));
-        Assert.assertTrue(roles7.data.provider_short_title.equals("ДДО МВД России"));
-        Assert.assertTrue(roles7.data.rights_ids[0].equals("index_users"));
-        Assert.assertTrue(!roles7.data.global);
-        Assert.assertTrue(roles7.data.provider_id.equals("525e9f767da3000002000001"));
-    }
-    @Test
-    public void Step10(){
-        error = BasicRoles.updateErrorRoles(idAut1, idRole, "ДДО1", false, "index_users");
-        Assert.assertTrue(error.getErrors().global[0].equals("Данную роль используют пользователи в других провайдерах" +
-                ", поэтому чек-бокс «Глобальная роль» снять нельзя"));
-        // Error "full_name": "уже существует"
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .post(BasicRoles.API_ROLES)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        int id = jsonPath0.getInt("data.id");
+        idRole3 = id;
+        String name0 = jsonPath0.getString("data.name");
+        boolean global = jsonPath0.getBoolean("data.global");
+        String right_ids = jsonPath0.getString("data.rights_ids[0]");
 
+        Assert.assertTrue(name0.equals(test3));
+        Assert.assertTrue(global);
+        Assert.assertTrue(right_ids.equals("update_users"));
     }
     @Test
-    public void Step11(){
-        error1 = BasicRoles.updateErrorRolesNoAccess(idUser, idRole, name3, false, "index_users");
-        Assert.assertTrue(error1.error.equals("Доступ к ресурсу запрещен"));
+    public void Step09() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test3);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", false);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .put(BasicRoles.API_ROLES+"/"+idRole3)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+        int id = jsonPath0.getInt("data.id");
+        String name0 = jsonPath0.getString("data.name");
+        boolean global = jsonPath0.getBoolean("data.global");
+        String right_ids = jsonPath0.getString("data.rights_ids[0]");
+
+        Assert.assertTrue(id==idRole3);
+        Assert.assertTrue(name0.equals(test3));
+        Assert.assertTrue(!global);
+        Assert.assertTrue(right_ids.equals("update_users"));
     }
+    @Test
+    public void Step10() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test5);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", false);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut1)
+                .body(object.toString())
+                .put(BasicRoles.API_ROLES+"/"+idRoleB)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+
+        String error=jsonPath0.getString("errors.base[0]");
+        Assert.assertTrue(error.equals("Данную роль используют пользователи в других провайдерах, поэтому чек-бокс «Глобальная роль» снять нельзя"));
+    }
+    @Test
+    public void Step11() {
+        JsonObject object = new JsonObject();
+        object.addProperty("id", "");
+        object.addProperty("name", test5);
+        object.addProperty("desc", "1");
+        object.addProperty("full_name", "string");
+        object.addProperty("global", false);
+
+        JsonArray rights_ids = new JsonArray();
+        rights_ids.add("update_users");
+        object.add("rights_ids", rights_ids);
+        object.addProperty("provider_id", "string");
+
+        Response response0 = given()
+                .when()
+                .header("Content-Type", "application/json")
+                .header("Test-Authorization", idAut6)
+                .body(object.toString())
+                .put(BasicRoles.API_ROLES+"/"+idRoleB)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath0 = response0.jsonPath();
+
+        String error=jsonPath0.getString("error");
+        Assert.assertTrue(error.equals("Доступ к ресурсу запрещен"));
+    }
+
     @Test
     public void Step12(){
-        BasicRoles.deleteRole(idAut1, roles.getData().id);
-        delete = BasicRoles.deleteRoleТotFound(1, roles.getData().id);
-        Assert.assertTrue(delete.getError().equals("Запись для Permissions::Role с id = "+roles.getData().id+" не найдена"));
-
+        Response response = given()
+                .header("Test-Authorization", idAut1)
+                .delete(BasicRoles.API_ROLES+"/"+idRole)
+                .then().log().all()
+                .extract().response();
+        int SC=response.statusCode();
+        Assert.assertTrue(SC==204);
     }
     @Test
     public void Step13(){
-        BasicRoles.deleteRole(idAut1, roles2.getData().id);
-        delete = BasicRoles.deleteRoleТotFound(1, roles2.getData().id);
-        Assert.assertTrue(delete.getError().equals("Запись для Permissions::Role с id = "+roles2.getData().id+" не найдена"));
+        Response response = given()
+                .header("Test-Authorization", idAut1)
+                .delete(BasicRoles.API_ROLES+"/"+idRole)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath = response.jsonPath();
+        String error=jsonPath.getString("error");
+        Assert.assertTrue(error.equals("Запись для Permissions::Role с id = "+idRole+" не найдена"));
     }
-    @Test
-    public void Step14(){
-        BasicRoles.deleteRole(idAut1, roles6.getData().id);
-        delete = BasicRoles.deleteRoleТotFound(1, roles6.getData().id);
-        Assert.assertTrue(delete.getError().equals("Запись для Permissions::Role с id = "+roles6.getData().id+" не найдена"));
-    }
-
-
-
-
-
-
-
 
 }

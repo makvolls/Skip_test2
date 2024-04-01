@@ -1,4 +1,4 @@
-package pages.testlink;
+package UI.pages.testlink;
 
 
 import autotest.core.util.Assistant;
@@ -21,7 +21,7 @@ import static org.testng.AssertJUnit.assertTrue;
 public class CreateStepTitleFromLinkCase {
 
 
-    String testCaseNumber = "242"; // задаем номер кейса
+    String testCaseNumber = "108"; // задаем номер кейса
 
     String fileName = "C:\\test\\" + testCaseNumber + ".txt"; // путь и имя файла, где будет лежать результат
 

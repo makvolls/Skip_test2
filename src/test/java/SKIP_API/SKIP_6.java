@@ -26,8 +26,16 @@ public class SKIP_6 {
 
     @Test
     public void step01() {
-        listValues = BasicUser.getUsersNoId(idAut1);
-        Assert.assertNotNull(listValues.data.length);
+        Response response = given()
+                .when()
+                .header("Test-Authorization", idAut1)
+                .params("official_id", officialId1)
+                .get(BasicUser.API_USER)
+                .then().log().all()
+                .extract().response();
+        JsonPath jsonPath = response.jsonPath();
+        String data=jsonPath.getString("data");
+        Assert.assertTrue(!data.isEmpty());
     }
 
     @Test

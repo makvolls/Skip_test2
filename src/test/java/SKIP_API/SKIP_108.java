@@ -155,6 +155,7 @@ public class SKIP_108 {
 
     @Test
     public void step07() {
+        try {
 
         basePage.click(BUTTON_CLOSE);
 
@@ -188,6 +189,9 @@ public class SKIP_108 {
         Assert.assertTrue(close.isDisplayed() && close.isEnabled() && close.getText().contains("Закрыть"));
         Assert.assertTrue(provider_includes.getText().contains("Провайдер включает в себя следующие субъекты контроля:"));
         Assert.assertTrue(provider_inc_org.getText().contains("Провайдер включает в себя следующие организации:"));
+        } catch (Exception e) {
+            Assert.assertTrue(false,"error");
+        }
     }
 
     @Test

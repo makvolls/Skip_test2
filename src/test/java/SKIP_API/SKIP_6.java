@@ -19,9 +19,8 @@ public class SKIP_6 {
     String organizationId1 = "528f0169d034000038000001";
     String organizationId2 = "51bae9fdf273690a4000017d";
     int role_id1 = 31;
-    int role_id2 = 29;
+    int role_id2 = 11234;
 
-    GetUserRootDto listValues;
 
 
     @Test
@@ -241,7 +240,7 @@ public class SKIP_6 {
         Response response = given()
                 .when()
                 .header("Test-Authorization", idAut1)
-                .params("last_name", "Колокольцев")
+                .params("last_name", "Колокольцевоав")
                 .get(BasicUser.API_USER)
                 .then().log().all()
                 .extract().response();

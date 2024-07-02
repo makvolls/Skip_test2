@@ -1,9 +1,6 @@
 package SKIP_API;
 
-import Frontend.common.CommonActions;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.log4j.Logger;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -18,234 +15,77 @@ public class SKIP_182{
     private WebDriver driver;
     private BasePage basePage;
     private PutUnderControlPage putUnderControlPage;
-    private static final Logger logger = Logger.getLogger(SKIP_182.class);
     @BeforeTest
     public void setup(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        // In case to run local driver that has a version 122
 //        driver = CommonActions.createDriver();
         basePage = new BasePage(driver);
         putUnderControlPage = new PutUnderControlPage(driver);
         basePage.setup();
-        logger.info("Chrome driver is running.");
     }
 
     @AfterTest
     public void tearDown(){
         basePage.tearDown();
-        logger.info("Chrome driver is closing.");
     }
 
     @Test
     public void step01(){
-        try{
-            basePage.authorization();
-            logger.info("Authorization is succeed.");
-            basePage.openMainPage();
-            logger.info("Main page is open.");
-            putUnderControlPage.openPagePutUnderControl();
-            logger.info("Click on button - 'Постановка на контроль'.");
-            String titlePage = putUnderControlPage.getTitleFromPage();
-            Assert.assertTrue(titlePage.equals("Данные документа, поступившего на контроль"));
-            logger.info("Step 1 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        basePage.authorization();
+        basePage.openMainPage();
+        putUnderControlPage.openPagePutUnderControl();
+        String titlePage = putUnderControlPage.getTitleFromPage();
+        Assert.assertTrue(titlePage.equals("Данные документа, поступившего на контроль"));
     }
 
     @Test
     public void step02(){
-        try{
-            putUnderControlPage.pressAddAssignment();
-            logger.info("Press button - 'Добавить поручение'.");
-            String titleBlock = putUnderControlPage.getTitleAssignmentBlock();
-            Assert.assertTrue(titleBlock.equals("Поручение 1"));
-            Assert.assertTrue(putUnderControlPage.isFieldsHeadExecutorRevealed());
-            logger.info("Step 2 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+
     }
 
     @Test
     public void step03(){
-        try{
-            putUnderControlPage.pressAddCoExecutorHeadEx();
-            logger.info("Press button - 'Добавить соисполнителя'.");
-            Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
-            logger.info("Step 3 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        putUnderControlPage.pressAddCoExecutor();
+        Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
     }
 
     @Test
     public void step04(){
-        try{
-            putUnderControlPage.inputRandomValueCoExecutorTextField();
-            logger.info("Input a random value to the text field - 'Соисполнитель' in the block 'Соисполнитель 1'.");
-            putUnderControlPage.clickButtonYesCoExecutor();
-            logger.info("Press 'Да' on the form 'Факт предоставления'.");
-            Assert.assertTrue(putUnderControlPage.isAddLetterButtonActive());
-            logger.info("Step 4 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        putUnderControlPage.inputRandomValueCoExecutorTextField();
+        putUnderControlPage.clickButtonYesCoExecutor();
+        Assert.assertTrue(putUnderControlPage.isAddLetterButtonActive());
     }
 
     @Test
     public void step05(){
-        try{
-            putUnderControlPage.textFieldCoExecutorClick();
-            logger.info("Click on field 'Соисполнитель'.");
-            putUnderControlPage.pressButtonAddLetterCoExecutorHeadExecutor();
-            logger.info("Press button 'Добавить письмо от соисполнителя'.");
-            Assert.assertTrue(putUnderControlPage.isFieldsAddLetterCoExecutorHeadExecutorRevealed());
-            logger.info("Step 5 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        putUnderControlPage.pressButtonAddLetterCoExecutorHeadExecutor();
+        Assert.assertTrue(putUnderControlPage.isFieldsAddLetterCoExecutorHeadExecutorRevealed());
     }
 
     @Test
     public void step06(){
-        try{
-            putUnderControlPage.pressButtonDeleteCoExOneHeadEx();
-            logger.info("Press on the button 'Удалить' in the block 'Соисполнитель 1'.");
-            Assert.assertTrue(putUnderControlPage.isModalWindowRevealed());
-            logger.info("Step 6 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        putUnderControlPage.pressButtonDeleteCoExOneHeadEx();
+        Assert.assertTrue(putUnderControlPage.isModalWindowRevealed());
     }
 
     @Test
     public void step07(){
-        try{
-            putUnderControlPage.pressYesDeleteWindowCoExecutor();
-            logger.info("Press 'Да' in the modal window.");
-            Assert.assertTrue(putUnderControlPage.isBlockCoExecutorNotDisplayed());
-            logger.info("Step 7 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        putUnderControlPage.pressYesDeleteWindowCoExecutor();
+        Assert.assertTrue(putUnderControlPage.isBlockCoExecutorNotDisplayed());
     }
 
     @Test
     public void step08(){
-        try{
-            putUnderControlPage.pressAddCoExecutor();
-            logger.info("Press button 'Добавить соисполнителя'.");
-            putUnderControlPage.clickArrowIconCoExHeadEx();
-            logger.info("Click on the arrow icon element to hide block.");
-            Assert.assertTrue(putUnderControlPage.isBlockCoExecutorOneNotDisplayed());
-            logger.info("Step 8 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        putUnderControlPage.pressAddCoExecutor();
+        putUnderControlPage.clickArrowIconCoExecutorHeadExecutor();
+        Assert.assertTrue(putUnderControlPage.isBlockCoExecutorOneNotDisplayed());
     }
 
     @Test
     public void step09(){
-        try{
-            putUnderControlPage.clickArrowIconCoExHeadEx();
-            logger.info("Click on the arrow icon element to reveal block.");
-            Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
-            logger.info("Step 9 is successfully completed!");
-        } catch (TimeoutException timeoutException) {
-            logger.error("TimeoutException - " + timeoutException.getMessage());
-            Assert.fail();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            logger.error("NoSuchElementException - " + e.getMessage());
-            Assert.fail();
-        } catch (Exception e) {
-            logger.error("Exception - " + e.getMessage());
-            Assert.fail();
-        } catch (AssertionError ae) {
-            logger.error("AssertionError - " + ae.getMessage());
-            Assert.fail();
-        }
+        putUnderControlPage.clickArrowIconCoExecutorHeadExecutor();
+        Assert.assertTrue(putUnderControlPage.isFieldsCoExecutorHeadExecutorRevealed());
     }
 
 }

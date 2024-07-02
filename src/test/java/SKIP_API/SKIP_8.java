@@ -174,7 +174,7 @@ public class SKIP_8 {
                 .when()
                 .header("Content-Type", "application/json")
                 .header("Test-Authorization", idUser)
-                .get(BasicRoles.API_ROLES)
+                .get(BasicRoles.API_ROLES+"/"+idRole)
                 .then().log().all()
                 .extract().response();
         JsonPath jsonPath = response.jsonPath();

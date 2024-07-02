@@ -12,6 +12,7 @@
             <class name="SKIP_API.SKIP_6"/>
             <class name="SKIP_API.SKIP_8"/>
             <class name="SKIP_API.SKIP_10"/>
+            <class name="SKIP_API.SKIP_11"/>
         </classes>
     </test>
 

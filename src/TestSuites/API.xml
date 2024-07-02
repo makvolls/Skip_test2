@@ -2,9 +2,18 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Приглашения" parallel="tests" thread-count="1">
 
-    <test name="GISMU_334">
+    <test name="SKIP">
         <classes>
             <class name="SKIP_API.SKIP_1"/>
+            <class name="SKIP_API.SKIP_2"/>
+            <class name="SKIP_API.SKIP_3"/>
+            <class name="SKIP_API.SKIP_4"/>
+            <class name="SKIP_API.SKIP_5"/>
+            <class name="SKIP_API.SKIP_6"/>
+            <class name="SKIP_API.SKIP_7"/>
+            <class name="SKIP_API.SKIP_8"/>
+            <class name="SKIP_API.SKIP_9"/>
+            <class name="SKIP_API.SKIP_10"/>
         </classes>
     </test>
 
